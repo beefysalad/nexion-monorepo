@@ -1,0 +1,46 @@
+services:
+  api:
+    image: nexion-api-dev
+    build:
+      context: .
+      target: deps
+    working_dir: /app
+    command: npm run dev -w api
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app
+      - root_node_modules:/app/node_modules
+      - api_node_modules:/app/apps/api/node_modules
+
+  web:
+    image: nexion-web-dev
+    build:
+      context: .
+      target: deps
+    working_dir: /app
+    command: npm run dev -w web -- --hostname 0.0.0.0
+    environment:
+      NODE_ENV: development
+      NEXT_TELEMETRY_DISABLED: "1"
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      WATCHPACK_POLLING: "true"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - root_node_modules:/app/node_modules
+      - web_next:/app/apps/web/.next
+      - web_node_modules:/app/apps/web/node_modules
+    depends_on:
+      - api
+
+volumes:
+  root_node_modules:
+  api_node_modules:
+  web_node_modules:
+  web_next:
