@@ -29,7 +29,7 @@ RUN npm ci --omit=dev --workspace api --include-workspace-root=false
 COPY --from=api-builder /app/apps/api/dist ./apps/api/dist
 COPY --from=api-builder /app/apps/api/prisma ./apps/api/prisma
 EXPOSE 3000
-CMD ["npm", "run", "start:prod", "-w", "api"]
+CMD ["npm", "run", "start:migrate:prod", "-w", "api"]
 
 FROM node:22-alpine AS web
 WORKDIR /app
