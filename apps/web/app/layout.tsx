@@ -1,12 +1,13 @@
 import { Geist_Mono, Inter, Roboto } from "next/font/google"
+import NextTopLoader from "nextjs-toploader"
 
 import "@workspace/ui/globals.css"
 import { AppProviders } from "@/components/providers/app-providers"
 import { cn } from "@workspace/ui/lib/utils"
 
-const robotoHeading = Roboto({subsets:['latin'],variable:'--font-heading'});
+const robotoHeading = Roboto({ subsets: ["latin"], variable: "--font-heading" })
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -22,9 +23,16 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, robotoHeading.variable)}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        inter.variable,
+        robotoHeading.variable
+      )}
     >
       <body>
+        <NextTopLoader color="var(--primary)" showSpinner={false} shadow={false} />
         <AppProviders>{children}</AppProviders>
       </body>
     </html>
