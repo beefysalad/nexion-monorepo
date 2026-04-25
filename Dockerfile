@@ -6,6 +6,7 @@ COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/package.json
 COPY apps/web/package.json apps/web/package.json
 COPY packages/eslint-config/package.json packages/eslint-config/package.json
+COPY packages/shared/package.json packages/shared/package.json
 COPY packages/typescript-config/package.json packages/typescript-config/package.json
 COPY packages/ui/package.json packages/ui/package.json
 RUN npm ci
@@ -23,9 +24,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/package.json
+COPY packages/shared/package.json packages/shared/package.json
 RUN npm ci --omit=dev --workspace api --include-workspace-root=false
 COPY --from=api-builder /app/apps/api/dist ./apps/api/dist
-COPY --from=api-builder /app/apps/api/generated ./apps/api/generated
 COPY --from=api-builder /app/apps/api/prisma ./apps/api/prisma
 EXPOSE 3000
 CMD ["npm", "run", "start:prod", "-w", "api"]
@@ -35,8 +36,9 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 COPY apps/web/package.json apps/web/package.json
+COPY packages/shared/package.json packages/shared/package.json
 COPY packages/ui/package.json packages/ui/package.json
-RUN npm ci --omit=dev --workspace web --workspace @workspace/ui --include-workspace-root=false
+RUN npm ci --omit=dev --workspace web --workspace @workspace/shared --workspace @workspace/ui --include-workspace-root=false
 COPY --from=web-builder /app/packages ./packages
 COPY --from=web-builder /app/apps/web/next.config.mjs ./apps/web/next.config.mjs
 COPY --from=web-builder /app/apps/web/.next ./apps/web/.next
