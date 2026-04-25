@@ -5,11 +5,13 @@ import {
   RiCodeSSlashLine,
   RiFileCopyLine,
   RiGithubFill,
+  RiLoader4Line,
 } from "@remixicon/react"
 import { motion } from "framer-motion"
 
 import { Button } from "@workspace/ui/components/button"
 import { useState } from "react"
+import { useLoading } from "@/components/providers/loading-provider"
 import {
   fadeUp,
   scaleIn,
@@ -18,11 +20,17 @@ import {
 
 export function HomeHero() {
   const [copied, setCopied] = useState<boolean>(false)
+  const { startLoading, stopLoading } = useLoading()
 
   async function handleCopyCommand() {
     await navigator.clipboard.writeText("npm run dev:apps")
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1600)
+  }
+
+  function handlePreviewLoading() {
+    startLoading("render", "Preview loading")
+    window.setTimeout(() => stopLoading("render"), 1800)
   }
 
   return (
@@ -86,6 +94,15 @@ export function HomeHero() {
                 <RiGithubFill className="size-5" />
                 View Repository
               </a>
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              className="h-14 rounded-2xl px-8 text-base"
+              onClick={handlePreviewLoading}
+            >
+              <RiLoader4Line className="size-5" />
+              Preview loading
             </Button>
           </motion.div>
         </motion.div>
