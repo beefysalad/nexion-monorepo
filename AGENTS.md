@@ -18,6 +18,19 @@ Primary workspaces:
 
 Use npm from the repository root. Do not create nested lockfiles.
 
+## Environment Variables
+
+- Keep committed env templates in `.env.example`, `apps/web/.env.example`, and `apps/api/.env.example`.
+- Never commit real secrets or real `.env` files.
+- Use `apps/web/.env.local` for local Next.js frontend variables.
+- Use `apps/api/.env` for local NestJS API and Prisma variables.
+- Use root `.env` only for Docker Compose/root-level overrides.
+- Frontend variables exposed to browser code must be prefixed with `NEXT_PUBLIC_`.
+- Backend secrets must never be exposed through `NEXT_PUBLIC_` variables.
+- Update the relevant `.env.example` whenever adding a new required env var.
+- For Docker Compose, the API connects to Postgres through the `postgres` hostname.
+- For host-run backend commands, the API should use `localhost` in `DATABASE_URL`.
+
 ## Core Principles
 
 - Keep implementations modular and easy to extend.
@@ -80,6 +93,8 @@ Use npm from the repository root. Do not create nested lockfiles.
 - Put TanStack Query logic in hook files under `apps/web/hooks/`.
 - For feature-specific hooks, prefer feature folders when useful, such as `apps/web/hooks/dashboard/use-dashboard-data.ts`.
 - Keep API wrapper functions in `apps/web/lib/api/`.
+- Any component that renders TanStack Query data must explicitly handle the loading state using `isPending` or `isLoading`.
+- Prefer rendering clear loading, error, and empty/data states instead of assuming query data is immediately available.
 
 ### Frontend Folder Organization
 
@@ -153,8 +168,10 @@ If Prisma or another ORM is introduced later:
 
 - Docker files live at the repository root.
 - `docker-compose.yml` is intended for local development.
+- Docker Compose includes `postgres`, `api`, and `web` services.
 - The root `Dockerfile` contains separate targets for `web` and `api`.
 - Do not assume Docker is the Vercel deployment path. Vercel builds from source and does not deploy these Docker images directly.
+- Do not remove the `postgres_data` volume unless the user explicitly wants to reset local database data.
 
 ## Expected Workflow For AI Changes
 
@@ -166,6 +183,7 @@ When implementing a frontend feature:
 - Use React Hook Form and Zod for forms.
 - Use Axios through `apps/web/lib/axios.ts`.
 - Use TanStack Query through dedicated hooks in `apps/web/hooks/`.
+- Render an explicit loading state from TanStack Query's `isPending` or `isLoading` before rendering query data.
 - Put frontend API wrappers in `apps/web/lib/api/`.
 - Split large files before they become difficult to maintain.
 

@@ -49,6 +49,34 @@ Default local URLs:
 - Web: http://localhost:3000
 - API: http://localhost:3001 when run through Docker Compose, or the Nest default port when run directly unless configured otherwise
 
+## Environment Variables
+
+Example env files are committed for each runtime:
+
+```text
+.env.example             # Docker Compose/root-level defaults
+apps/web/.env.example    # Next.js frontend variables
+apps/api/.env.example    # NestJS API and Prisma variables
+```
+
+For local development, copy the examples you need:
+
+```bash
+cp .env.example .env
+cp apps/web/.env.example apps/web/.env.local
+cp apps/api/.env.example apps/api/.env
+```
+
+Do not commit real `.env` files. They are ignored by Git.
+
+Important variables:
+
+- `NEXT_PUBLIC_API_URL`: browser-facing API URL used by the frontend.
+- `PORT`: internal port used by the NestJS API.
+- `DATABASE_URL`: Prisma database connection string.
+- `CORS_ORIGIN`: comma-separated browser origins allowed by the API.
+- `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_PORT`: Docker Postgres settings.
+
 ## Common Commands
 
 ```bash
@@ -122,12 +150,33 @@ The apps will be available at:
 
 - Web: http://localhost:3000
 - API: http://localhost:3001
+- Postgres: localhost:5433
 
 Build production images separately:
 
 ```bash
 docker build --target web -t nexion-web .
 docker build --target api -t nexion-api .
+```
+
+The Docker API container connects to Postgres with the internal hostname `postgres`.
+
+When running backend commands from your host machine, use the localhost URL in `apps/api/.env`:
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5433/nexion_monorepo?schema=public"
+```
+
+When running inside Docker Compose, the API uses:
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@postgres:5432/nexion_monorepo?schema=public"
+```
+
+To remove the local Docker database volume and start fresh:
+
+```bash
+docker compose down -v
 ```
 
 ## Deployment Notes

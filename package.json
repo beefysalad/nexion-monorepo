@@ -5,6 +5,9 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:apps": "turbo dev --filter=web --filter=api",
+    "dev:api": "npm run dev -w api",
+    "dev:web": "npm run dev -w web",
     "lint": "turbo lint",
     "format": "turbo format",
     "typecheck": "turbo typecheck"

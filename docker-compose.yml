@@ -1,4 +1,20 @@
 services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nexion_monorepo}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-nexion_monorepo}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   api:
     image: nexion-api-dev
     build:
@@ -8,14 +24,19 @@ services:
     command: npm run dev -w api
     environment:
       NODE_ENV: development
-      PORT: 3000
+      PORT: ${API_INTERNAL_PORT:-3000}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-nexion_monorepo}?schema=public}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
       CHOKIDAR_USEPOLLING: "true"
     ports:
-      - "3001:3000"
+      - "${API_PORT:-3001}:${API_INTERNAL_PORT:-3000}"
     volumes:
       - .:/app
       - root_node_modules:/app/node_modules
       - api_node_modules:/app/apps/api/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   web:
     image: nexion-web-dev
@@ -27,10 +48,10 @@ services:
     environment:
       NODE_ENV: development
       NEXT_TELEMETRY_DISABLED: "1"
-      NEXT_PUBLIC_API_URL: http://localhost:3001
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3001}
       WATCHPACK_POLLING: "true"
     ports:
-      - "3000:3000"
+      - "${WEB_PORT:-3000}:3000"
     volumes:
       - .:/app
       - root_node_modules:/app/node_modules
@@ -40,6 +61,7 @@ services:
       - api
 
 volumes:
+  postgres_data:
   root_node_modules:
   api_node_modules:
   web_node_modules:

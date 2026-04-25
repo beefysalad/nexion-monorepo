@@ -1,8 +1,8 @@
-import { Geist, Geist_Mono, Inter, Roboto } from "next/font/google"
+import { Geist_Mono, Inter, Roboto } from "next/font/google"
 
 import "@workspace/ui/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@workspace/ui/lib/utils";
+import { AppProviders } from "@/components/providers/app-providers"
+import { cn } from "@workspace/ui/lib/utils"
 
 const robotoHeading = Roboto({subsets:['latin'],variable:'--font-heading'});
 
@@ -25,7 +25,7 @@ export default function RootLayout({
       className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, robotoHeading.variable)}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   )

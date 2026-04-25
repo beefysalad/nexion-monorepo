@@ -12,12 +12,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@remixicon/react": "^4.9.0",
+    "@tanstack/react-query": "^5.100.1",
     "@workspace/ui": "*",
+    "axios": "^1.15.2",
+    "framer-motion": "^12.38.0",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "react-hook-form": "^7.73.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",
