@@ -25,6 +25,8 @@ COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/package.json
 RUN npm ci --omit=dev --workspace api --include-workspace-root=false
 COPY --from=api-builder /app/apps/api/dist ./apps/api/dist
+COPY --from=api-builder /app/apps/api/generated ./apps/api/generated
+COPY --from=api-builder /app/apps/api/prisma ./apps/api/prisma
 EXPOSE 3000
 CMD ["npm", "run", "start:prod", "-w", "api"]
 

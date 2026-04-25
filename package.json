@@ -8,6 +8,8 @@
     "dev:apps": "turbo dev --filter=web --filter=api",
     "dev:api": "npm run dev -w api",
     "dev:web": "npm run dev -w web",
+    "db:generate": "npm run db:generate -w api",
+    "db:migrate:deploy": "npm run db:migrate:deploy -w api",
     "lint": "turbo lint",
     "format": "turbo format",
     "typecheck": "turbo typecheck"

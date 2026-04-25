@@ -94,6 +94,15 @@ npm run build -w api
 npm run test -w api
 ```
 
+Prisma commands:
+
+```bash
+npm run db:generate
+npm run db:migrate:deploy
+```
+
+`npm run build -w api` automatically runs `prisma generate` before compiling NestJS. Production database migrations should still be run intentionally with `npm run db:migrate:deploy` against the target database.
+
 ## Installing Packages
 
 Always install from the monorepo root.
@@ -173,6 +182,12 @@ When running inside Docker Compose, the API uses:
 DATABASE_URL="postgresql://postgres:postgres@postgres:5432/nexion_monorepo?schema=public"
 ```
 
+Apply local Docker migrations intentionally with:
+
+```bash
+docker compose run --rm api npm run db:migrate:deploy -w api
+```
+
 To remove the local Docker database volume and start fresh:
 
 ```bash
@@ -194,5 +209,13 @@ Backend project:
 - Root Directory: `apps/api`
 - Build Command: `npm run build -w api`
 - Install Command: `npm install`
+
+The API build runs `prisma generate` automatically. Run production migrations as a separate deployment/CI step with the production `DATABASE_URL`:
+
+```bash
+npm run db:migrate:deploy -w api
+```
+
+Do not hide `prisma migrate deploy` inside the API startup command unless you specifically want every app boot to attempt migrations. Keeping migrations separate prevents preview deployments or restarts from unexpectedly touching the production database.
 
 Docker is for local development or Docker-capable hosts. Vercel does not deploy Docker images directly.
