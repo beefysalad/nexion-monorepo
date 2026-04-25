@@ -12,36 +12,38 @@ import {
 
 export function WhyThisExists() {
   return (
-    <section className="border-b border-border bg-background px-6 py-16 sm:py-20">
+    <section className="relative overflow-hidden border-b border-border bg-background px-6 py-24 sm:py-32">
+      <div className="absolute right-0 top-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-20 [mask-image:linear-gradient(to_left,white,transparent)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]" />
+
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={viewportOnce}
         variants={staggerContainer}
-        className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start"
+        className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-start"
       >
-        <motion.div variants={fadeUp} className="space-y-4">
-          <p className="text-sm font-medium text-muted-foreground">
+        <motion.div variants={fadeUp} className="space-y-6">
+          <p className="text-sm font-semibold uppercase tracking-wider text-primary">
             Why this exists
           </p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Every side project starts with the same chores.
+          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
+            Every side project <br /> starts with the same chores.
           </h2>
-          <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-            <Button asChild>
+          <div className="flex flex-wrap gap-4 pt-4">
+            <Button size="lg" className="h-12 rounded-2xl px-6" asChild>
               <a
                 href="https://github.com/beefysalad/nexion-monorepo"
                 target="_blank"
                 rel="noreferrer"
               >
-                <RiGithubFill />
+                <RiGithubFill className="size-5" />
                 View on GitHub
               </a>
             </Button>
-            <Button variant="outline" asChild>
-              <a href="/docs">
-                <RiBookOpenLine />
-                Read the docs
+            <Button size="lg" variant="outline" className="h-12 rounded-2xl px-6" asChild>
+              <a href="#" className="flex items-center gap-2">
+                <RiBookOpenLine className="size-5" />
+                Read Docs
               </a>
             </Button>
           </div>
@@ -49,7 +51,7 @@ export function WhyThisExists() {
 
         <motion.div
           variants={fadeUp}
-          className="space-y-5 text-base leading-8 text-muted-foreground"
+          className="space-y-6 text-lg leading-relaxed text-muted-foreground"
         >
           <p>
             Lately I&apos;ve been in the mood of building side projects using
@@ -58,13 +60,13 @@ export function WhyThisExists() {
             Query, get dark mode working, set up the folder structure that makes
             sense, and make sure Docker does not immediately betray me.
           </p>
-          <p>
+          <p className="font-medium text-foreground/80">
             After doing this setup a couple of times, I finally made a template
-            for me and maybe for you too! :3
+            that wires all of this up for me.
           </p>
           <p>
             Clone it, change the database URL, and you&apos;re building
-            features. That&apos;s it.
+            features. That&apos;s it. No more boilerplate fatigue.
           </p>
         </motion.div>
       </motion.div>
