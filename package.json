@@ -12,7 +12,9 @@
     "db:migrate:deploy": "npm run db:migrate:deploy -w api",
     "lint": "turbo lint",
     "format": "turbo format",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "clean": "node scripts/cleanup.mjs",
+    "restore": "node scripts/restore.mjs"
   },
   "devDependencies": {
     "@workspace/eslint-config": "*",
