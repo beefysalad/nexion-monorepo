@@ -4,7 +4,12 @@ import { RiGithubFill } from "@remixicon/react"
 import { motion } from "framer-motion"
 
 import { ContributionStep } from "@/components/home/contribution-step"
-import { fadeUp, scaleIn, staggerContainer, viewportOnce } from "@/components/home/motion-presets"
+import {
+  fadeUp,
+  scaleIn,
+  staggerContainer,
+  viewportOnce,
+} from "@/components/home/motion-presets"
 
 const contributionSteps = [
   {
@@ -15,16 +20,18 @@ const contributionSteps = [
   {
     number: "2",
     title: "Make your changes",
-    description: "Create a feature branch. Keep commits atomic. Follow the existing patterns.",
+    description:
+      "Create a feature branch. Keep commits atomic. Follow the existing patterns.",
   },
   {
     number: "3",
     title: "Open a pull request",
-    description: "Describe what changed and why. Small, focused PRs are easier to review and merge.",
+    description:
+      "Describe what changed and why. Small, focused PRs are easier to review and merge.",
   },
 ]
 
-function ContributorsSection() {
+export function ContributorsSection() {
   return (
     <section className="bg-muted/30 px-6 py-16 sm:py-20">
       <motion.div
@@ -36,11 +43,13 @@ function ContributorsSection() {
       >
         <motion.div variants={staggerContainer} className="space-y-8">
           <motion.div variants={fadeUp} className="space-y-3">
-            <p className="text-muted-foreground text-sm font-medium">Want to contribute?</p>
+            <p className="text-sm font-medium text-muted-foreground">
+              Want to contribute?
+            </p>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
               Bugs, ideas, and clean PRs are welcome.
             </h2>
-            <p className="text-muted-foreground max-w-2xl text-sm leading-6">
+            <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
               Found a bug? Have an idea? Wanna collaborate on this? Open an
               issue or submit a PR. Just keep it clean and follow the existing
               monorepo patterns.
@@ -60,7 +69,9 @@ function ContributorsSection() {
           variants={scaleIn}
           className="rounded-3xl border border-border bg-card p-6 text-card-foreground shadow-sm lg:self-start"
         >
-          <p className="text-muted-foreground text-sm font-medium">Contributors</p>
+          <p className="text-sm font-medium text-muted-foreground">
+            Contributors
+          </p>
           <h3 className="mt-2 text-2xl font-semibold tracking-tight">
             The people who made this template possible.
           </h3>
@@ -71,7 +82,7 @@ function ContributorsSection() {
             </div>
             <div>
               <p className="font-semibold">beefysalad</p>
-              <p className="text-muted-foreground text-sm">beefysalad</p>
+              <p className="text-sm text-muted-foreground">beefysalad</p>
             </div>
           </div>
         </motion.div>
@@ -79,5 +90,3 @@ function ContributorsSection() {
     </section>
   )
 }
-
-export { ContributorsSection }

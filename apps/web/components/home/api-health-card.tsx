@@ -15,7 +15,7 @@ type ApiHealthCardProps = {
   onRefresh: () => void
 }
 
-function ApiHealthCard({
+export function ApiHealthCard({
   apiUrl,
   isLoading,
   isError,
@@ -40,7 +40,9 @@ function ApiHealthCard({
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-2xl border border-border bg-background">
-              <StatusIcon className={isLoading ? "size-5 animate-spin" : "size-5"} />
+              <StatusIcon
+                className={isLoading ? "size-5 animate-spin" : "size-5"}
+              />
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
@@ -51,7 +53,7 @@ function ApiHealthCard({
                   {statusLabel}
                 </span>
               </div>
-              <p className="text-muted-foreground mt-1 font-mono text-xs break-all">
+              <p className="mt-1 font-mono text-xs break-all text-muted-foreground">
                 GET {apiUrl}/
               </p>
             </div>
@@ -66,7 +68,12 @@ function ApiHealthCard({
           </p>
         </div>
 
-        <Button variant="outline" size="sm" onClick={onRefresh} disabled={isLoading}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onRefresh}
+          disabled={isLoading}
+        >
           <RiRefreshLine className={isLoading ? "animate-spin" : undefined} />
           {isLoading ? "Pinging" : "Ping API"}
         </Button>
@@ -74,6 +81,3 @@ function ApiHealthCard({
     </section>
   )
 }
-
-export { ApiHealthCard }
-export type { ApiHealthCardProps }

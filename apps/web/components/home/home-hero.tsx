@@ -10,9 +10,13 @@ import { motion } from "framer-motion"
 
 import { Button } from "@workspace/ui/components/button"
 import { useState } from "react"
-import { fadeUp, scaleIn, staggerContainer } from "@/components/home/motion-presets"
+import {
+  fadeUp,
+  scaleIn,
+  staggerContainer,
+} from "@/components/home/motion-presets"
 
-function HomeHero() {
+export function HomeHero() {
   const [copied, setCopied] = useState<boolean>(false)
 
   async function handleCopyCommand() {
@@ -49,13 +53,20 @@ function HomeHero() {
             </p>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="flex flex-col gap-3 sm:flex-row">
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col gap-3 sm:flex-row"
+          >
             <Button size="lg" onClick={handleCopyCommand}>
               {copied ? <RiCheckLine /> : <RiFileCopyLine />}
               {copied ? "Copied" : "Copy dev command"}
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="https://github.com/beefysalad/nexion-monorepo" target="_blank" rel="noreferrer">
+              <a
+                href="https://github.com/beefysalad/nexion-monorepo"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <RiGithubFill />
                 Repository
               </a>
@@ -63,7 +74,10 @@ function HomeHero() {
           </motion.div>
         </motion.div>
 
-        <motion.div variants={scaleIn} className="rounded-3xl border border-border bg-card p-3 shadow-sm">
+        <motion.div
+          variants={scaleIn}
+          className="rounded-3xl border border-border bg-card p-3 shadow-sm"
+        >
           <div className="rounded-2xl border border-border bg-background p-5">
             <div className="mb-5 flex items-center gap-2 border-b border-border pb-4">
               <span className="size-3 rounded-full bg-red-400" />
@@ -94,5 +108,3 @@ function HomeHero() {
     </section>
   )
 }
-
-export { HomeHero }

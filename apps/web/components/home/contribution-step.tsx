@@ -4,7 +4,7 @@ type ContributionStepProps = {
   description: string
 }
 
-function ContributionStep({
+export function ContributionStep({
   number,
   title,
   description,
@@ -16,13 +16,10 @@ function ContributionStep({
       </div>
       <div>
         <h3 className="font-semibold">{title}</h3>
-        <p className="text-muted-foreground mt-1 text-sm leading-6">
+        <p className="mt-1 text-sm leading-6 text-muted-foreground">
           {description}
         </p>
       </div>
     </article>
   )
 }
-
-export { ContributionStep }
-export type { ContributionStepProps }

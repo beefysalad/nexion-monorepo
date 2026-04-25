@@ -9,7 +9,7 @@ import { WhyThisExists } from "@/components/home/why-this-exists"
 import { useApiHealth } from "@/hooks/api/use-api-health"
 import { API_BASE_URL } from "@/lib/axios"
 
-function HomePage() {
+export function HomePage() {
   const apiHealth = useApiHealth()
 
   return (
@@ -35,5 +35,3 @@ function HomePage() {
     </main>
   )
 }
-
-export { HomePage }
