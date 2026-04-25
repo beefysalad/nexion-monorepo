@@ -13,8 +13,8 @@
   },
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "types": "./index.d.ts",
+      "default": "./index.js"
     }
   }
 }

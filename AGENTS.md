@@ -12,6 +12,7 @@ Primary workspaces:
 
 - `apps/web`: Next.js app router frontend.
 - `apps/api`: NestJS backend.
+- `packages/shared`: shared frontend/backend TypeScript contracts.
 - `packages/ui`: shared shadcn/ui components, hooks, styles, and UI utilities.
 - `packages/eslint-config`: shared ESLint configuration.
 - `packages/typescript-config`: shared TypeScript configuration.
@@ -47,6 +48,7 @@ Use npm from the repository root. Do not create nested lockfiles.
 - When dependencies are needed, tell the user the exact root-level command to run.
 - Install frontend-only packages with `npm install <package> -w web`.
 - Install backend-only packages with `npm install <package> -w api`.
+- Install shared contract packages with `npm install <package> -w @workspace/shared` only when the package is truly needed by shared contracts.
 - Install shared UI packages with `npm install <package> -w @workspace/ui`.
 - Install root tooling from the monorepo root with `npm install -D <package>`.
 - Do not create `package-lock.json` files inside `apps/web`, `apps/api`, or `packages/*`.
@@ -159,6 +161,10 @@ If Prisma or another ORM is introduced later:
 
 ## API Boundary
 
+- Put request/response contracts that are used by both frontend and backend in `packages/shared` and import them from `@workspace/shared`.
+- Keep `packages/shared` focused on types and contract-level schemas only. Do not put app code, NestJS services, React components, browser-only code, or server-only code there.
+- Prefer type-only imports from `@workspace/shared` in app code, for example `import type { ApiHealthResponse } from "@workspace/shared"`.
+- Do not duplicate API response types separately in `apps/web` and `apps/api` when they describe the same HTTP contract.
 - Prefer typed DTOs and explicit response shapes on the backend.
 - Prefer frontend API wrappers in `apps/web/lib/api/` instead of calling Axios directly throughout components.
 - Prefer TanStack Query hooks over manual loading/error state in components for server state.
