@@ -22,7 +22,7 @@ export function HomePage() {
             apiUrl={API_BASE_URL}
             isLoading={apiHealth.isPending}
             isError={apiHealth.isError}
-            message={apiHealth.data}
+            message={apiHealth.data?.message}
             onRefresh={() => void apiHealth.refetch()}
           />
         </div>
