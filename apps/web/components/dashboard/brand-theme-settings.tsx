@@ -21,12 +21,11 @@ function BrandThemeSettings() {
       <CardHeader>
         <CardTitle>Brand Theme</CardTitle>
         <CardDescription>
-          POC color presets that keep button text readable in light and dark
-          mode.
+          Color presets that keep buttons readable in light and dark mode.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
-        <div className="grid gap-2 sm:grid-cols-5">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
           {presets.map((preset) => {
             const isActive = preset.id === activeTheme.id
 

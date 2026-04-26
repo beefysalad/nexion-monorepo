@@ -3,7 +3,18 @@
 import { useTheme } from "next-themes"
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
 
-type BrandThemeId = "amber" | "blue" | "emerald" | "rose" | "violet"
+type BrandThemeId =
+  | "amber"
+  | "blue"
+  | "emerald"
+  | "rose"
+  | "violet"
+  | "cyan"
+  | "lime"
+  | "fuchsia"
+  | "orange"
+  | "indigo"
+  | "electric"
 type ThemeMode = "light" | "dark"
 
 type BrandThemeTokens = {
@@ -132,6 +143,132 @@ const brandThemePresets: BrandThemePreset[] = [
         ring: "oklch(0.68 0.13 300)",
         sidebarPrimary: "oklch(0.74 0.15 300)",
         sidebarPrimaryForeground: "oklch(0.16 0.04 300)",
+      },
+    },
+  },
+  {
+    id: "cyan",
+    label: "Neon Cyan",
+    swatch: "oklch(0.72 0.18 205)",
+    tokens: {
+      light: {
+        primary: "oklch(0.56 0.16 210)",
+        primaryForeground: "oklch(0.99 0 0)",
+        ring: "oklch(0.62 0.12 210)",
+        sidebarPrimary: "oklch(0.5 0.14 210)",
+        sidebarPrimaryForeground: "oklch(0.99 0 0)",
+      },
+      dark: {
+        primary: "oklch(0.78 0.16 205)",
+        primaryForeground: "oklch(0.13 0.04 215)",
+        ring: "oklch(0.7 0.14 205)",
+        sidebarPrimary: "oklch(0.78 0.16 205)",
+        sidebarPrimaryForeground: "oklch(0.13 0.04 215)",
+      },
+    },
+  },
+  {
+    id: "lime",
+    label: "Neon Lime",
+    swatch: "oklch(0.86 0.22 132)",
+    tokens: {
+      light: {
+        primary: "oklch(0.55 0.17 135)",
+        primaryForeground: "oklch(0.99 0 0)",
+        ring: "oklch(0.62 0.13 135)",
+        sidebarPrimary: "oklch(0.48 0.14 135)",
+        sidebarPrimaryForeground: "oklch(0.99 0 0)",
+      },
+      dark: {
+        primary: "oklch(0.86 0.2 132)",
+        primaryForeground: "oklch(0.13 0.04 135)",
+        ring: "oklch(0.76 0.16 132)",
+        sidebarPrimary: "oklch(0.86 0.2 132)",
+        sidebarPrimaryForeground: "oklch(0.13 0.04 135)",
+      },
+    },
+  },
+  {
+    id: "fuchsia",
+    label: "Neon Pink",
+    swatch: "oklch(0.7 0.26 340)",
+    tokens: {
+      light: {
+        primary: "oklch(0.58 0.23 340)",
+        primaryForeground: "oklch(0.99 0 0)",
+        ring: "oklch(0.62 0.16 340)",
+        sidebarPrimary: "oklch(0.52 0.2 340)",
+        sidebarPrimaryForeground: "oklch(0.99 0 0)",
+      },
+      dark: {
+        primary: "oklch(0.76 0.2 340)",
+        primaryForeground: "oklch(0.16 0.04 340)",
+        ring: "oklch(0.68 0.16 340)",
+        sidebarPrimary: "oklch(0.76 0.2 340)",
+        sidebarPrimaryForeground: "oklch(0.16 0.04 340)",
+      },
+    },
+  },
+  {
+    id: "orange",
+    label: "Signal Orange",
+    swatch: "oklch(0.7 0.2 45)",
+    tokens: {
+      light: {
+        primary: "oklch(0.6 0.18 45)",
+        primaryForeground: "oklch(0.99 0 0)",
+        ring: "oklch(0.62 0.13 45)",
+        sidebarPrimary: "oklch(0.54 0.16 45)",
+        sidebarPrimaryForeground: "oklch(0.99 0 0)",
+      },
+      dark: {
+        primary: "oklch(0.78 0.17 50)",
+        primaryForeground: "oklch(0.16 0.04 45)",
+        ring: "oklch(0.7 0.14 50)",
+        sidebarPrimary: "oklch(0.78 0.17 50)",
+        sidebarPrimaryForeground: "oklch(0.16 0.04 45)",
+      },
+    },
+  },
+  {
+    id: "indigo",
+    label: "Indigo",
+    swatch: "oklch(0.52 0.22 285)",
+    tokens: {
+      light: {
+        primary: "oklch(0.52 0.22 285)",
+        primaryForeground: "oklch(0.99 0 0)",
+        ring: "oklch(0.58 0.15 285)",
+        sidebarPrimary: "oklch(0.47 0.18 285)",
+        sidebarPrimaryForeground: "oklch(0.99 0 0)",
+      },
+      dark: {
+        primary: "oklch(0.72 0.16 285)",
+        primaryForeground: "oklch(0.15 0.04 285)",
+        ring: "oklch(0.66 0.14 285)",
+        sidebarPrimary: "oklch(0.72 0.16 285)",
+        sidebarPrimaryForeground: "oklch(0.15 0.04 285)",
+      },
+    },
+  },
+  {
+    id: "electric",
+    label: "Electric",
+    swatch: "oklch(0.68 0.25 285)",
+    tokens: {
+      light: {
+        primary: "oklch(0.57 0.24 285)",
+        primaryForeground: "oklch(0.99 0 0)",
+        ring: "oklch(0.62 0.17 285)",
+        sidebarPrimary: "oklch(0.5 0.21 285)",
+        sidebarPrimaryForeground: "oklch(0.99 0 0)",
+      },
+      dark: {
+        primary: "oklch(0.78 0.2 285)",
+        primaryForeground: "oklch(0.14 0.05 285)",
+        ring: "oklch(0.7 0.16 285)",
+        sidebarPrimary: "oklch(0.78 0.2 285)",
+        sidebarPrimaryForeground: "oklch(0.14 0.05 285)",
       },
     },
   },

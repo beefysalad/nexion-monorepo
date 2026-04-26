@@ -7,6 +7,7 @@ import { GlobalLoadingIndicator } from "@/components/loading/global-loading-indi
 import { LoadingProvider } from "@/components/providers/loading-provider"
 import { QueryProvider } from "@/components/providers/query-provider"
 import { UserSyncProvider } from "@/components/providers/user-sync-provider"
+import { Toaster } from "@workspace/ui/components/sonner"
 
 function AppProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -16,6 +17,7 @@ function AppProviders({ children }: { children: React.ReactNode }) {
           <ThemeProvider>
             {children}
             <GlobalLoadingIndicator />
+            <Toaster richColors />
           </ThemeProvider>
         </UserSyncProvider>
       </QueryProvider>
