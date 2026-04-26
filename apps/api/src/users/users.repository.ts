@@ -19,7 +19,7 @@ export class UsersRepository {
   async upsertClerkUser(
     input: UpsertClerkUserInput,
   ): Promise<CurrentUserResponse> {
-    const user = await this.prisma.user.upsert({
+    const user = await this.prisma.db.user.upsert({
       where: {
         clerkId: input.clerkId,
       },
@@ -37,14 +37,14 @@ export class UsersRepository {
   }
 
   async deleteByClerkId(clerkId: string): Promise<void> {
-    await this.prisma.user.deleteMany({
+    await this.prisma.db.user.deleteMany({
       where: {
         clerkId,
       },
     });
   }
   async getAllUsers(): Promise<GetAllUsersResponse> {
-    const users = await this.prisma.user.findMany({
+    const users = await this.prisma.db.user.findMany({
       where: {
         clerkId: {
           not: null,
