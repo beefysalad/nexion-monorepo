@@ -25,14 +25,14 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cn(
-        "antialiased",
+        "overflow-x-hidden antialiased",
         fontMono.variable,
         "font-sans",
         inter.variable,
         robotoHeading.variable
       )}
     >
-      <body>
+      <body className="min-h-svh overflow-x-hidden">
         <ClerkProvider>
           <NextTopLoader
             color="var(--primary)"

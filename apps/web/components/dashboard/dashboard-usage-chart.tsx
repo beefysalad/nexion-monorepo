@@ -7,16 +7,34 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card"
+import { Bar, BarChart, CartesianGrid, XAxis, Rectangle } from "recharts"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@workspace/ui/components/chart"
+
+import { useUsageData } from "@/hooks/dashboard/use-usage-data"
+
+const chartConfig = {
+  revenue: {
+    label: "Revenue",
+    color: "#10b981",
+  },
+} satisfies ChartConfig
 
 export function DashboardUsageChart() {
+  const { data, currencySymbol } = useUsageData()
+
   return (
     <Card className="rounded-xl shadow-sm overflow-hidden">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="text-lg">Platform Usage</CardTitle>
+            <CardTitle className="text-lg">Platform Revenue</CardTitle>
             <CardDescription>
-              Real-time events processed across all sync nodes.
+              Total accounting revenue across all synced accounts.
             </CardDescription>
           </div>
           <div className="flex items-center gap-2">
@@ -27,42 +45,42 @@ export function DashboardUsageChart() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="p-0">
-        <div className="h-[200px] w-full bg-muted/5 relative flex items-end gap-1.5 px-6 pb-6">
-          {[...Array(24)].map((_, i) => {
-            const height = Math.floor(Math.random() * 85) + 15
-            // Curated vibrant colors that ignore the theme branding
-            const colors = [
-              "bg-emerald-400", 
-              "bg-sky-400", 
-              "bg-violet-500", 
-              "bg-rose-500", 
-              "bg-amber-400",
-              "bg-fuchsia-500",
-              "bg-cyan-400"
-            ]
-            const colorClass = colors[i % colors.length]
-            
-            return (
-              <div 
-                key={i} 
-                className={`flex-1 ${colorClass} rounded-t-md transition-all hover:scale-x-110 hover:brightness-110 cursor-pointer group relative`}
-                style={{ height: `${height}%` }}
-              >
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-foreground text-background text-[10px] font-bold px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all shadow-xl z-10 whitespace-nowrap">
-                  ₱{Math.floor(height * 1250).toLocaleString()}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-        <div className="flex justify-between px-6 pb-4 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-          <span>00:00</span>
-          <span>06:00</span>
-          <span>12:00</span>
-          <span>18:00</span>
-          <span>23:59</span>
-        </div>
+      <CardContent className="p-4">
+        <ChartContainer config={chartConfig} className="h-[240px] w-full">
+          <BarChart data={data}>
+            <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+            <XAxis
+              dataKey="time"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              className="font-bold text-[10px] uppercase tracking-widest"
+            />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent 
+                  hideLabel 
+                  formatter={(value) => `${currencySymbol}${Number(value).toLocaleString()}`}
+                />
+              }
+            />
+            <Bar
+              dataKey="revenue"
+              radius={[4, 4, 0, 0]}
+              strokeWidth={2}
+              activeBar={({ ...props }) => {
+                return (
+                  <Rectangle
+                    {...props}
+                    fillOpacity={0.8}
+                    stroke={props.payload.fill}
+                  />
+                )
+              }}
+            />
+          </BarChart>
+        </ChartContainer>
       </CardContent>
     </Card>
   )

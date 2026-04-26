@@ -120,10 +120,13 @@
 }
 
 @layer base {
+  html {
+    @apply overflow-x-hidden;
+    }
   * {
     @apply border-border outline-ring/50;
     }
   body {
-    @apply bg-background text-foreground;
+    @apply min-h-svh overflow-x-hidden bg-background text-foreground;
     }
 }

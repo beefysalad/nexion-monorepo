@@ -84,7 +84,7 @@ function SettingsPage() {
             Workspace settings
           </h1>
         </div>
-        <Button>
+        <Button className="w-full sm:w-auto">
           <RiCheckLine data-icon="inline-start" />
           Save changes
         </Button>

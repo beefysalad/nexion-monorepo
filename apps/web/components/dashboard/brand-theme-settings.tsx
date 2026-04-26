@@ -46,7 +46,9 @@ function BrandThemeSettings() {
                 />
                 <span className="flex w-full items-center justify-between gap-2">
                   <span className="font-medium">{preset.label}</span>
-                  {isActive ? <RiCheckLine className="size-4 text-primary" /> : null}
+                  {isActive ? (
+                    <RiCheckLine className="size-4 text-primary" />
+                  ) : null}
                 </span>
               </button>
             )
@@ -54,8 +56,6 @@ function BrandThemeSettings() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3 rounded-lg border bg-muted/30 p-4">
-          <Button>Primary Button</Button>
-          <Button variant="outline">Outline Button</Button>
           <span className="text-sm text-muted-foreground">
             Active preset: {activeTheme.label}
           </span>

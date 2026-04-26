@@ -35,20 +35,22 @@ function DashboardShell({ children }: DashboardShellProps) {
     <TooltipProvider>
       <SidebarProvider>
         <DashboardSidebar />
-        <SidebarInset>
-          <header className="flex h-14 shrink-0 items-center gap-3 border-b px-4">
+        <SidebarInset className="min-w-0 overflow-x-hidden">
+          <header className="flex h-auto min-h-14 shrink-0 flex-wrap items-center gap-3 border-b px-4 py-3">
             <SidebarTrigger />
             <Separator orientation="vertical" className="h-5" />
-            <Breadcrumb>
+            <Breadcrumb className="min-w-0">
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
                     <Link href="/dashboard">Workspace</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator />
+                <BreadcrumbSeparator className="hidden sm:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>{currentItem?.label ?? "Overview"}</BreadcrumbPage>
+                  <BreadcrumbPage className="truncate">
+                    {currentItem?.label ?? "Overview"}
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

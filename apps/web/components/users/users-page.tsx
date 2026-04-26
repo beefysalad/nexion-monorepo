@@ -51,15 +51,15 @@ export function UsersPage() {
             total members across synced accounts.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="relative w-full max-w-sm">
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <div className="relative w-full sm:max-w-sm">
             <RiSearchLine className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="Search members..."
-              className="h-9 w-[240px] border-none bg-muted/40 pl-9 focus-visible:ring-1"
+              className="h-9 w-full border-none bg-muted/40 pl-9 focus-visible:ring-1"
             />
           </div>
-          <Button variant="outline" size="sm" className="gap-2">
+          <Button variant="outline" size="sm" className="gap-2 sm:w-auto">
             <RiFilter2Line className="size-4" />
             Filter
           </Button>
