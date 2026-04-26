@@ -16,7 +16,8 @@
     "format": "turbo format",
     "typecheck": "turbo typecheck",
     "clean": "node scripts/cleanup.mjs",
-    "restore": "node scripts/restore.mjs"
+    "restore": "node scripts/restore.mjs",
+    "clean:dev": "rm -rf apps/web/.next .turbo"
   },
   "devDependencies": {
     "@workspace/eslint-config": "*",

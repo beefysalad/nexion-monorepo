@@ -20,16 +20,11 @@ import {
 } from "@workspace/ui/components/sidebar"
 
 import { dashboardNavItems } from "@/components/dashboard/dashboard-data"
+import { useDashboardUser } from "@/components/dashboard/dashboard-user-provider"
 
-type DashboardSidebarProps = {
-  user: {
-    email: string
-    name: string
-  }
-}
-
-function DashboardSidebar({ user }: DashboardSidebarProps) {
+function DashboardSidebar() {
   const pathname = usePathname()
+  const user = useDashboardUser()
 
   return (
     <Sidebar collapsible="icon">

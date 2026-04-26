@@ -32,6 +32,7 @@ import {
 import { toast } from "sonner"
 
 import { BrandThemeSettings } from "@/components/dashboard/brand-theme-settings"
+import { useLoading } from "@/components/providers/loading-provider"
 import {
   Accordion,
   AccordionContent,
@@ -336,7 +337,13 @@ const radioOptions = [
 
 function ComponentsGalleryPage() {
   const { resolvedTheme, setTheme } = useTheme()
+  const loading = useLoading()
   const isDark = resolvedTheme === "dark"
+
+  function handlePreviewLoading() {
+    loading.startLoading("render", "Preview loading")
+    window.setTimeout(() => loading.stopLoading("render"), 1800)
+  }
 
   return (
     <TooltipProvider>
@@ -353,13 +360,25 @@ function ComponentsGalleryPage() {
               screens.
             </p>
           </div>
-          <Button
-            variant="outline"
-            onClick={() => setTheme(isDark ? "light" : "dark")}
-          >
-            {isDark ? <RiSunLine /> : <RiMoonLine />}
-            {isDark ? "Light mode" : "Dark mode"}
-          </Button>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              size="sm"
+              variant="ghost"
+              className="h-9 gap-2 rounded-xl px-4 text-xs text-muted-foreground hover:text-foreground"
+              onClick={handlePreviewLoading}
+              isLoading={loading.isLoading && loading.kind === "render"}
+              loadingText="Preview loading"
+            >
+              Preview loading
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setTheme(isDark ? "light" : "dark")}
+            >
+              {isDark ? <RiSunLine /> : <RiMoonLine />}
+              {isDark ? "Light mode" : "Dark mode"}
+            </Button>
+          </div>
         </section>
 
         <BrandThemeSettings />

@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { DashboardOverview } from "@/components/dashboard/dashboard-overview"
 import { dashboardNavItems } from "@/components/dashboard/dashboard-data"
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar"
 import {
@@ -23,14 +22,10 @@ import {
 import { TooltipProvider } from "@workspace/ui/components/tooltip"
 
 type DashboardShellProps = {
-  children?: React.ReactNode
-  user: {
-    email: string
-    name: string
-  }
+  children: React.ReactNode
 }
 
-function DashboardShell({ children, user }: DashboardShellProps) {
+function DashboardShell({ children }: DashboardShellProps) {
   const pathname = usePathname()
   const currentItem =
     dashboardNavItems.find((item) => item.href === pathname) ??
@@ -39,7 +34,7 @@ function DashboardShell({ children, user }: DashboardShellProps) {
   return (
     <TooltipProvider>
       <SidebarProvider>
-        <DashboardSidebar user={user} />
+        <DashboardSidebar />
         <SidebarInset>
           <header className="flex h-14 shrink-0 items-center gap-3 border-b px-4">
             <SidebarTrigger />
@@ -58,7 +53,7 @@ function DashboardShell({ children, user }: DashboardShellProps) {
               </BreadcrumbList>
             </Breadcrumb>
           </header>
-          {children ?? <DashboardOverview user={user} />}
+          {children}
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>

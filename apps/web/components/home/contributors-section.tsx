@@ -11,6 +11,7 @@ import {
   viewportOnce,
 } from "@/components/home/motion-presets"
 import { Card, CardContent } from "@workspace/ui/components/card"
+import Image from "next/image"
 
 const contributionSteps = [
   {
@@ -40,36 +41,36 @@ export function ContributorsSection() {
         whileInView="show"
         viewport={viewportOnce}
         variants={staggerContainer}
-        className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-start"
+        className="mx-auto max-w-3xl space-y-20 text-center"
       >
-        <motion.div variants={staggerContainer} className="space-y-10">
+        <div className="space-y-12">
           <motion.div variants={fadeUp} className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+            <p className="text-xs font-semibold tracking-widest text-primary uppercase">
               Contributing
             </p>
             <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
               Bugs, ideas, and clean PRs are welcome.
             </h2>
-            <p className="max-w-lg text-base leading-relaxed text-muted-foreground">
-              Found something broken? Have an idea? Open an issue or submit a
-              PR — just keep it clean and follow the monorepo patterns.
+            <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground">
+              Found something broken? Have an idea? Open an issue or submit a PR
+              — just keep it clean and follow the monorepo patterns.
             </p>
           </motion.div>
 
-          <motion.div variants={staggerContainer} className="space-y-3">
+          <motion.div variants={staggerContainer} className="space-y-4">
             {contributionSteps.map((step) => (
               <motion.div key={step.number} variants={fadeUp}>
                 <ContributionStep {...step} />
               </motion.div>
             ))}
           </motion.div>
-        </motion.div>
+        </div>
 
-        <motion.div variants={scaleIn}>
+        <motion.div variants={scaleIn} className="mx-auto w-full max-w-md">
           <Card className="border-border bg-card">
             <CardContent className="space-y-5 p-6">
               <div className="space-y-1">
-                <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                <p className="text-xs font-semibold tracking-widest text-primary uppercase">
                   Contributors
                 </p>
                 <h3 className="text-lg font-bold tracking-tight">
@@ -79,7 +80,11 @@ export function ContributorsSection() {
 
               <div className="space-y-3">
                 {[
-                  { name: "beefysalad", role: "Author" },
+                  {
+                    name: "beefysalad",
+                    role: "Author",
+                    image: "/patrick.jpeg",
+                  },
                 ].map((contributor) => (
                   <a
                     key={contributor.name}
@@ -88,12 +93,19 @@ export function ContributorsSection() {
                     rel="noreferrer"
                     className="flex items-center gap-3 rounded-xl border border-border bg-muted/40 p-4 transition-colors hover:border-primary/40 hover:bg-muted/70"
                   >
-                    <div className="flex size-10 items-center justify-center rounded-full bg-foreground text-background">
-                      <RiGithubFill className="size-5" />
+                    <div className="relative flex size-10 items-center justify-center rounded-full bg-foreground text-background">
+                      <Image
+                        src={contributor.image}
+                        alt={contributor.name}
+                        fill
+                        className="rounded-full object-cover"
+                      />
                     </div>
-                    <div>
+                    <div className="text-left">
                       <p className="text-sm font-bold">{contributor.name}</p>
-                      <p className="text-xs text-muted-foreground">{contributor.role}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {contributor.role}
+                      </p>
                     </div>
                   </a>
                 ))}

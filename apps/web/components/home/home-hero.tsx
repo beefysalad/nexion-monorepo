@@ -2,7 +2,6 @@
 
 import {
   RiCheckLine,
-  RiCodeSSlashLine,
   RiFileCopyLine,
   RiGithubFill,
   RiTerminalBoxLine,
@@ -11,7 +10,6 @@ import { motion } from "framer-motion"
 import { useState } from "react"
 
 import { Button } from "@workspace/ui/components/button"
-import { useLoading } from "@/components/providers/loading-provider"
 import {
   fadeUp,
   scaleIn,
@@ -20,17 +18,11 @@ import {
 
 export function HomeHero() {
   const [copied, setCopied] = useState<boolean>(false)
-  const loading = useLoading()
 
   async function handleCopyCommand() {
     await navigator.clipboard.writeText("npm run dev:apps")
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1600)
-  }
-
-  function handlePreviewLoading() {
-    loading.startLoading("render", "Preview loading")
-    window.setTimeout(() => loading.stopLoading("render"), 1800)
   }
 
   return (
@@ -51,9 +43,9 @@ export function HomeHero() {
           <motion.div variants={staggerContainer} className="space-y-10">
             <motion.div variants={fadeUp} className="space-y-5">
               <h1 className="text-5xl font-black tracking-tight text-balance sm:text-7xl">
-                Ship your next <span className="text-primary">SaaS</span>{" "}
+                Ship your <span className="text-primary">App</span>lication{" "}
                 <br className="hidden sm:block" />
-                without the setup tax.
+                without the setup friction.
               </h1>
               <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
                 A production-ready monorepo wired with Next.js, NestJS, Prisma,
@@ -92,17 +84,6 @@ export function HomeHero() {
                   <RiGithubFill className="size-4" />
                   GitHub
                 </a>
-              </Button>
-
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-9 gap-2 rounded-xl px-4 text-xs text-muted-foreground hover:text-foreground"
-                onClick={handlePreviewLoading}
-                isLoading={loading.isLoading && loading.kind === "render"}
-                loadingText="Preview loading"
-              >
-                Preview loading
               </Button>
             </motion.div>
 

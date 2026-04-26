@@ -1,6 +1,12 @@
 import { currentUser } from "@clerk/nextjs/server"
 
-async function getCurrentDashboardUser() {
+type DashboardUser = {
+  email: string
+  imageUrl?: string
+  name: string
+}
+
+async function getCurrentDashboardUser(): Promise<DashboardUser> {
   const user = await currentUser()
   const primaryEmail =
     user?.emailAddresses.find(
@@ -8,6 +14,7 @@ async function getCurrentDashboardUser() {
     ) ?? user?.emailAddresses[0]
 
   return {
+    imageUrl: user?.imageUrl,
     name:
       [user?.firstName, user?.lastName].filter(Boolean).join(" ") ||
       user?.username ||
@@ -18,3 +25,4 @@ async function getCurrentDashboardUser() {
 }
 
 export { getCurrentDashboardUser }
+export type { DashboardUser }

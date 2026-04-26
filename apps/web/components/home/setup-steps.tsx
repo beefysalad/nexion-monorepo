@@ -37,48 +37,42 @@ export function SetupSteps() {
         whileInView="show"
         viewport={viewportOnce}
         variants={staggerContainer}
-        className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1fr_1.5fr] lg:items-start"
+        className="mx-auto max-w-3xl space-y-16"
       >
-        {/* Left sticky heading */}
-        <motion.div variants={fadeUp} className="lg:sticky lg:top-32 space-y-4">
+        {/* Centered heading */}
+        <motion.div variants={fadeUp} className="space-y-4 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">
             Getting started
           </p>
           <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
             Up and running in three steps.
           </h2>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground">
             Intentionally boring. Skip the bikeshedding and get to shipping.
           </p>
         </motion.div>
 
-        {/* Right — steps */}
-        <div className="relative">
-          {/* Connector line */}
-          <div className="absolute left-8 top-8 -z-10 h-[calc(100%-4rem)] w-px bg-border" />
-
-          <motion.div variants={staggerContainer} className="space-y-4">
-            {setupSteps.map((step) => (
-              <motion.article
-                key={step.number}
-                variants={fadeUp}
-                className="group relative flex gap-6 rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/40 hover:shadow-sm"
-              >
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border bg-background font-mono text-sm font-black text-muted-foreground transition-colors group-hover:border-primary/60 group-hover:text-primary">
-                  {step.number}
-                </div>
-                <div className="space-y-1.5 pt-1">
-                  <h3 className="text-base font-bold tracking-tight text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {step.description}
-                  </p>
-                </div>
-              </motion.article>
-            ))}
-          </motion.div>
-        </div>
+        <motion.div variants={staggerContainer} className="space-y-4">
+          {setupSteps.map((step) => (
+            <motion.article
+              key={step.number}
+              variants={fadeUp}
+              className="group relative flex gap-6 rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/50 hover:bg-primary/[0.02] hover:shadow-2xl hover:shadow-primary/5"
+            >
+              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl border border-border bg-background font-mono text-lg font-black text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:border-primary group-hover:bg-primary/5 group-hover:text-primary">
+                {step.number}
+              </div>
+              <div className="space-y-1.5 pt-1 text-left">
+                <h3 className="text-lg font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {step.description}
+                </p>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
       </motion.div>
     </section>
   )

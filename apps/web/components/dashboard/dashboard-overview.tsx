@@ -16,14 +16,11 @@ import {
   dashboardStats,
 } from "@/components/dashboard/dashboard-data"
 import { BrandThemeSettings } from "@/components/dashboard/brand-theme-settings"
+import { useDashboardUser } from "@/components/dashboard/dashboard-user-provider"
 
-type DashboardOverviewProps = {
-  user: {
-    name: string
-  }
-}
+function DashboardOverview() {
+  const user = useDashboardUser()
 
-function DashboardOverview({ user }: DashboardOverviewProps) {
   return (
     <main className="flex flex-1 flex-col gap-6 p-4 md:p-8">
       <section className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">

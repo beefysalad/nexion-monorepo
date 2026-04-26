@@ -31,7 +31,7 @@ const dashboardNavItems = [
     label: "Data",
   },
   {
-    href: "/dashboard",
+    href: "/settings",
     icon: RiSettings3Line,
     label: "Settings",
   },
