@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import {
   RiAddLine,
   RiArrowDownSLine,
@@ -1277,6 +1278,14 @@ function ComponentsGalleryPage() {
                   }
                 >
                   Error
+                </Button>
+                <Button asChild variant="outline" size="sm">
+                  <Link href="/components/error-preview">Show error page</Link>
+                </Button>
+                <Button asChild variant="outline" size="sm">
+                  <Link href="/components/not-found-preview">
+                    Show not found
+                  </Link>
                 </Button>
                 <Button
                   variant="outline"

@@ -28,21 +28,40 @@ export function DashboardUsageChart() {
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        <div className="h-[200px] w-full bg-muted/10 relative flex items-end gap-1 px-4 pb-4">
-          {[...Array(20)].map((_, i) => {
-            const height = Math.floor(Math.random() * 80) + 20
+        <div className="h-[200px] w-full bg-muted/5 relative flex items-end gap-1.5 px-6 pb-6">
+          {[...Array(24)].map((_, i) => {
+            const height = Math.floor(Math.random() * 85) + 15
+            // Curated vibrant colors that ignore the theme branding
+            const colors = [
+              "bg-emerald-400", 
+              "bg-sky-400", 
+              "bg-violet-500", 
+              "bg-rose-500", 
+              "bg-amber-400",
+              "bg-fuchsia-500",
+              "bg-cyan-400"
+            ]
+            const colorClass = colors[i % colors.length]
+            
             return (
               <div 
                 key={i} 
-                className="flex-1 bg-primary/20 rounded-t-sm transition-all hover:bg-primary/40 group relative"
+                className={`flex-1 ${colorClass} rounded-t-md transition-all hover:scale-x-110 hover:brightness-110 cursor-pointer group relative`}
                 style={{ height: `${height}%` }}
               >
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-foreground text-background text-[10px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                  {Math.floor(height * 2.4)}%
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-foreground text-background text-[10px] font-bold px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all shadow-xl z-10 whitespace-nowrap">
+                  ₱{Math.floor(height * 1250).toLocaleString()}
                 </div>
               </div>
             )
           })}
+        </div>
+        <div className="flex justify-between px-6 pb-4 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+          <span>00:00</span>
+          <span>06:00</span>
+          <span>12:00</span>
+          <span>18:00</span>
+          <span>23:59</span>
         </div>
       </CardContent>
     </Card>
