@@ -1,6 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { createClerkClient } from '@clerk/backend';
-import type { CurrentUserResponse } from '@workspace/shared';
+import type {
+  CurrentUserResponse,
+  GetAllUsersResponse,
+} from '@workspace/shared';
 import { UsersRepository } from './users.repository';
 
 @Injectable()
@@ -36,5 +39,9 @@ export class UsersService {
       name,
       imageUrl: clerkUser.imageUrl || null,
     });
+  }
+
+  async getAllUsers(): Promise<GetAllUsersResponse> {
+    return await this.usersRepository.getAllUsers();
   }
 }

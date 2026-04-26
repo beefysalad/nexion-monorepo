@@ -21,12 +21,12 @@ const dashboardNavItems = [
     label: "Components",
   },
   {
-    href: "/dashboard",
+    href: "/users",
     icon: RiUserReceived2Line,
     label: "Users",
   },
   {
-    href: "/dashboard",
+    href: "/data",
     icon: RiDatabase2Line,
     label: "Data",
   },

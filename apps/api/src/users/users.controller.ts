@@ -1,5 +1,8 @@
 import { Controller, Get, Post, UseGuards } from '@nestjs/common';
-import type { CurrentUserResponse } from '@workspace/shared';
+import type {
+  CurrentUserResponse,
+  GetAllUsersResponse,
+} from '@workspace/shared';
 import { ClerkUserId } from '../common/decorators/clerk-user-id.decorator';
 import { ClerkAuthGuard } from '../common/guards/clerk-auth.guard';
 import { UsersService } from './users.service';
@@ -21,5 +24,10 @@ export class UsersController {
     @ClerkUserId() clerkUserId: string,
   ): Promise<CurrentUserResponse> {
     return this.usersService.syncCurrentUser(clerkUserId);
+  }
+
+  @Get('all')
+  async getAllUsers(): Promise<GetAllUsersResponse> {
+    return await this.usersService.getAllUsers();
   }
 }

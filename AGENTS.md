@@ -62,6 +62,7 @@ Use npm from the repository root. Do not create nested lockfiles.
 - Prefer feature-oriented folders under `apps/web/components/` for app-specific views.
 - Keep shared reusable UI in `packages/ui/src/components/`.
 - Do not put large feature implementations directly in route files.
+- Protected shell pages under `apps/web/app/(protected)/**` should use a consistent intro pattern: a small muted eyebrow, a `font-heading` page title with `text-3xl font-semibold tracking-normal md:text-4xl`, and an optional short muted description or summary beneath it. Avoid mixing dashboard-style welcome banners with sibling section pages like Components, Users, and Settings.
 
 ### Components
 
