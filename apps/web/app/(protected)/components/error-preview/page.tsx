@@ -26,7 +26,8 @@ export default function ComponentsErrorPreviewPage() {
         <CardHeader>
           <CardTitle className="text-lg">Error Preview</CardTitle>
           <CardDescription>
-            Trigger the route error boundary manually to preview the error screen.
+            Trigger the route error boundary manually to preview the error
+            screen.
           </CardDescription>
         </CardHeader>
         <CardContent>

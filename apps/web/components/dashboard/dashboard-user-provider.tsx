@@ -24,7 +24,9 @@ function useDashboardUser() {
   const user = useContext(DashboardUserContext)
 
   if (!user) {
-    throw new Error("useDashboardUser must be used within DashboardUserProvider")
+    throw new Error(
+      "useDashboardUser must be used within DashboardUserProvider"
+    )
   }
 
   return user

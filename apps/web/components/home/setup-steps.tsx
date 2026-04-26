@@ -31,7 +31,7 @@ const setupSteps = [
 
 export function SetupSteps() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-background px-6 py-24 sm:py-32">
+    <section className="border-border bg-background relative overflow-hidden border-b px-6 py-24 sm:py-32">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -41,13 +41,13 @@ export function SetupSteps() {
       >
         {/* Centered heading */}
         <motion.div variants={fadeUp} className="space-y-4 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+          <p className="text-primary text-xs font-semibold tracking-widest uppercase">
             Getting started
           </p>
           <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
             Up and running in three steps.
           </h2>
-          <p className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground">
+          <p className="text-muted-foreground mx-auto max-w-xl text-base leading-relaxed">
             Intentionally boring. Skip the bikeshedding and get to shipping.
           </p>
         </motion.div>
@@ -57,16 +57,16 @@ export function SetupSteps() {
             <motion.article
               key={step.number}
               variants={fadeUp}
-              className="group relative flex gap-6 rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/50 hover:bg-primary/[0.02] hover:shadow-2xl hover:shadow-primary/5"
+              className="group border-border bg-card hover:border-primary/50 hover:bg-primary/[0.02] hover:shadow-primary/5 relative flex gap-6 rounded-xl border p-6 transition-all duration-300 hover:shadow-2xl"
             >
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-xl border border-border bg-background font-mono text-lg font-black text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:border-primary group-hover:bg-primary/5 group-hover:text-primary">
+              <div className="border-border bg-background text-muted-foreground group-hover:border-primary group-hover:bg-primary/5 group-hover:text-primary flex size-12 shrink-0 items-center justify-center rounded-xl border font-mono text-lg font-black transition-all duration-300 group-hover:scale-110">
                 {step.number}
               </div>
               <div className="space-y-1.5 pt-1 text-left">
-                <h3 className="text-lg font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                <h3 className="text-foreground group-hover:text-primary text-lg font-bold tracking-tight transition-colors">
                   {step.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {step.description}
                 </p>
               </div>

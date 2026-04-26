@@ -36,8 +36,10 @@ export function ApiHealthCard({
             className={cn(
               "flex size-10 shrink-0 items-center justify-center rounded-xl border",
               isLoading && "border-border bg-muted text-muted-foreground",
-              isError && "border-destructive/30 bg-destructive/10 text-destructive",
-              isOnline && "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+              isError &&
+                "border-destructive/30 bg-destructive/10 text-destructive",
+              isOnline &&
+                "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
             )}
           >
             {isLoading ? (
@@ -52,17 +54,19 @@ export function ApiHealthCard({
               <h2 className="text-sm font-bold">API Health</h2>
               <span
                 className={cn(
-                  "inline-flex rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider",
+                  "inline-flex rounded-full border px-2.5 py-0.5 text-[10px] font-bold tracking-wider uppercase",
                   isLoading && "border-border bg-muted text-muted-foreground",
-                  isError && "border-destructive/30 bg-destructive/10 text-destructive",
-                  isOnline && "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  isError &&
+                    "border-destructive/30 bg-destructive/10 text-destructive",
+                  isOnline &&
+                    "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                 )}
               >
                 {isLoading ? "Checking" : isError ? "Offline" : "Online"}
               </span>
             </div>
-            <p className="font-mono text-xs text-muted-foreground">{apiUrl}/</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground font-mono text-xs">{apiUrl}/</p>
+            <p className="text-muted-foreground text-sm">
               {isLoading
                 ? "Connecting to the NestJS backend…"
                 : isError
@@ -78,7 +82,7 @@ export function ApiHealthCard({
           onClick={onRefresh}
           isLoading={isLoading}
           loadingText="Checking"
-          className="h-9 gap-2 rounded-xl px-4 text-xs font-semibold shrink-0"
+          className="h-9 shrink-0 gap-2 rounded-xl px-4 text-xs font-semibold"
         >
           <RiRefreshLine className="size-3.5" />
           Ping API

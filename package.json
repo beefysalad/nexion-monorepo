@@ -14,6 +14,8 @@
     "vercel-build:api": "npm run vercel-build -w api",
     "lint": "turbo lint",
     "format": "turbo format",
+    "prettier": "prettier --config ./prettier.config.mjs --write \"apps/web/**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css}\" \"apps/api/**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css}\"",
+    "prettier:check": "prettier --config ./prettier.config.mjs --check \"apps/web/**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css}\" \"apps/api/**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css}\"",
     "typecheck": "turbo typecheck",
     "clean": "node scripts/cleanup.mjs",
     "restore": "node scripts/restore.mjs",

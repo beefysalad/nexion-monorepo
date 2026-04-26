@@ -42,8 +42,14 @@ export function DashboardGrowthChart() {
         </CardDescription>
       </CardHeader>
       <CardContent className="p-4">
-        <ChartContainer config={growthChartConfig} className="h-[190px] w-full min-w-0 sm:h-[240px]">
-          <LineChart data={growthData} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+        <ChartContainer
+          config={growthChartConfig}
+          className="h-[190px] w-full min-w-0 sm:h-[240px]"
+        >
+          <LineChart
+            data={growthData}
+            margin={{ top: 8, right: 8, left: -16, bottom: 0 }}
+          >
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis
               dataKey="week"
@@ -52,7 +58,7 @@ export function DashboardGrowthChart() {
               axisLine={false}
               interval="preserveStartEnd"
               minTickGap={24}
-              className="text-[10px] font-bold uppercase tracking-widest"
+              className="text-[10px] font-bold tracking-widest uppercase"
             />
             <ChartTooltip
               content={

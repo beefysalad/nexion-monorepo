@@ -36,7 +36,10 @@ function DashboardShell({ children }: DashboardShellProps) {
         <SidebarInset className="min-w-0 overflow-x-hidden">
           <header className="flex h-14 shrink-0 items-center gap-3 overflow-hidden border-b px-4">
             <SidebarTrigger />
-            <div aria-hidden="true" className="my-auto h-4 w-px shrink-0 bg-border" />
+            <div
+              aria-hidden="true"
+              className="bg-border my-auto h-4 w-px shrink-0"
+            />
             <Breadcrumb className="min-w-0 overflow-hidden">
               <BreadcrumbList>
                 <BreadcrumbItem>

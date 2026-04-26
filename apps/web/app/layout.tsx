@@ -39,9 +39,7 @@ export default function RootLayout({
             showSpinner={false}
             shadow={false}
           />
-          <AppProviders>
-            {children}
-          </AppProviders>
+          <AppProviders>{children}</AppProviders>
         </ClerkProvider>
       </body>
     </html>

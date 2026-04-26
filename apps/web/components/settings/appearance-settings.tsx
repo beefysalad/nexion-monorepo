@@ -59,22 +59,25 @@ export function AppearanceSettings() {
                 aria-pressed={isActive}
                 onClick={() => setTheme(option.value)}
                 className={cn(
-                  "relative flex flex-col items-center gap-3 rounded-xl border bg-background p-6 text-center transition-all hover:border-primary/50 hover:bg-accent/50",
-                  isActive && "border-primary bg-primary/[0.02] ring-1 ring-primary"
+                  "bg-background hover:border-primary/50 hover:bg-accent/50 relative flex flex-col items-center gap-3 rounded-xl border p-6 text-center transition-all",
+                  isActive &&
+                    "border-primary bg-primary/[0.02] ring-primary ring-1"
                 )}
               >
-                <div className={cn(
-                  "flex size-12 items-center justify-center rounded-full bg-muted transition-colors",
-                  isActive && "bg-primary/10 text-primary"
-                )}>
+                <div
+                  className={cn(
+                    "bg-muted flex size-12 items-center justify-center rounded-full transition-colors",
+                    isActive && "bg-primary/10 text-primary"
+                  )}
+                >
                   <Icon className="size-6" />
                 </div>
                 <div className="space-y-1">
                   <p className="font-medium">{option.label}</p>
                 </div>
                 {isActive && (
-                  <div className="absolute right-3 top-3">
-                    <RiCheckLine className="size-5 text-primary" />
+                  <div className="absolute top-3 right-3">
+                    <RiCheckLine className="text-primary size-5" />
                   </div>
                 )}
               </button>

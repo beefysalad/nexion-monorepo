@@ -54,7 +54,7 @@ const stackItems = [
 
 export function StackSection() {
   return (
-    <section className="relative border-b border-border bg-muted/30 px-6 py-24 sm:py-32">
+    <section className="border-border bg-muted/30 relative border-b px-6 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial="hidden"
@@ -63,16 +63,16 @@ export function StackSection() {
           variants={fadeUp}
           className="mb-16 max-w-2xl space-y-3"
         >
-          <p className="text-xs font-semibold tracking-widest text-primary uppercase">
+          <p className="text-primary text-xs font-semibold tracking-widest uppercase">
             The Stack
           </p>
           <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
             Everything wired.{" "}
-            <span className="font-normal text-muted-foreground">
+            <span className="text-muted-foreground font-normal">
               Nothing left to configure.
             </span>
           </h2>
-          <p className="text-base leading-relaxed text-muted-foreground">
+          <p className="text-muted-foreground text-base leading-relaxed">
             Battle-tested tools, pre-configured so you can skip straight to
             building your actual product.
           </p>

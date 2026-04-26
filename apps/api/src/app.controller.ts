@@ -1,6 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
-import type { ApiHealthResponse } from '@workspace/shared';
-import { AppService } from './app.service';
+import { Controller, Get } from "@nestjs/common"
+import type { ApiHealthResponse } from "@workspace/shared"
+import { AppService } from "./app.service"
 
 @Controller()
 export class AppController {
@@ -8,6 +8,6 @@ export class AppController {
 
   @Get()
   getHello(): ApiHealthResponse {
-    return this.appService.getHello();
+    return this.appService.getHello()
   }
 }

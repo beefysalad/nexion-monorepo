@@ -35,18 +35,18 @@ function BrandThemeSettings() {
                 aria-pressed={isActive}
                 onClick={() => setBrandTheme(preset.id)}
                 className={cn(
-                  "flex min-h-20 flex-col items-start justify-between rounded-lg border bg-background p-3 text-left text-sm transition-colors hover:border-primary",
-                  isActive && "border-primary ring-2 ring-ring/25"
+                  "bg-background hover:border-primary flex min-h-20 flex-col items-start justify-between rounded-lg border p-3 text-left text-sm transition-colors",
+                  isActive && "border-primary ring-ring/25 ring-2"
                 )}
               >
                 <span
-                  className="size-7 rounded-full border border-border"
+                  className="border-border size-7 rounded-full border"
                   style={{ backgroundColor: preset.swatch }}
                 />
                 <span className="flex w-full items-center justify-between gap-2">
                   <span className="font-medium">{preset.label}</span>
                   {isActive ? (
-                    <RiCheckLine className="size-4 text-primary" />
+                    <RiCheckLine className="text-primary size-4" />
                   ) : null}
                 </span>
               </button>
@@ -54,8 +54,8 @@ function BrandThemeSettings() {
           })}
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 rounded-lg border bg-muted/30 p-4">
-          <span className="text-sm text-muted-foreground">
+        <div className="bg-muted/30 flex flex-wrap items-center gap-3 rounded-lg border p-4">
+          <span className="text-muted-foreground text-sm">
             Active preset: {activeTheme.label}
           </span>
         </div>

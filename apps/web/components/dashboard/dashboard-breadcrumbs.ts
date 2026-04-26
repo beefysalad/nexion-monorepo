@@ -105,7 +105,9 @@ function formatRouteSegment(segment: string): string {
 }
 
 function isOpaqueRouteSegment(segment: string): boolean {
-  return isUuidLike(segment) || isMongoObjectId(segment) || isLongNumericId(segment)
+  return (
+    isUuidLike(segment) || isMongoObjectId(segment) || isLongNumericId(segment)
+  )
 }
 
 function isUuidLike(segment: string): boolean {

@@ -351,11 +351,11 @@ function ComponentsGalleryPage() {
       <main className="flex flex-1 flex-col gap-6 p-4 md:p-8">
         <section className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">Design System</p>
+            <p className="text-muted-foreground text-sm">Design System</p>
             <h1 className="font-heading text-3xl font-semibold tracking-normal md:text-4xl">
               Components Gallery
             </h1>
-            <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
+            <p className="text-muted-foreground max-w-2xl text-sm leading-6">
               Inspect installed shared components against the active brand
               color, light mode, and dark mode before using them in product
               screens.
@@ -365,7 +365,7 @@ function ComponentsGalleryPage() {
             <Button
               size="sm"
               variant="ghost"
-              className="h-9 gap-2 rounded-xl px-4 text-xs text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground h-9 gap-2 rounded-xl px-4 text-xs"
               onClick={handlePreviewLoading}
               isLoading={loading.isLoading && loading.kind === "render"}
               loadingText="Preview loading"
@@ -417,19 +417,19 @@ function ComponentsGalleryPage() {
                 </TabsList>
                 <TabsContent
                   value="preview"
-                  className="rounded-lg border bg-muted/30 p-4"
+                  className="bg-muted/30 rounded-lg border p-4"
                 >
                   Components should hold up in light and dark mode.
                 </TabsContent>
                 <TabsContent
                   value="tokens"
-                  className="rounded-lg border bg-muted/30 p-4"
+                  className="bg-muted/30 rounded-lg border p-4"
                 >
                   Brand colors drive primary, ring, and sidebar highlights.
                 </TabsContent>
                 <TabsContent
                   value="usage"
-                  className="rounded-lg border bg-muted/30 p-4"
+                  className="bg-muted/30 rounded-lg border p-4"
                 >
                   Prefer shared primitives from `packages/ui`.
                 </TabsContent>
@@ -440,7 +440,9 @@ function ComponentsGalleryPage() {
           <Card className="rounded-lg shadow-sm">
             <CardHeader>
               <CardTitle>Avatar</CardTitle>
-              <CardDescription>User identity and grouped presence.</CardDescription>
+              <CardDescription>
+                User identity and grouped presence.
+              </CardDescription>
             </CardHeader>
             <CardContent className="flex items-center gap-4">
               <Avatar size="lg">
@@ -529,7 +531,7 @@ function ComponentsGalleryPage() {
               <div className="grid gap-2">
                 <Label htmlFor="component-search">Search</Label>
                 <div className="relative">
-                  <RiSearchLine className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                  <RiSearchLine className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
                   <Input
                     id="component-search"
                     placeholder="Search components..."
@@ -540,7 +542,11 @@ function ComponentsGalleryPage() {
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="grid gap-2">
                   <Label htmlFor="disabled-input">Disabled</Label>
-                  <Input id="disabled-input" placeholder="Unavailable" disabled />
+                  <Input
+                    id="disabled-input"
+                    placeholder="Unavailable"
+                    disabled
+                  />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="invalid-input">Invalid</Label>
@@ -609,9 +615,7 @@ function ComponentsGalleryPage() {
                   <Field key={value} orientation="horizontal">
                     <RadioGroupItem value={value} id={`plan-${value}`} />
                     <FieldContent>
-                      <FieldLabel htmlFor={`plan-${value}`}>
-                        {title}
-                      </FieldLabel>
+                      <FieldLabel htmlFor={`plan-${value}`}>{title}</FieldLabel>
                       <FieldDescription>{description}</FieldDescription>
                     </FieldContent>
                   </Field>
@@ -748,7 +752,9 @@ function ComponentsGalleryPage() {
                     outerRadius={82}
                     strokeWidth={4}
                   />
-                  <ChartLegend content={<ChartLegendContent nameKey="channel" />} />
+                  <ChartLegend
+                    content={<ChartLegendContent nameKey="channel" />}
+                  />
                 </PieChart>
               </ChartContainer>
             </CardContent>
@@ -778,7 +784,9 @@ function ComponentsGalleryPage() {
                       <Cell key={entry.plan} fill={entry.fill} />
                     ))}
                   </Pie>
-                  <ChartLegend content={<ChartLegendContent nameKey="plan" />} />
+                  <ChartLegend
+                    content={<ChartLegendContent nameKey="plan" />}
+                  />
                 </PieChart>
               </ChartContainer>
             </CardContent>
@@ -833,7 +841,7 @@ function ComponentsGalleryPage() {
                 ["Churn", "2.8%", "-0.6%"],
               ].map(([label, value, change]) => (
                 <div key={label} className="rounded-lg border p-4">
-                  <p className="text-sm text-muted-foreground">{label}</p>
+                  <p className="text-muted-foreground text-sm">{label}</p>
                   <p className="mt-2 text-2xl font-semibold tracking-normal">
                     {value}
                   </p>
@@ -850,7 +858,9 @@ function ComponentsGalleryPage() {
           <Card className="rounded-lg shadow-sm">
             <CardHeader>
               <CardTitle>Alerts and Progress</CardTitle>
-              <CardDescription>Status messaging and completion state.</CardDescription>
+              <CardDescription>
+                Status messaging and completion state.
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Alert>
@@ -896,7 +906,8 @@ function ComponentsGalleryPage() {
                 <AccordionItem value="components">
                   <AccordionTrigger>Where do components live?</AccordionTrigger>
                   <AccordionContent>
-                    Shared shadcn components live in `packages/ui/src/components`.
+                    Shared shadcn components live in
+                    `packages/ui/src/components`.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -908,7 +919,9 @@ function ComponentsGalleryPage() {
                   </ItemMedia>
                   <ItemContent>
                     <ItemTitle>packages/ui</ItemTitle>
-                    <ItemDescription>Shared primitives and styles.</ItemDescription>
+                    <ItemDescription>
+                      Shared primitives and styles.
+                    </ItemDescription>
                   </ItemContent>
                   <ItemActions>
                     <Badge variant="secondary">Shared</Badge>
@@ -977,7 +990,7 @@ function ComponentsGalleryPage() {
                   {Array.from({ length: 12 }, (_, index) => (
                     <div
                       key={index}
-                      className="rounded-lg border bg-muted/30 p-3 text-sm"
+                      className="bg-muted/30 rounded-lg border p-3 text-sm"
                     >
                       Component audit item {index + 1}
                     </div>
@@ -1022,7 +1035,7 @@ function ComponentsGalleryPage() {
               <div className="flex items-center justify-between gap-4">
                 <div className="grid gap-1">
                   <Label htmlFor="auto-sync-switch">Auto sync</Label>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Keep webhook data current.
                   </p>
                 </div>
@@ -1031,7 +1044,7 @@ function ComponentsGalleryPage() {
               <div className="grid gap-3">
                 <div className="flex items-center justify-between gap-4">
                   <Label htmlFor="quality-slider">Quality threshold</Label>
-                  <span className="text-sm text-muted-foreground">72%</span>
+                  <span className="text-muted-foreground text-sm">72%</span>
                 </div>
                 <Slider
                   id="quality-slider"
@@ -1097,7 +1110,9 @@ function ComponentsGalleryPage() {
           <Card className="rounded-lg shadow-sm">
             <CardHeader>
               <CardTitle>Drawer</CardTitle>
-              <CardDescription>Modal surface for focused actions.</CardDescription>
+              <CardDescription>
+                Modal surface for focused actions.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Drawer>
@@ -1112,7 +1127,7 @@ function ComponentsGalleryPage() {
                     </DrawerDescription>
                   </DrawerHeader>
                   <div className="grid gap-3 px-4 pb-4">
-                    <div className="rounded-lg border bg-muted/30 p-4 text-sm">
+                    <div className="bg-muted/30 rounded-lg border p-4 text-sm">
                       Production will receive the current component theme.
                     </div>
                   </div>
@@ -1130,7 +1145,9 @@ function ComponentsGalleryPage() {
           <Card className="rounded-lg shadow-sm">
             <CardHeader>
               <CardTitle>Sheet</CardTitle>
-              <CardDescription>Side panel for contextual workflows.</CardDescription>
+              <CardDescription>
+                Side panel for contextual workflows.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <Sheet>
@@ -1148,7 +1165,10 @@ function ComponentsGalleryPage() {
                   <div className="grid gap-4 px-6 py-2">
                     <div className="grid gap-2">
                       <Label htmlFor="sheet-name">Name</Label>
-                      <Input id="sheet-name" defaultValue="Components Gallery" />
+                      <Input
+                        id="sheet-name"
+                        defaultValue="Components Gallery"
+                      />
                     </div>
                     <div className="flex items-center justify-between gap-4 rounded-lg border p-3">
                       <Label htmlFor="sheet-visible">Visible in nav</Label>
@@ -1175,8 +1195,11 @@ function ComponentsGalleryPage() {
               <Carousel opts={{ align: "start" }} className="px-10">
                 <CarouselContent>
                   {["Button", "Badge", "Calendar"].map((item) => (
-                    <CarouselItem key={item} className="basis-full md:basis-1/2">
-                      <div className="flex h-36 items-center justify-center rounded-lg border bg-muted/30 text-sm font-medium">
+                    <CarouselItem
+                      key={item}
+                      className="basis-full md:basis-1/2"
+                    >
+                      <div className="bg-muted/30 flex h-36 items-center justify-center rounded-lg border text-sm font-medium">
                         {item}
                       </div>
                     </CarouselItem>
@@ -1203,7 +1226,7 @@ function ComponentsGalleryPage() {
                     <RiArrowDownSLine />
                   </Button>
                 </CollapsibleTrigger>
-                <CollapsibleContent className="rounded-lg border bg-muted/30 p-4 text-sm text-muted-foreground">
+                <CollapsibleContent className="bg-muted/30 text-muted-foreground rounded-lg border p-4 text-sm">
                   Run typecheck, build, and migration deploy before promoting an
                   API release.
                 </CollapsibleContent>
@@ -1347,7 +1370,7 @@ function ComponentsGalleryPage() {
           <CardContent className="grid gap-6 xl:grid-cols-4">
             <div className="space-y-3 rounded-lg border p-4">
               <p className="text-sm font-medium">Spinner</p>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="text-muted-foreground flex items-center gap-3 text-sm">
                 <Spinner className="text-primary" />
                 Syncing dashboard state
               </div>
@@ -1355,7 +1378,7 @@ function ComponentsGalleryPage() {
 
             <div className="space-y-3 rounded-lg border p-4">
               <p className="text-sm font-medium">Keyboard</p>
-              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+              <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm">
                 Search with
                 <KbdGroup>
                   <Kbd>⌘</Kbd>
@@ -1380,7 +1403,7 @@ function ComponentsGalleryPage() {
                 <HoverCardContent align="start">
                   <div className="space-y-2">
                     <p className="font-medium">Brand theme</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       Button, focus, and sidebar tokens update from the active
                       preset while charts keep their own analytics palette.
                     </p>
@@ -1486,7 +1509,7 @@ function ComponentsGalleryPage() {
                     </SidebarGroup>
                   </SidebarContent>
                 </Sidebar>
-                <div className="flex flex-1 items-center justify-center bg-background p-6 text-sm text-muted-foreground">
+                <div className="bg-background text-muted-foreground flex flex-1 items-center justify-center p-6 text-sm">
                   Sidebar tokens are driven by the selected brand theme.
                 </div>
               </SidebarProvider>

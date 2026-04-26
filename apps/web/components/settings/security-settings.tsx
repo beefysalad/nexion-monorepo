@@ -38,17 +38,23 @@ export function SecuritySettings() {
               className="items-start justify-between py-2"
             >
               <FieldContent className="flex-row items-start gap-4">
-                <div className="mt-1 flex size-10 shrink-0 items-center justify-center rounded-lg border bg-muted/50">
-                  <RiLockPasswordLine className="size-5 text-muted-foreground" />
+                <div className="bg-muted/50 mt-1 flex size-10 shrink-0 items-center justify-center rounded-lg border">
+                  <RiLockPasswordLine className="text-muted-foreground size-5" />
                 </div>
                 <div className="space-y-1">
-                  <FieldTitle className="text-base">Sensitive action review</FieldTitle>
+                  <FieldTitle className="text-base">
+                    Sensitive action review
+                  </FieldTitle>
                   <FieldDescription className="max-w-md">
-                    Require a fresh sign-in before making sensitive workspace changes.
+                    Require a fresh sign-in before making sensitive workspace
+                    changes.
                   </FieldDescription>
                 </div>
               </FieldContent>
-              <Switch checked={sessionReviewEnabled} onCheckedChange={setSessionReviewEnabled} />
+              <Switch
+                checked={sessionReviewEnabled}
+                onCheckedChange={setSessionReviewEnabled}
+              />
             </Field>
           </FieldGroup>
         </CardContent>
@@ -62,14 +68,16 @@ export function SecuritySettings() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-lg border border-destructive/20 bg-background p-4">
+          <div className="border-destructive/20 bg-background flex flex-col gap-4 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="space-y-1">
               <p className="text-sm font-medium">Delete account</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 Permanently remove your account and all associated data.
               </p>
             </div>
-            <Button variant="destructive" size="sm">Delete account</Button>
+            <Button variant="destructive" size="sm">
+              Delete account
+            </Button>
           </div>
         </CardContent>
       </Card>

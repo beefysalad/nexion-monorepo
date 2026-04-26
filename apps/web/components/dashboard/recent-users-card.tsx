@@ -41,23 +41,27 @@ export function RecentUsersCard() {
             </div>
           ))
         ) : users.length === 0 ? (
-          <div className="flex h-32 items-center justify-center rounded-lg border border-dashed border-border text-sm text-muted-foreground">
+          <div className="border-border text-muted-foreground flex h-32 items-center justify-center rounded-lg border border-dashed text-sm">
             No recent users found.
           </div>
         ) : (
           users.map((user: User) => (
             <div key={user.id} className="flex items-center gap-4">
-              <Avatar className="size-9 border border-border/50">
+              <Avatar className="border-border/50 size-9 border">
                 <AvatarImage src={user.imageUrl ?? undefined} alt={user.name} />
                 <AvatarFallback className="text-xs font-bold">
-                  {user.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
+                  {user.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")
+                    .slice(0, 2)}
                 </AvatarFallback>
               </Avatar>
               <div className="min-w-0">
-                <p className="truncate text-sm font-bold text-foreground">
+                <p className="text-foreground truncate text-sm font-bold">
                   {user.name}
                 </p>
-                <p className="truncate text-xs text-muted-foreground">
+                <p className="text-muted-foreground truncate text-xs">
                   {user.email}
                 </p>
               </div>

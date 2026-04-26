@@ -60,7 +60,10 @@ export function DashboardSegmentChart() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <ChartContainer config={segmentChartConfig} className="mx-auto h-[210px] w-full min-w-0 sm:h-[240px]">
+        <ChartContainer
+          config={segmentChartConfig}
+          className="mx-auto h-[210px] w-full min-w-0 sm:h-[240px]"
+        >
           <PieChart>
             <ChartTooltip
               content={
@@ -70,7 +73,7 @@ export function DashboardSegmentChart() {
                   formatter={(value, name) => (
                     <>
                       <span className="text-muted-foreground">{name}</span>
-                      <span className="font-mono font-medium text-foreground">
+                      <span className="text-foreground font-mono font-medium">
                         {value}%
                       </span>
                     </>
@@ -97,8 +100,11 @@ export function DashboardSegmentChart() {
 
         <div className="grid gap-3 sm:grid-cols-3">
           {segmentData.map((item) => (
-            <div key={item.segment} className="rounded-xl border bg-muted/20 p-3">
-              <p className="text-xs text-muted-foreground">{item.segment}</p>
+            <div
+              key={item.segment}
+              className="bg-muted/20 rounded-xl border p-3"
+            >
+              <p className="text-muted-foreground text-xs">{item.segment}</p>
               <p className="mt-1 text-lg font-semibold">{item.value}%</p>
             </div>
           ))}

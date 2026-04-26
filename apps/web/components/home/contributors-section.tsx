@@ -35,7 +35,7 @@ const contributionSteps = [
 
 export function ContributorsSection() {
   return (
-    <section className="relative bg-background px-6 py-20 sm:py-32">
+    <section className="bg-background relative px-6 py-20 sm:py-32">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -45,13 +45,13 @@ export function ContributorsSection() {
       >
         <div className="space-y-12">
           <motion.div variants={fadeUp} className="space-y-3">
-            <p className="text-xs font-semibold tracking-widest text-primary uppercase">
+            <p className="text-primary text-xs font-semibold tracking-widest uppercase">
               Contributing
             </p>
             <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
               Bugs, ideas, and clean PRs are welcome.
             </h2>
-            <p className="mx-auto max-w-lg text-base leading-relaxed text-muted-foreground">
+            <p className="text-muted-foreground mx-auto max-w-lg text-base leading-relaxed">
               Found something broken? Have an idea? Open an issue or submit a PR
               — just keep it clean and follow the monorepo patterns.
             </p>
@@ -70,7 +70,7 @@ export function ContributorsSection() {
           <Card className="border-border bg-card">
             <CardContent className="space-y-5 p-6">
               <div className="space-y-1">
-                <p className="text-xs font-semibold tracking-widest text-primary uppercase">
+                <p className="text-primary text-xs font-semibold tracking-widest uppercase">
                   Contributors
                 </p>
                 <h3 className="text-lg font-bold tracking-tight">
@@ -91,9 +91,9 @@ export function ContributorsSection() {
                     href={`https://github.com/${contributor.name}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 rounded-xl border border-border bg-muted/40 p-4 transition-colors hover:border-primary/40 hover:bg-muted/70"
+                    className="border-border bg-muted/40 hover:border-primary/40 hover:bg-muted/70 flex items-center gap-3 rounded-xl border p-4 transition-colors"
                   >
-                    <div className="relative flex size-10 items-center justify-center rounded-full bg-foreground text-background">
+                    <div className="bg-foreground text-background relative flex size-10 items-center justify-center rounded-full">
                       <Image
                         src={contributor.image}
                         alt={contributor.name}
@@ -103,7 +103,7 @@ export function ContributorsSection() {
                     </div>
                     <div className="text-left">
                       <p className="text-sm font-bold">{contributor.name}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-muted-foreground text-xs">
                         {contributor.role}
                       </p>
                     </div>
@@ -111,8 +111,8 @@ export function ContributorsSection() {
                 ))}
               </div>
 
-              <div className="rounded-xl border border-dashed border-border bg-muted/20 p-4 text-center">
-                <p className="text-xs text-muted-foreground">
+              <div className="border-border bg-muted/20 rounded-xl border border-dashed p-4 text-center">
+                <p className="text-muted-foreground text-xs">
                   Your name could be here 👋
                 </p>
               </div>

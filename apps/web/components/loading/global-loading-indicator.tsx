@@ -23,18 +23,18 @@ function GlobalLoadingIndicator() {
       aria-live="polite"
       aria-atomic="true"
       className={cn(
-        "pointer-events-none fixed inset-0 z-[100] grid place-items-center bg-background/70 backdrop-blur-sm transition-opacity duration-200",
+        "bg-background/70 pointer-events-none fixed inset-0 z-[100] grid place-items-center backdrop-blur-sm transition-opacity duration-200",
         isVisible ? "opacity-100" : "opacity-0"
       )}
     >
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="relative grid size-16 place-items-center">
-          <div className="absolute inset-0 rounded-full border-2 border-current text-primary opacity-20" />
-          <Spinner className="size-10 text-primary" />
+          <div className="text-primary absolute inset-0 rounded-full border-2 border-current opacity-20" />
+          <Spinner className="text-primary size-10" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-foreground">{label}</p>
-          <p className="mt-1 text-xs text-muted-foreground">
+          <p className="text-foreground text-sm font-semibold">{label}</p>
+          <p className="text-muted-foreground mt-1 text-xs">
             Please wait a moment.
           </p>
         </div>

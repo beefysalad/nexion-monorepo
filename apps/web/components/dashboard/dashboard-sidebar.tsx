@@ -38,18 +38,18 @@ function DashboardSidebar() {
             >
               <Link href="/dashboard">
                 {/* Expanded: icon + text */}
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground group-data-[collapsible=icon]:hidden">
+                <span className="bg-sidebar-primary text-sidebar-primary-foreground flex size-7 shrink-0 items-center justify-center rounded-lg group-data-[collapsible=icon]:hidden">
                   <RiFlashlightLine className="size-5" />
                 </span>
                 <span className="grid min-w-0 leading-tight group-data-[collapsible=icon]:hidden">
                   <span className="truncate font-semibold">Nexion</span>
-                  <span className="truncate text-xs text-sidebar-foreground/70">
+                  <span className="text-sidebar-foreground/70 truncate text-xs">
                     Workspace
                   </span>
                 </span>
 
                 {/* Collapsed: just "N" */}
-                <span className="hidden size-10 items-center justify-center rounded-full bg-sidebar-primary text-lg font-black text-sidebar-primary-foreground group-data-[collapsible=icon]:flex">
+                <span className="bg-sidebar-primary text-sidebar-primary-foreground hidden size-10 items-center justify-center rounded-full text-lg font-black group-data-[collapsible=icon]:flex">
                   N
                 </span>
               </Link>
@@ -108,7 +108,7 @@ function DashboardSidebar() {
           />
           <div className="min-w-0 group-data-[collapsible=icon]:hidden [[data-collapsible=icon]_&]:hidden">
             <p className="truncate text-sm font-medium">{user.name}</p>
-            <p className="truncate text-xs text-sidebar-foreground/70">
+            <p className="text-sidebar-foreground/70 truncate text-xs">
               {user.email}
             </p>
           </div>

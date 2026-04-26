@@ -40,12 +40,12 @@ export function UsersPage() {
     <main className="flex flex-1 flex-col gap-6 p-4 md:p-8">
       <section className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div className="space-y-1">
-          <p className="text-sm text-muted-foreground">User</p>
+          <p className="text-muted-foreground text-sm">User</p>
           <h1 className="font-heading text-3xl font-semibold tracking-normal md:text-4xl">
             Accounts
           </h1>
-          <p className="text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">
+          <p className="text-muted-foreground text-sm">
+            <span className="text-foreground font-semibold">
               {users.length}
             </span>{" "}
             total members across synced accounts.
@@ -53,10 +53,10 @@ export function UsersPage() {
         </div>
         <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
           <div className="relative w-full sm:max-w-sm">
-            <RiSearchLine className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <RiSearchLine className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
             <Input
               placeholder="Search members..."
-              className="h-9 w-full border-none bg-muted/40 pl-9 focus-visible:ring-1"
+              className="bg-muted/40 h-9 w-full border-none pl-9 focus-visible:ring-1"
             />
           </div>
           <Button variant="outline" size="sm" className="gap-2 sm:w-auto">
@@ -66,7 +66,7 @@ export function UsersPage() {
         </div>
       </section>
 
-      <div className="overflow-hidden rounded-xl border border-border/50 bg-background/50 shadow-sm">
+      <div className="border-border/50 bg-background/50 overflow-hidden rounded-xl border shadow-sm">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/20 hover:bg-transparent">
@@ -84,18 +84,18 @@ export function UsersPage() {
                 <TableRow key={i} className="animate-pulse">
                   <TableCell className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="size-9 rounded-full bg-muted" />
-                      <div className="h-4 w-24 rounded bg-muted" />
+                      <div className="bg-muted size-9 rounded-full" />
+                      <div className="bg-muted h-4 w-24 rounded" />
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className="h-4 w-32 rounded bg-muted" />
+                    <div className="bg-muted h-4 w-32 rounded" />
                   </TableCell>
                   <TableCell>
-                    <div className="h-4 w-16 rounded bg-muted" />
+                    <div className="bg-muted h-4 w-16 rounded" />
                   </TableCell>
                   <TableCell className="px-6 text-right">
-                    <div className="ml-auto size-8 rounded bg-muted" />
+                    <div className="bg-muted ml-auto size-8 rounded" />
                   </TableCell>
                 </TableRow>
               ))
@@ -103,7 +103,7 @@ export function UsersPage() {
               <TableRow>
                 <TableCell
                   colSpan={4}
-                  className="h-32 text-center text-muted-foreground"
+                  className="text-muted-foreground h-32 text-center"
                 >
                   No members found in this workspace.
                 </TableCell>
@@ -112,11 +112,11 @@ export function UsersPage() {
               users.map((user: User) => (
                 <TableRow
                   key={user.id}
-                  className="group transition-colors hover:bg-muted/30"
+                  className="group hover:bg-muted/30 transition-colors"
                 >
                   <TableCell className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <Avatar className="size-9 border border-border/50">
+                      <Avatar className="border-border/50 size-9 border">
                         <AvatarImage
                           src={user.imageUrl ?? undefined}
                           alt={user.name}
@@ -129,18 +129,18 @@ export function UsersPage() {
                             .slice(0, 2)}
                         </AvatarFallback>
                       </Avatar>
-                      <p className="truncate text-sm font-bold text-foreground">
+                      <p className="text-foreground truncate text-sm font-bold">
                         {user.name}
                       </p>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {user.email}
                     </span>
                   </TableCell>
                   <TableCell>
-                    <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+                    <code className="bg-muted text-muted-foreground rounded px-1.5 py-0.5 font-mono text-[10px]">
                       {user.clerkId.slice(-8)}
                     </code>
                   </TableCell>
@@ -150,7 +150,7 @@ export function UsersPage() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="size-8 transition-colors hover:bg-muted"
+                          className="hover:bg-muted size-8 transition-colors"
                         >
                           <RiMore2Fill className="size-4" />
                         </Button>
@@ -169,13 +169,13 @@ export function UsersPage() {
                             </ItemMedia>
                             <ItemTitle>Edit permissions</ItemTitle>
                           </Item>
-                          <div className="my-1 border-t border-border" />
+                          <div className="border-border my-1 border-t" />
                           <Item
                             size="xs"
-                            className="cursor-pointer text-destructive hover:bg-destructive/10"
+                            className="text-destructive hover:bg-destructive/10 cursor-pointer"
                           >
                             <ItemMedia variant="icon">
-                              <RiShieldUserLine className="size-4 text-destructive" />
+                              <RiShieldUserLine className="text-destructive size-4" />
                             </ItemMedia>
                             <ItemTitle>Deactivate</ItemTitle>
                           </Item>

@@ -12,16 +12,16 @@ export function ContributionStep({
   description,
 }: ContributionStepProps) {
   return (
-    <Card className="group relative overflow-hidden transition-all duration-300 hover:border-primary/50 hover:bg-primary/[0.02] hover:shadow-2xl hover:shadow-primary/5">
+    <Card className="group hover:border-primary/50 hover:bg-primary/[0.02] hover:shadow-primary/5 relative overflow-hidden transition-all duration-300 hover:shadow-2xl">
       <CardContent className="flex items-start gap-6 p-6">
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-xl border border-border bg-background font-mono text-lg font-black text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:border-primary group-hover:bg-primary/5 group-hover:text-primary">
+        <div className="border-border bg-background text-muted-foreground group-hover:border-primary group-hover:bg-primary/5 group-hover:text-primary flex size-12 shrink-0 items-center justify-center rounded-xl border font-mono text-lg font-black transition-all duration-300 group-hover:scale-110">
           {number}
         </div>
         <div className="space-y-1 pt-1 text-left">
-          <h3 className="text-lg font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
+          <h3 className="text-foreground group-hover:text-primary text-lg font-bold tracking-tight transition-colors">
             {title}
           </h3>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-muted-foreground text-sm leading-relaxed">
             {description}
           </p>
         </div>

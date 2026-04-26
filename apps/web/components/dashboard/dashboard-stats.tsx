@@ -42,10 +42,10 @@ export function DashboardStats() {
         return (
           <Card
             key={stat.label}
-            className="rounded-xl border-none bg-muted/30 shadow-sm"
+            className="bg-muted/30 rounded-xl border-none shadow-sm"
           >
             <CardHeader className="pb-2">
-              <CardTitle className="flex items-center gap-2 text-xs font-medium tracking-wider text-muted-foreground uppercase">
+              <CardTitle className="text-muted-foreground flex items-center gap-2 text-xs font-medium tracking-wider uppercase">
                 <Icon className="size-3.5" />
                 {stat.label}
               </CardTitle>

@@ -12,7 +12,7 @@ import {
 
 export function WhyThisExists() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-muted/30 px-6 py-24 sm:py-32">
+    <section className="border-border bg-muted/30 relative overflow-hidden border-b px-6 py-24 sm:py-32">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -21,21 +21,21 @@ export function WhyThisExists() {
         className="mx-auto max-w-3xl space-y-12 text-center"
       >
         <motion.div variants={fadeUp} className="space-y-6">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+          <p className="text-primary text-xs font-semibold tracking-widest uppercase">
             The backstory
           </p>
-          <h2 className="mx-auto max-w-2xl text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl">
+          <h2 className="mx-auto max-w-2xl text-4xl leading-[0.95] font-black tracking-tight sm:text-5xl">
             Every project starts with the same
-            <span className="block text-primary"> setup chores.</span>
+            <span className="text-primary block"> setup chores.</span>
           </h2>
-          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-            Install Next.js. Scaffold NestJS. Wire the API. Set up Postgres.
-            Add form validation. Configure dark mode. Fight Docker. Repeat.
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed sm:text-xl">
+            Install Next.js. Scaffold NestJS. Wire the API. Set up Postgres. Add
+            form validation. Configure dark mode. Fight Docker. Repeat.
           </p>
-          <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-base leading-relaxed">
             After doing this four times, I templatized it. Clone, swap the DB
             URL, start building.{" "}
-            <span className="font-semibold text-foreground">
+            <span className="text-foreground font-semibold">
               No more boilerplate fatigue.
             </span>
           </p>
@@ -54,7 +54,10 @@ export function WhyThisExists() {
         </motion.div>
 
         {/* Stats */}
-        <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <motion.div
+          variants={fadeUp}
+          className="grid grid-cols-2 gap-6 md:grid-cols-4"
+        >
           {[
             { value: "1", label: "command to start everything" },
             { value: "0", label: "boilerplate decisions left" },
@@ -63,12 +66,12 @@ export function WhyThisExists() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="group relative flex flex-col items-center justify-center rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/50 hover:bg-primary/[0.02]"
+              className="group border-border bg-card hover:border-primary/50 hover:bg-primary/[0.02] relative flex flex-col items-center justify-center rounded-2xl border p-6 transition-all duration-300"
             >
-              <p className="text-4xl font-black text-primary transition-transform duration-300 group-hover:scale-110">
+              <p className="text-primary text-4xl font-black transition-transform duration-300 group-hover:scale-110">
                 {stat.value}
               </p>
-              <p className="mt-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground leading-tight">
+              <p className="text-muted-foreground mt-2 text-[10px] leading-tight font-bold tracking-widest uppercase">
                 {stat.label}
               </p>
             </div>

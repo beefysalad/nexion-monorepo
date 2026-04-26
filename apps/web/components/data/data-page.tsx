@@ -77,11 +77,11 @@ export function DataPage() {
     <main className="flex flex-1 flex-col gap-6 p-4 md:p-8">
       <section className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div className="space-y-1">
-          <p className="text-sm text-muted-foreground">Data</p>
+          <p className="text-muted-foreground text-sm">Data</p>
           <h1 className="font-heading text-3xl font-semibold tracking-normal md:text-4xl">
             Data Workspace
           </h1>
-          <p className="max-w-2xl text-sm text-muted-foreground">
+          <p className="text-muted-foreground max-w-2xl text-sm">
             Monitor synced records, API readiness, and profile completeness
             across the protected app surfaces.
           </p>
@@ -106,12 +106,16 @@ export function DataPage() {
         <MetricCard
           title="API health"
           value={
-            isHealthPending ? "Checking..." : health?.status === "ok" ? "Online" : "Issue"
+            isHealthPending
+              ? "Checking..."
+              : health?.status === "ok"
+                ? "Online"
+                : "Issue"
           }
           description={
             isHealthError
               ? "The API health check could not be reached."
-              : health?.message ?? "Waiting for the latest backend status."
+              : (health?.message ?? "Waiting for the latest backend status.")
           }
           icon={<RiServerLine className="size-4" />}
         />
@@ -146,7 +150,7 @@ export function DataPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="overflow-hidden rounded-xl border border-border/50">
+            <div className="border-border/50 overflow-hidden rounded-xl border">
               <Table>
                 <TableHeader>
                   <TableRow className="bg-muted/20 hover:bg-muted/20">
@@ -178,7 +182,7 @@ export function DataPage() {
                     <TableRow>
                       <TableCell
                         colSpan={4}
-                        className="h-28 text-center text-muted-foreground"
+                        className="text-muted-foreground h-28 text-center"
                       >
                         We could not load synced user records right now.
                       </TableCell>
@@ -187,7 +191,7 @@ export function DataPage() {
                     <TableRow>
                       <TableCell
                         colSpan={4}
-                        className="h-28 text-center text-muted-foreground"
+                        className="text-muted-foreground h-28 text-center"
                       >
                         No synced records yet.
                       </TableCell>
@@ -202,12 +206,14 @@ export function DataPage() {
                           {user.email}
                         </TableCell>
                         <TableCell>
-                          <Badge variant={user.imageUrl ? "secondary" : "outline"}>
+                          <Badge
+                            variant={user.imageUrl ? "secondary" : "outline"}
+                          >
                             {user.imageUrl ? "Present" : "Missing"}
                           </Badge>
                         </TableCell>
                         <TableCell className="px-6 text-right">
-                          <code className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                          <code className="bg-muted text-muted-foreground rounded px-1.5 py-0.5 text-[10px]">
                             {user.clerkId.slice(-8)}
                           </code>
                         </TableCell>
@@ -241,7 +247,9 @@ export function DataPage() {
                 <>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Avatar coverage</span>
+                      <span className="text-muted-foreground">
+                        Avatar coverage
+                      </span>
                       <span className="font-medium">{avatarCoverage}%</span>
                     </div>
                     <Progress value={avatarCoverage} className="h-2" />
@@ -281,7 +289,9 @@ export function DataPage() {
               ) : (
                 <>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Status</span>
+                    <span className="text-muted-foreground text-sm">
+                      Status
+                    </span>
                     <Badge
                       variant={
                         !isHealthError && health?.status === "ok"
@@ -300,7 +310,7 @@ export function DataPage() {
                     value={
                       isHealthError
                         ? "Health endpoint unavailable"
-                        : health?.message ?? "No message returned"
+                        : (health?.message ?? "No message returned")
                     }
                   />
                 </>
@@ -333,12 +343,12 @@ function MetricCard({
             {value}
           </CardTitle>
         </div>
-        <div className="rounded-lg border border-border/60 bg-muted/30 p-2 text-muted-foreground">
+        <div className="border-border/60 bg-muted/30 text-muted-foreground rounded-lg border p-2">
           {icon}
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground text-sm">{description}</p>
       </CardContent>
     </Card>
   )
@@ -347,8 +357,8 @@ function MetricCard({
 function StatusBlock({ label, value }: { label: string; value: string }) {
   return (
     <div className="space-y-1">
-      <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="text-base font-medium text-foreground">{value}</p>
+      <p className="text-muted-foreground text-sm">{label}</p>
+      <p className="text-foreground text-base font-medium">{value}</p>
     </div>
   )
 }

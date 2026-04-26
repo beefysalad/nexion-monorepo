@@ -25,7 +25,7 @@ const ErrorPage = ({
   }, [error])
 
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center bg-background px-6">
+    <main className="bg-background flex min-h-svh flex-col items-center justify-center px-6">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -35,7 +35,7 @@ const ErrorPage = ({
         <motion.div variants={fadeUp}>
           <Card className="rounded-lg shadow-sm">
             <CardHeader className="space-y-3 text-left">
-              <p className="text-sm text-muted-foreground">Application error</p>
+              <p className="text-muted-foreground text-sm">Application error</p>
               <CardTitle className="font-heading text-3xl font-semibold tracking-normal sm:text-4xl">
                 Something went wrong
               </CardTitle>
@@ -71,7 +71,7 @@ const ErrorPage = ({
               {error.digest ? (
                 <motion.p
                   variants={fadeUp}
-                  className="font-mono text-xs text-muted-foreground"
+                  className="text-muted-foreground font-mono text-xs"
                 >
                   Error Digest: {error.digest}
                 </motion.p>

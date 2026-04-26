@@ -6,7 +6,7 @@ import { Spinner } from "@workspace/ui/components/spinner"
 
 export default function Loading() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center bg-background px-6 text-center">
+    <div className="bg-background flex min-h-svh flex-col items-center justify-center px-6 text-center">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -14,10 +14,10 @@ export default function Loading() {
         className="flex flex-col items-center gap-4"
       >
         <div className="relative flex h-16 w-16 items-center justify-center">
-          <Spinner className="h-10 w-10 text-primary" />
-          <div className="absolute inset-0 animate-ping rounded-full bg-primary/20" />
+          <Spinner className="text-primary h-10 w-10" />
+          <div className="bg-primary/20 absolute inset-0 animate-ping rounded-full" />
         </div>
-        <p className="animate-pulse text-sm font-medium text-muted-foreground tracking-wide uppercase">
+        <p className="text-muted-foreground animate-pulse text-sm font-medium tracking-wide uppercase">
           Loading
         </p>
       </motion.div>

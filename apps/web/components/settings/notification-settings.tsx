@@ -86,12 +86,14 @@ function SettingSwitch({
       className="items-start justify-between py-2"
     >
       <FieldContent className="flex-row items-start gap-4">
-        <div className="mt-1 flex size-10 shrink-0 items-center justify-center rounded-lg border bg-muted/50">
-          <Icon className="size-5 text-muted-foreground" />
+        <div className="bg-muted/50 mt-1 flex size-10 shrink-0 items-center justify-center rounded-lg border">
+          <Icon className="text-muted-foreground size-5" />
         </div>
         <div className="space-y-1">
           <FieldTitle className="text-base">{label}</FieldTitle>
-          <FieldDescription className="max-w-md">{description}</FieldDescription>
+          <FieldDescription className="max-w-md">
+            {description}
+          </FieldDescription>
         </div>
       </FieldContent>
       <Switch checked={checked} onCheckedChange={onCheckedChange} />

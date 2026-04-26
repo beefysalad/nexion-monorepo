@@ -79,7 +79,7 @@ function SettingsPage() {
     <main className="flex flex-1 flex-col gap-6 p-4 md:p-8">
       <section className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div className="space-y-1">
-          <p className="text-sm text-muted-foreground">Settings</p>
+          <p className="text-muted-foreground text-sm">Settings</p>
           <h1 className="font-heading text-3xl font-semibold tracking-normal md:text-4xl">
             Workspace settings
           </h1>
@@ -126,7 +126,7 @@ function SettingsPage() {
             </CardHeader>
             <CardContent>
               <FieldGroup>
-                <div className="flex flex-col gap-4 rounded-lg border bg-muted/30 p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="bg-muted/30 flex flex-col gap-4 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-4">
                     <Avatar className="size-16" size="lg">
                       {user.imageUrl ? (
@@ -189,7 +189,7 @@ function SettingsPage() {
               ].map(([label, value]) => (
                 <div
                   key={label}
-                  className="flex items-center justify-between gap-4 rounded-lg border bg-muted/30 px-4 py-3 text-sm"
+                  className="bg-muted/30 flex items-center justify-between gap-4 rounded-lg border px-4 py-3 text-sm"
                 >
                   <span className="text-muted-foreground">{label}</span>
                   <span className="font-medium">{value}</span>
@@ -219,18 +219,18 @@ function SettingsPage() {
                     aria-pressed={isActive}
                     onClick={() => setTheme(option.value)}
                     className={cn(
-                      "flex min-h-24 items-center justify-between rounded-lg border bg-background p-4 text-left transition-colors hover:border-primary",
-                      isActive && "border-primary ring-2 ring-ring/25"
+                      "bg-background hover:border-primary flex min-h-24 items-center justify-between rounded-lg border p-4 text-left transition-colors",
+                      isActive && "border-primary ring-ring/25 ring-2"
                     )}
                   >
                     <span className="flex items-center gap-3">
-                      <span className="flex size-9 items-center justify-center rounded-lg bg-muted">
-                        <Icon className="size-5 text-primary" />
+                      <span className="bg-muted flex size-9 items-center justify-center rounded-lg">
+                        <Icon className="text-primary size-5" />
                       </span>
                       <span className="font-medium">{option.label}</span>
                     </span>
                     {isActive ? (
-                      <RiCheckLine className="size-5 text-primary" />
+                      <RiCheckLine className="text-primary size-5" />
                     ) : null}
                   </button>
                 )
@@ -297,10 +297,10 @@ function SettingsPage() {
                   onCheckedChange={setSessionReviewEnabled}
                 />
                 <Separator />
-                <div className="flex flex-col gap-3 rounded-lg border bg-muted/30 p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="bg-muted/30 flex flex-col gap-3 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="space-y-1">
                     <p className="text-sm font-medium">Active sessions</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-muted-foreground text-sm">
                       Manage sessions from the account menu.
                     </p>
                   </div>
@@ -349,8 +349,8 @@ function SettingSwitch({
       className="items-start justify-between gap-4"
     >
       <FieldContent className="flex-row items-start gap-3">
-        <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted">
-          <Icon className="size-5 text-primary" />
+        <span className="bg-muted mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg">
+          <Icon className="text-primary size-5" />
         </span>
         <span className="space-y-1">
           <FieldTitle>{label}</FieldTitle>

@@ -11,7 +11,7 @@ export function HomePage() {
   return (
     <>
       <AuthHeader />
-      <main className="min-h-svh bg-background text-foreground">
+      <main className="bg-background text-foreground min-h-svh">
         <HomeHero />
         <StackSection />
         <SetupSteps />

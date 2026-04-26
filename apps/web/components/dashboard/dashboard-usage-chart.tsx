@@ -38,17 +38,27 @@ export function DashboardUsageChart() {
             </CardDescription>
           </div>
           <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1.5 text-xs text-emerald-500 font-medium">
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="flex items-center gap-1.5 text-xs font-medium text-emerald-500">
+              <span className="size-1.5 animate-pulse rounded-full bg-emerald-500" />
               Live
             </span>
           </div>
         </div>
       </CardHeader>
       <CardContent className="p-4">
-        <ChartContainer config={chartConfig} className="h-[190px] w-full min-w-0 sm:h-[240px]">
-          <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
-            <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+        <ChartContainer
+          config={chartConfig}
+          className="h-[190px] w-full min-w-0 sm:h-[240px]"
+        >
+          <BarChart
+            data={data}
+            margin={{ top: 8, right: 8, left: -16, bottom: 0 }}
+          >
+            <CartesianGrid
+              vertical={false}
+              strokeDasharray="3 3"
+              stroke="rgba(255,255,255,0.05)"
+            />
             <XAxis
               dataKey="time"
               tickLine={false}
@@ -56,14 +66,16 @@ export function DashboardUsageChart() {
               axisLine={false}
               interval="preserveStartEnd"
               minTickGap={24}
-              className="font-bold text-[10px] uppercase tracking-widest"
+              className="text-[10px] font-bold tracking-widest uppercase"
             />
             <ChartTooltip
               cursor={false}
               content={
-                <ChartTooltipContent 
-                  hideLabel 
-                  formatter={(value) => `${currencySymbol}${Number(value).toLocaleString()}`}
+                <ChartTooltipContent
+                  hideLabel
+                  formatter={(value) =>
+                    `${currencySymbol}${Number(value).toLocaleString()}`
+                  }
                 />
               }
             />
