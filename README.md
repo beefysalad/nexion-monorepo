@@ -207,15 +207,16 @@ Frontend project:
 Backend project:
 
 - Root Directory: `apps/api`
-- Build Command: `npm run build -w api`
+- Build Command: `npm run vercel-build`
 - Install Command: `npm install`
 
-The API build runs `prisma generate` automatically. Run production migrations as a separate deployment/CI step with the production `DATABASE_URL`:
+If the backend Vercel project uses the monorepo root as its root directory, use this Build Command instead:
 
 ```bash
-npm run db:migrate:deploy -w api
+npm run vercel-build:api
 ```
 
-Do not hide `prisma migrate deploy` inside the API startup command unless you specifically want every app boot to attempt migrations. Keeping migrations separate prevents preview deployments or restarts from unexpectedly touching the production database.
+The API deploy build runs `prisma generate`, `prisma migrate deploy`, and then `nest build`.
+`DATABASE_URL` must point at the deployed database in the deployment environment.
 
 Docker is for local development or Docker-capable hosts. Vercel does not deploy Docker images directly.

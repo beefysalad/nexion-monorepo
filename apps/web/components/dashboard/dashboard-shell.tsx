@@ -1,11 +1,7 @@
 "use client"
 
-import Link from "next/link"
-import { RiHome5Line } from "@remixicon/react"
-
 import { DashboardOverview } from "@/components/dashboard/dashboard-overview"
 import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar"
-import { Button } from "@workspace/ui/components/button"
 import {
   SidebarInset,
   SidebarProvider,
