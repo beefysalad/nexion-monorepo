@@ -44,9 +44,29 @@ export class UsersRepository {
     });
   }
   async getAllUsers(): Promise<GetAllUsersResponse> {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany({
+      where: {
+        clerkId: {
+          not: null,
+        },
+      },
+      select: {
+        id: true,
+        clerkId: true,
+        email: true,
+        name: true,
+        imageUrl: true,
+      },
+    });
+
     return {
-      users,
+      users: users.map((user) => ({
+        id: user.id,
+        clerkId: user.clerkId!,
+        email: user.email,
+        name: user.name,
+        imageUrl: user.imageUrl,
+      })),
     };
   }
 }

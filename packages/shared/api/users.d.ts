@@ -15,5 +15,5 @@ export type User = {
 }
 
 export type GetAllUsersResponse = {
-  users: User[] | []
+  users: User[]
 }
