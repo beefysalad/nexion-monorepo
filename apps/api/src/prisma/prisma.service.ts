@@ -9,7 +9,7 @@ import type { PrismaClient as PrismaClientType } from '../generated/prisma/clien
 
 @Injectable()
 export class PrismaService implements OnModuleDestroy {
-  private readonly client: PrismaClientType;
+  readonly db: PrismaClientType;
 
   constructor() {
     if (!process.env.DATABASE_URL) {
@@ -30,16 +30,12 @@ export class PrismaService implements OnModuleDestroy {
       throw new Error('DATABASE_URL is required to initialize Prisma');
     }
 
-    this.client = new PrismaClient({
+    this.db = new PrismaClient({
       adapter: new PrismaPg(connectionString),
     });
   }
 
-  get user(): PrismaClientType['user'] {
-    return this.client.user;
-  }
-
   async onModuleDestroy(): Promise<void> {
-    await this.client.$disconnect();
+    await this.db.$disconnect();
   }
 }
