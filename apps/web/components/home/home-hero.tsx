@@ -37,6 +37,11 @@ export function HomeHero() {
 
   return (
     <section className="relative overflow-hidden border-b border-border bg-background px-6 py-24 sm:py-40">
+      {/* Background Decorative Elements */}
+      <div className="absolute top-0 left-0 -z-10 h-full w-full bg-[radial-gradient(oklch(0.78_0.006_95)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] [background-size:24px_24px] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]" />
+      <div className="absolute top-0 -left-[10%] -z-10 h-[800px] w-[800px] rounded-full bg-primary/10 opacity-60 blur-[140px]" />
+      <div className="absolute -right-[5%] bottom-0 -z-10 h-[600px] w-[600px] rounded-full bg-blue-500/5 blur-[120px]" />
+
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -44,18 +49,12 @@ export function HomeHero() {
         className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center"
       >
         <motion.div variants={staggerContainer} className="space-y-12">
-          <motion.div
-            variants={fadeUp}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/10 px-4 py-2 text-xs font-bold tracking-wider text-primary uppercase"
-          >
-            <RiCodeSSlashLine className="size-4" />
-            V1.0 is now live
-          </motion.div>
-
           <motion.div variants={fadeUp} className="space-y-6">
             <h1 className="max-w-3xl text-6xl font-black tracking-tight text-balance sm:text-8xl">
               Build your next <br />
-              <span className="text-primary">SaaS faster.</span>
+              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                SaaS faster.
+              </span>
             </h1>
             <p className="max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
               A premium, production-ready starting point for full-stack apps.
@@ -67,23 +66,26 @@ export function HomeHero() {
             variants={fadeUp}
             className="flex flex-col gap-4 sm:flex-row sm:items-center"
           >
-            <Button
-              size="lg"
-              className="h-14 rounded-2xl px-8 text-base font-bold shadow-sm transition-all active:scale-[0.98]"
-              onClick={handleCopyCommand}
-            >
-              {copied ? (
-                <RiCheckLine className="size-5" />
-              ) : (
-                <RiFileCopyLine className="size-5" />
-              )}
-              {copied ? "Copied" : "Copy dev command"}
-            </Button>
+            <div className="group relative">
+              <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-primary to-primary/50 opacity-50 blur-sm transition duration-1000 group-hover:opacity-100 group-hover:duration-200" />
+              <Button
+                size="lg"
+                className="relative h-14 rounded-2xl px-8 text-base font-bold shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]"
+                onClick={handleCopyCommand}
+              >
+                {copied ? (
+                  <RiCheckLine className="size-5" />
+                ) : (
+                  <RiFileCopyLine className="size-5" />
+                )}
+                {copied ? "Copied" : "Copy dev command"}
+              </Button>
+            </div>
 
             <Button
               size="lg"
               variant="outline"
-              className="h-14 rounded-2xl px-8 text-base transition-all hover:border-primary/50 hover:bg-muted"
+              className="h-14 rounded-2xl border-border/50 bg-background/50 px-8 text-base backdrop-blur-sm transition-all hover:border-primary/50 hover:bg-muted"
               asChild
             >
               <a
@@ -123,16 +125,20 @@ export function HomeHero() {
         </motion.div>
 
         <motion.div variants={scaleIn} className="relative">
-          <div className="relative rounded-[2.5rem] border border-border bg-card p-3 shadow-xl shadow-foreground/10 lg:rotate-2">
+          <div className="absolute -inset-4 rounded-[3rem] bg-gradient-to-br from-primary/20 via-transparent to-blue-500/10 opacity-50 blur-2xl" />
+
+          <div className="relative rounded-[2.5rem] border border-border bg-card/80 p-3 shadow-2xl backdrop-blur-xl lg:rotate-2">
+            <div className="absolute -inset-0.5 rounded-[2.5rem] bg-gradient-to-br from-primary/30 to-transparent opacity-50 blur-sm" />
+
             <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card/90 p-0 shadow-sm">
               {/* Terminal Header */}
               <div className="flex items-center justify-between border-b border-border bg-muted/50 px-6 py-4">
                 <div className="flex gap-2">
-                  <div className="size-3 rounded-full bg-red-500" />
-                  <div className="size-3 rounded-full bg-yellow-500" />
-                  <div className="size-3 rounded-full bg-emerald-500" />
+                  <div className="size-3 rounded-full bg-red-500/80 shadow-[0_0_8px_rgba(239,68,68,0.4)]" />
+                  <div className="size-3 rounded-full bg-yellow-500/80 shadow-[0_0_8px_rgba(234,179,8,0.4)]" />
+                  <div className="size-3 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                 </div>
-                <div className="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-1">
+                <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-background/50 px-3 py-1">
                   <RiTerminalLine className="size-3 text-muted-foreground" />
                   <span className="font-mono text-[10px] font-bold tracking-widest text-muted-foreground/80 uppercase">
                     nexion-bash
@@ -148,7 +154,7 @@ export function HomeHero() {
                       ➜
                     </span>
                     <p className="flex items-center gap-2">
-                    <span className="text-muted-foreground">nexion</span>
+                      <span className="text-muted-foreground/60">nexion</span>
                       <span className="text-foreground">dev:apps</span>
                     </p>
                   </div>
@@ -178,7 +184,7 @@ export function HomeHero() {
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between opacity-60">
                       <div className="flex items-center gap-3">
                         <div className="size-1.5 rounded-full bg-blue-400" />
                         <span className="text-xs text-muted-foreground">
@@ -191,12 +197,12 @@ export function HomeHero() {
                     </div>
                   </div>
 
-                  <div className="rounded-xl border border-border bg-muted/40 p-4">
+                  <div className="rounded-xl border border-primary/10 bg-primary/5 p-4">
                     <div className="mb-2 flex items-center justify-between text-[10px] font-bold tracking-tighter text-primary uppercase">
                       <span>Build Stats</span>
                       <span className="animate-pulse">Active</span>
                     </div>
-                    <div className="h-1 w-full overflow-hidden rounded-full bg-muted">
+                    <div className="h-1 w-full overflow-hidden rounded-full bg-primary/10">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: "100%" }}
