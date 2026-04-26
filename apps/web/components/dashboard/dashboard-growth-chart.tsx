@@ -34,7 +34,7 @@ const growthChartConfig = {
 
 export function DashboardGrowthChart() {
   return (
-    <Card className="overflow-hidden rounded-xl shadow-sm">
+    <Card className="min-w-0 overflow-hidden rounded-xl shadow-sm">
       <CardHeader>
         <CardTitle className="text-lg">Growth Trend</CardTitle>
         <CardDescription>
@@ -42,14 +42,16 @@ export function DashboardGrowthChart() {
         </CardDescription>
       </CardHeader>
       <CardContent className="p-4">
-        <ChartContainer config={growthChartConfig} className="h-[240px] w-full">
-          <LineChart data={growthData}>
+        <ChartContainer config={growthChartConfig} className="h-[190px] w-full min-w-0 sm:h-[240px]">
+          <LineChart data={growthData} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis
               dataKey="week"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
+              interval="preserveStartEnd"
+              minTickGap={24}
               className="text-[10px] font-bold uppercase tracking-widest"
             />
             <ChartTooltip

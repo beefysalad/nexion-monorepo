@@ -13,7 +13,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb"
-import { Separator } from "@workspace/ui/components/separator"
 import {
   SidebarInset,
   SidebarProvider,
@@ -36,10 +35,10 @@ function DashboardShell({ children }: DashboardShellProps) {
       <SidebarProvider>
         <DashboardSidebar />
         <SidebarInset className="min-w-0 overflow-x-hidden">
-          <header className="flex h-auto min-h-14 shrink-0 flex-wrap items-center gap-3 border-b px-4 py-3">
+          <header className="flex h-14 shrink-0 items-center gap-3 overflow-hidden border-b px-4">
             <SidebarTrigger />
-            <Separator orientation="vertical" className="h-5" />
-            <Breadcrumb className="min-w-0">
+            <div aria-hidden="true" className="my-auto h-4 w-px shrink-0 bg-border" />
+            <Breadcrumb className="min-w-0 overflow-hidden">
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>

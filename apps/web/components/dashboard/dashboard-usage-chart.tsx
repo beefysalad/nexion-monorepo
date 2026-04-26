@@ -28,7 +28,7 @@ export function DashboardUsageChart() {
   const { data, currencySymbol } = useUsageData()
 
   return (
-    <Card className="rounded-xl shadow-sm overflow-hidden">
+    <Card className="min-w-0 overflow-hidden rounded-xl shadow-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
@@ -46,14 +46,16 @@ export function DashboardUsageChart() {
         </div>
       </CardHeader>
       <CardContent className="p-4">
-        <ChartContainer config={chartConfig} className="h-[240px] w-full">
-          <BarChart data={data}>
+        <ChartContainer config={chartConfig} className="h-[190px] w-full min-w-0 sm:h-[240px]">
+          <BarChart data={data} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
             <XAxis
               dataKey="time"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
+              interval="preserveStartEnd"
+              minTickGap={24}
               className="font-bold text-[10px] uppercase tracking-widest"
             />
             <ChartTooltip

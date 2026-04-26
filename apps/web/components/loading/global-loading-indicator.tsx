@@ -29,18 +29,8 @@ function GlobalLoadingIndicator() {
     >
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="relative grid size-16 place-items-center">
-          <div
-            className={cn(
-              "absolute inset-0 rounded-full border-2 border-current opacity-20",
-              kind === "redirect" ? "text-blue-500" : "text-primary"
-            )}
-          />
-          <Spinner
-            className={cn(
-              "size-10",
-              kind === "redirect" ? "text-blue-500" : "text-primary"
-            )}
-          />
+          <div className="absolute inset-0 rounded-full border-2 border-current text-primary opacity-20" />
+          <Spinner className="size-10 text-primary" />
         </div>
         <div>
           <p className="text-sm font-semibold text-foreground">{label}</p>

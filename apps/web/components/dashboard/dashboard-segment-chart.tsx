@@ -52,7 +52,7 @@ const segmentChartConfig = {
 
 export function DashboardSegmentChart() {
   return (
-    <Card className="rounded-xl shadow-sm">
+    <Card className="min-w-0 rounded-xl shadow-sm">
       <CardHeader>
         <CardTitle className="text-lg">Customer Mix Donut</CardTitle>
         <CardDescription>
@@ -60,7 +60,7 @@ export function DashboardSegmentChart() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <ChartContainer config={segmentChartConfig} className="mx-auto h-[240px] w-full">
+        <ChartContainer config={segmentChartConfig} className="mx-auto h-[210px] w-full min-w-0 sm:h-[240px]">
           <PieChart>
             <ChartTooltip
               content={

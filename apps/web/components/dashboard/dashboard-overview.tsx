@@ -14,17 +14,27 @@ import { RecentUsersCard } from "@/components/dashboard/recent-users-card"
 function DashboardOverview() {
   const user = useDashboardUser()
 
+  const getGreeting = (): string => {
+    const hour = new Date(
+      new Date().toLocaleString("en-US", { timeZone: "Asia/Manila" })
+    ).getHours()
+
+    if (hour >= 5 && hour < 12) return "Good morning"
+    if (hour >= 12 && hour < 18) return "Good afternoon"
+    return "Good evening"
+  }
+
   return (
     <main className="flex flex-1 flex-col gap-6 p-4 md:p-8">
       <section className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div className="space-y-1">
           <p className="text-sm text-muted-foreground">Overview</p>
           <h1 className="font-heading text-3xl font-semibold tracking-normal md:text-4xl">
-            Welcome back, {user.name.split(" ")[0]}
+            {getGreeting()}, {user.name.split(" ")[0]}
           </h1>
           <p className="text-sm text-muted-foreground">
             System status:{" "}
-            <span className="font-medium text-emerald-500">
+            <span className="font-medium text-green-600 dark:text-green-400">
               All systems operational
             </span>
           </p>
@@ -43,12 +53,12 @@ function DashboardOverview() {
       <DashboardStats />
 
       <div className="grid gap-6 lg:grid-cols-[1.6fr_0.8fr]">
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <DashboardUsageChart />
           <DashboardGrowthChart />
         </div>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <RecentUsersCard />
           <DashboardSegmentChart />
         </div>

@@ -3,7 +3,6 @@
 import { RiCheckLine } from "@remixicon/react"
 
 import { useBrandTheme } from "@/components/theme/brand-theme-provider"
-import { Button } from "@workspace/ui/components/button"
 import {
   Card,
   CardContent,
