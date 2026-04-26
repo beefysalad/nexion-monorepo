@@ -16,7 +16,7 @@ export function HomePage() {
     <main className="min-h-svh bg-background text-foreground">
       <HomeHero />
 
-      <section className="border-b border-border bg-muted/35 px-6 py-10">
+      <section className="border-b border-border bg-background px-6 py-6">
         <div className="mx-auto max-w-6xl">
           <ApiHealthCard
             apiUrl={API_BASE_URL}

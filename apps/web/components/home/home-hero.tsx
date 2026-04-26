@@ -1,18 +1,17 @@
 "use client"
 
 import {
-  RiBookOpenLine,
   RiCheckLine,
   RiCodeSSlashLine,
   RiFileCopyLine,
   RiGithubFill,
   RiLoader4Line,
-  RiTerminalLine,
+  RiTerminalBoxLine,
 } from "@remixicon/react"
 import { motion } from "framer-motion"
+import { useState } from "react"
 
 import { Button } from "@workspace/ui/components/button"
-import { useState } from "react"
 import { useLoading } from "@/components/providers/loading-provider"
 import {
   fadeUp,
@@ -36,187 +35,182 @@ export function HomeHero() {
   }
 
   return (
-    <section className="relative overflow-hidden border-b border-border bg-background px-6 py-24 sm:py-40">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 -z-10 h-full w-full bg-[radial-gradient(oklch(0.78_0.006_95)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] [background-size:24px_24px] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]" />
-      <div className="absolute top-0 -left-[10%] -z-10 h-[800px] w-[800px] rounded-full bg-primary/10 opacity-60 blur-[140px]" />
-      <div className="absolute -right-[5%] bottom-0 -z-10 h-[600px] w-[600px] rounded-full bg-blue-500/5 blur-[120px]" />
+    <section className="relative overflow-hidden border-b border-border bg-background">
+      {/* Subtle grid */}
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,oklch(0.88_0_0)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.88_0_0)_1px,transparent_1px)] bg-[size:40px_40px] opacity-40 dark:bg-[linear-gradient(to_right,oklch(1_0_0/5%)_1px,transparent_1px),linear-gradient(to_bottom,oklch(1_0_0/5%)_1px,transparent_1px)]" />
+      {/* Primary glow top-left */}
+      <div className="absolute -top-40 -left-40 -z-10 h-[600px] w-[600px] rounded-full bg-primary/10 blur-[100px] dark:bg-primary/15" />
+      {/* Secondary glow bottom-right */}
+      <div className="absolute -bottom-20 -right-20 -z-10 h-[400px] w-[400px] rounded-full bg-violet-500/5 blur-[80px] dark:bg-violet-500/8" />
 
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        animate="show"
-        className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center"
-      >
-        <motion.div variants={staggerContainer} className="space-y-12">
-          <motion.div variants={fadeUp} className="space-y-6">
-            <h1 className="max-w-3xl text-6xl font-black tracking-tight text-balance sm:text-8xl">
-              Build your next <br />
-              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                SaaS faster.
+      <div className="mx-auto max-w-6xl px-6 py-28 sm:py-40">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="show"
+          className="grid gap-16 lg:grid-cols-[1fr_1fr] lg:items-center"
+        >
+          {/* Left — copy */}
+          <motion.div variants={staggerContainer} className="space-y-10">
+            <motion.div variants={fadeUp}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/8 px-4 py-1.5 text-xs font-semibold tracking-widest text-primary uppercase">
+                <RiCodeSSlashLine className="size-3.5" />
+                v1.0 — open source
               </span>
-            </h1>
-            <p className="max-w-2xl text-lg leading-8 text-muted-foreground sm:text-xl">
-              A premium, production-ready starting point for full-stack apps.
-              Wired with Next.js, NestJS, Prisma, and Tailwind CSS.
-            </p>
-          </motion.div>
+            </motion.div>
 
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col gap-4 sm:flex-row sm:items-center"
-          >
-            <div className="group relative">
-              <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-primary to-primary/50 opacity-50 blur-sm transition duration-1000 group-hover:opacity-100 group-hover:duration-200" />
+            <motion.div variants={fadeUp} className="space-y-5">
+              <h1 className="text-5xl font-black tracking-tight text-balance sm:text-7xl">
+                Ship your next{" "}
+                <span className="text-primary">SaaS</span>{" "}
+                <br className="hidden sm:block" />
+                without the setup tax.
+              </h1>
+              <p className="max-w-lg text-lg leading-relaxed text-muted-foreground">
+                A production-ready monorepo wired with Next.js, NestJS, Prisma,
+                and Tailwind CSS. Clone, configure, and build.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-3">
               <Button
                 size="lg"
-                className="relative h-14 rounded-2xl px-8 text-base font-bold shadow-2xl transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="h-12 gap-2 rounded-xl px-6 text-sm font-semibold shadow-md shadow-primary/20 transition-all hover:shadow-lg hover:shadow-primary/25 active:scale-[0.98]"
                 onClick={handleCopyCommand}
               >
                 {copied ? (
-                  <RiCheckLine className="size-5" />
+                  <RiCheckLine className="size-4" />
                 ) : (
-                  <RiFileCopyLine className="size-5" />
+                  <RiFileCopyLine className="size-4" />
                 )}
-                {copied ? "Copied" : "Copy dev command"}
+                {copied ? "Copied!" : "npm run dev:apps"}
               </Button>
-            </div>
 
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-14 rounded-2xl border-border/50 bg-background/50 px-8 text-base backdrop-blur-sm transition-all hover:border-primary/50 hover:bg-muted"
-              asChild
-            >
-              <a
-                href="https://github.com/beefysalad/nexion-monorepo"
-                target="_blank"
-                rel="noreferrer"
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-12 gap-2 rounded-xl px-6 text-sm font-semibold"
+                asChild
               >
-                <RiGithubFill className="size-5" />
-                Repository
-              </a>
-            </Button>
+                <a
+                  href="https://github.com/beefysalad/nexion-monorepo"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <RiGithubFill className="size-4" />
+                  GitHub
+                </a>
+              </Button>
 
-            <Button
-              size="lg"
-              variant="ghost"
-              className="h-14 rounded-2xl px-6 text-base text-muted-foreground transition-all hover:text-foreground"
-              asChild
-            >
-              <a href="#" className="flex items-center gap-2">
-                <RiBookOpenLine className="size-5" />
-                Docs
-              </a>
-            </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-9 gap-2 rounded-xl px-4 text-xs text-muted-foreground hover:text-foreground"
+                onClick={handlePreviewLoading}
+              >
+                <RiLoader4Line className="size-3.5" />
+                Preview loading
+              </Button>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="flex items-center gap-6 pt-2 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <span className="size-1.5 rounded-full bg-emerald-500" />
+                Next.js 15
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-1.5 rounded-full bg-emerald-500" />
+                NestJS
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-1.5 rounded-full bg-emerald-500" />
+                Prisma + Postgres
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-1.5 rounded-full bg-emerald-500" />
+                Clerk Auth
+              </span>
+            </motion.div>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="flex items-center gap-3">
-            <Button
-              size="sm"
-              variant="secondary"
-              className="h-9 rounded-xl px-4 text-xs font-medium opacity-80 hover:opacity-100"
-              onClick={handlePreviewLoading}
-            >
-              <RiLoader4Line className="animate-spin-slow mr-2 size-3.5" />
-              Preview loading state
-            </Button>
-          </motion.div>
-        </motion.div>
+          {/* Right — terminal */}
+          <motion.div variants={scaleIn} className="hidden lg:block">
+            <div className="relative">
+              {/* Glow behind card */}
+              <div className="absolute -inset-6 rounded-3xl bg-primary/10 blur-3xl dark:bg-primary/15" />
 
-        <motion.div variants={scaleIn} className="relative">
-          <div className="absolute -inset-4 rounded-[3rem] bg-gradient-to-br from-primary/20 via-transparent to-blue-500/10 opacity-50 blur-2xl" />
-
-          <div className="relative rounded-[2.5rem] border border-border bg-card/80 p-3 shadow-2xl backdrop-blur-xl lg:rotate-2">
-            <div className="absolute -inset-0.5 rounded-[2.5rem] bg-gradient-to-br from-primary/30 to-transparent opacity-50 blur-sm" />
-
-            <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card/90 p-0 shadow-sm">
-              {/* Terminal Header */}
-              <div className="flex items-center justify-between border-b border-border bg-muted/50 px-6 py-4">
-                <div className="flex gap-2">
-                  <div className="size-3 rounded-full bg-red-500/80 shadow-[0_0_8px_rgba(239,68,68,0.4)]" />
-                  <div className="size-3 rounded-full bg-yellow-500/80 shadow-[0_0_8px_rgba(234,179,8,0.4)]" />
-                  <div className="size-3 rounded-full bg-emerald-500/80 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-2xl shadow-black/5 dark:shadow-black/30">
+                {/* Terminal bar */}
+                <div className="flex items-center gap-3 border-b border-border bg-muted/50 px-5 py-3.5">
+                  <div className="flex gap-1.5">
+                    <div className="size-3 rounded-full bg-red-400/70" />
+                    <div className="size-3 rounded-full bg-amber-400/70" />
+                    <div className="size-3 rounded-full bg-emerald-400/70" />
+                  </div>
+                  <div className="flex flex-1 items-center justify-center gap-1.5">
+                    <RiTerminalBoxLine className="size-3 text-muted-foreground/60" />
+                    <span className="font-mono text-[10px] text-muted-foreground/60 tracking-wider">nexion — bash</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-background/50 px-3 py-1">
-                  <RiTerminalLine className="size-3 text-muted-foreground" />
-                  <span className="font-mono text-[10px] font-bold tracking-widest text-muted-foreground/80 uppercase">
-                    nexion-bash
-                  </span>
-                </div>
-              </div>
 
-              {/* Terminal Content */}
-              <div className="p-8 font-mono text-sm leading-relaxed">
-                <div className="space-y-6">
-                  <div className="flex gap-3">
-                    <span className="font-bold text-primary select-none">
-                      ➜
-                    </span>
-                    <p className="flex items-center gap-2">
-                      <span className="text-muted-foreground/60">nexion</span>
-                      <span className="text-foreground">dev:apps</span>
-                    </p>
+                {/* Terminal body */}
+                <div className="space-y-5 p-7 font-mono text-sm">
+                  {/* Command */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary font-bold select-none">❯</span>
+                    <span className="text-muted-foreground">npm run</span>
+                    <span className="font-semibold text-foreground">dev:apps</span>
                   </div>
 
-                  <div className="space-y-3 border-l-2 border-primary/20 pl-6">
-                    <div className="group flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
-                        <span className="text-xs text-muted-foreground">
-                          web-app
-                        </span>
-                      </div>
-                      <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-bold text-emerald-400/80">
-                        3000
-                      </span>
-                    </div>
-
+                  {/* Output lines */}
+                  <div className="space-y-2 border-l border-border pl-5 text-xs">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
-                        <span className="text-xs text-muted-foreground">
-                          rest-api
-                        </span>
+                      <div className="flex items-center gap-2">
+                        <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-muted-foreground">web</span>
+                        <span className="text-muted-foreground/50">ready</span>
                       </div>
-                      <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-bold text-emerald-400/80">
-                        3001
-                      </span>
+                      <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">:3000</span>
                     </div>
-
-                    <div className="flex items-center justify-between opacity-60">
-                      <div className="flex items-center gap-3">
-                        <div className="size-1.5 rounded-full bg-blue-400" />
-                        <span className="text-xs text-muted-foreground">
-                          postgres
-                        </span>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-muted-foreground">api</span>
+                        <span className="text-muted-foreground/50">ready</span>
                       </div>
-                      <span className="rounded-full bg-blue-400/10 px-2 py-0.5 text-[10px] font-bold text-blue-400/80">
-                        5433
-                      </span>
+                      <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">:3001</span>
+                    </div>
+                    <div className="flex items-center justify-between opacity-50">
+                      <div className="flex items-center gap-2">
+                        <span className="size-1.5 rounded-full bg-blue-400" />
+                        <span className="text-muted-foreground">postgres</span>
+                        <span className="text-muted-foreground/50">docker</span>
+                      </div>
+                      <span className="rounded-md bg-blue-500/10 px-2 py-0.5 text-[10px] font-semibold text-blue-600 dark:text-blue-400 border border-blue-500/20">:5433</span>
                     </div>
                   </div>
 
-                  <div className="rounded-xl border border-primary/10 bg-primary/5 p-4">
-                    <div className="mb-2 flex items-center justify-between text-[10px] font-bold tracking-tighter text-primary uppercase">
-                      <span>Build Stats</span>
-                      <span className="animate-pulse">Active</span>
+                  {/* Progress bar */}
+                  <div className="space-y-2 rounded-xl border border-border bg-muted/40 p-4">
+                    <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-widest">
+                      <span className="text-muted-foreground">Build</span>
+                      <span className="text-primary animate-pulse">Live</span>
                     </div>
-                    <div className="h-1 w-full overflow-hidden rounded-full bg-primary/10">
+                    <div className="h-0.5 overflow-hidden rounded-full bg-border">
                       <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: "100%" }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="h-full bg-primary"
+                        initial={{ x: "-100%" }}
+                        animate={{ x: "100%" }}
+                        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                        className="h-full w-1/2 bg-gradient-to-r from-transparent via-primary to-transparent"
                       />
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }

@@ -30,23 +30,29 @@ type DashboardSidebarProps = {
 function DashboardSidebar({ user }: DashboardSidebarProps) {
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:pt-4 group-data-[collapsible=icon]:pb-2">
+      <SidebarHeader className="group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:px-0">
         <SidebarMenu className="group-data-[collapsible=icon]:items-center">
           <SidebarMenuItem className="group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
             <SidebarMenuButton
               asChild
               tooltip="Nexion"
-              className="group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0"
+              className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0!"
             >
               <Link href="/dashboard">
-                <span className="flex size-7 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:rounded-xl">
+                {/* Expanded: icon + text */}
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground group-data-[collapsible=icon]:hidden">
                   <RiFlashlightLine className="size-5" />
                 </span>
-                <span className="grid min-w-0 leading-tight group-data-[collapsible=icon]:hidden [[data-collapsible=icon]_&]:hidden">
+                <span className="grid min-w-0 leading-tight group-data-[collapsible=icon]:hidden">
                   <span className="truncate font-semibold">Nexion</span>
                   <span className="truncate text-xs text-sidebar-foreground/70">
                     Workspace
                   </span>
+                </span>
+
+                {/* Collapsed: just "N" */}
+                <span className="hidden size-10 items-center justify-center rounded-full bg-sidebar-primary text-lg font-black text-sidebar-primary-foreground group-data-[collapsible=icon]:flex">
+                  N
                 </span>
               </Link>
             </SidebarMenuButton>

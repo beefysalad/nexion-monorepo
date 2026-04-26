@@ -10,87 +10,89 @@ import {
 } from "@remixicon/react"
 import { motion } from "framer-motion"
 
-import {
-  fadeUp,
-  staggerContainer,
-  viewportOnce,
-} from "@/components/home/motion-presets"
+import { fadeUp, viewportOnce } from "@/components/home/motion-presets"
 import { StackCard } from "@/components/home/stack-card"
 
 const stackItems = [
   {
     icon: <RiNextjsLine className="size-5" />,
-    title: "Next.js frontend",
+    title: "Next.js 15 App Router",
     description:
-      "App Router frontend with shadcn/ui through the shared UI package.",
+      "Frontend wired with shadcn/ui through the shared workspace UI package. RSC-ready.",
   },
   {
     icon: <RiNodejsLine className="size-5" />,
-    title: "NestJS API",
+    title: "NestJS REST API",
     description:
-      "Backend app lives beside the frontend under apps/api with thin controllers and services.",
+      "Backend lives under apps/api with thin controllers, services, and Prisma repositories.",
   },
   {
     icon: <RiDatabase2Line className="size-5" />,
     title: "Postgres + Prisma",
     description:
-      "Dockerized Postgres on localhost:5433 and Prisma configured for PostgreSQL.",
+      "Dockerized Postgres on port 5433. Prisma ORM configured and ready for migrations.",
   },
   {
     icon: <RiRefreshLine className="size-5" />,
     title: "TanStack Query",
     description:
-      "Frontend server state goes through dedicated hooks with explicit loading states.",
+      "All server state goes through dedicated hooks with explicit loading and error states.",
   },
   {
     icon: <RiShieldCheckLine className="size-5" />,
-    title: "Forms ready",
+    title: "Forms + Validation",
     description:
-      "React Hook Form and Zod are installed for typed form validation.",
+      "React Hook Form and Zod pre-installed for typed, schema-driven form validation.",
   },
   {
     icon: <RiTerminalBoxLine className="size-5" />,
-    title: "One command dev",
+    title: "One-command dev",
     description:
-      "Run web and API together from the root with npm run dev:apps.",
+      "Start both apps from the root with npm run dev:apps. No context switching.",
   },
 ]
 
 export function StackSection() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-muted/20 px-6 py-24 sm:py-40">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportOnce}
-        variants={staggerContainer}
-        className="mx-auto max-w-6xl"
-      >
-        <motion.div variants={fadeUp} className="mb-20 max-w-3xl space-y-6">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">
-            The Tech Stack
+    <section className="relative border-b border-border bg-muted/30 px-6 py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          variants={fadeUp}
+          className="mb-16 max-w-2xl space-y-3"
+        >
+          <p className="text-xs font-semibold tracking-widest text-primary uppercase">
+            The Stack
           </p>
-          <h2 className="text-5xl font-black tracking-tight sm:text-6xl">
-            Everything you need <br /> 
-            <span className="text-primary">to build your product.</span>
+          <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
+            Everything wired.{" "}
+            <span className="font-normal text-muted-foreground">
+              Nothing left to configure.
+            </span>
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            A solid selection of battle-tested tools and libraries, pre-configured 
-            for a smooth development experience from day one.
+          <p className="text-base leading-relaxed text-muted-foreground">
+            Battle-tested tools, pre-configured so you can skip straight to
+            building your actual product.
           </p>
         </motion.div>
 
-        <motion.div
-          variants={staggerContainer}
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {stackItems.map((item) => (
-            <motion.div key={item.title} variants={fadeUp}>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {stackItems.map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: i * 0.06 }}
+              className="h-full"
+            >
               <StackCard {...item} />
             </motion.div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   )
 }
