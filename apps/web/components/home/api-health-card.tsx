@@ -1,12 +1,12 @@
 import {
   RiCheckLine,
   RiErrorWarningLine,
-  RiLoader4Line,
   RiRefreshLine,
 } from "@remixicon/react"
 
 import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent } from "@workspace/ui/components/card"
+import { Spinner } from "@workspace/ui/components/spinner"
 import { cn } from "@workspace/ui/lib/utils"
 
 type ApiHealthCardProps = {
@@ -26,11 +26,7 @@ export function ApiHealthCard({
 }: ApiHealthCardProps) {
   const isOnline = !isLoading && !isError
 
-  const StatusIcon = isLoading
-    ? RiLoader4Line
-    : isError
-      ? RiErrorWarningLine
-      : RiCheckLine
+  const StatusIcon = isError ? RiErrorWarningLine : RiCheckLine
 
   return (
     <Card className="border-border bg-card">
@@ -44,7 +40,11 @@ export function ApiHealthCard({
               isOnline && "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
             )}
           >
-            <StatusIcon className={cn("size-5", isLoading && "animate-spin")} />
+            {isLoading ? (
+              <Spinner className="size-5" />
+            ) : (
+              <StatusIcon className="size-5" />
+            )}
           </div>
 
           <div className="space-y-1">
@@ -76,10 +76,11 @@ export function ApiHealthCard({
           variant="outline"
           size="sm"
           onClick={onRefresh}
-          disabled={isLoading}
+          isLoading={isLoading}
+          loadingText="Checking"
           className="h-9 gap-2 rounded-xl px-4 text-xs font-semibold shrink-0"
         >
-          <RiRefreshLine className={cn("size-3.5", isLoading && "animate-spin")} />
+          <RiRefreshLine className="size-3.5" />
           Ping API
         </Button>
       </CardContent>

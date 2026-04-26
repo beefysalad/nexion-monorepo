@@ -7,7 +7,6 @@ import {
   RiCheckLine,
   RiFileListLine,
   RiFolderLine,
-  RiLoader4Line,
   RiMoonLine,
   RiSearchLine,
   RiSunLine,
@@ -144,7 +143,22 @@ import {
   ItemSeparator,
   ItemTitle,
 } from "@workspace/ui/components/item"
+import { Kbd, KbdGroup } from "@workspace/ui/components/kbd"
 import { Label } from "@workspace/ui/components/label"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@workspace/ui/components/hover-card"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@workspace/ui/components/pagination"
 import {
   Popover,
   PopoverContent,
@@ -193,6 +207,7 @@ import {
   SidebarProvider,
 } from "@workspace/ui/components/sidebar"
 import { Skeleton } from "@workspace/ui/components/skeleton"
+import { Spinner } from "@workspace/ui/components/spinner"
 import { Slider } from "@workspace/ui/components/slider"
 import { Switch } from "@workspace/ui/components/switch"
 import {
@@ -446,9 +461,8 @@ function ComponentsGalleryPage() {
                 <Button variant="outline">Outline</Button>
                 <Button variant="ghost">Ghost</Button>
                 <Button variant="destructive">Destructive</Button>
-                <Button disabled>
-                  <RiLoader4Line className="animate-spin" />
-                  Disabled
+                <Button isLoading loadingText="Loading">
+                  Loading
                 </Button>
                 <Button size="icon" aria-label="Confirm">
                   <RiCheckLine />
@@ -1293,6 +1307,86 @@ function ComponentsGalleryPage() {
             </CardContent>
           </Card>
         </section>
+
+        <Card className="rounded-lg shadow-sm">
+          <CardHeader>
+            <CardTitle>Spinner, Kbd, Hover Card, Pagination</CardTitle>
+            <CardDescription>
+              Utility primitives for loading, shortcuts, rich hover states, and
+              paged navigation.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-6 xl:grid-cols-4">
+            <div className="space-y-3 rounded-lg border p-4">
+              <p className="text-sm font-medium">Spinner</p>
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <Spinner className="text-primary" />
+                Syncing dashboard state
+              </div>
+            </div>
+
+            <div className="space-y-3 rounded-lg border p-4">
+              <p className="text-sm font-medium">Keyboard</p>
+              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                Search with
+                <KbdGroup>
+                  <Kbd>⌘</Kbd>
+                  <Kbd>K</Kbd>
+                </KbdGroup>
+                or save with
+                <KbdGroup>
+                  <Kbd>⌘</Kbd>
+                  <Kbd>S</Kbd>
+                </KbdGroup>
+              </div>
+            </div>
+
+            <div className="space-y-3 rounded-lg border p-4">
+              <p className="text-sm font-medium">Hover Card</p>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    Hover theme info
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent align="start">
+                  <div className="space-y-2">
+                    <p className="font-medium">Brand theme</p>
+                    <p className="text-sm text-muted-foreground">
+                      Button, focus, and sidebar tokens update from the active
+                      preset while charts keep their own analytics palette.
+                    </p>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
+
+            <div className="space-y-3 rounded-lg border p-4">
+              <p className="text-sm font-medium">Pagination</p>
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious href="#previous" />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#page-1" isActive>
+                      1
+                    </PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationLink href="#page-2">2</PaginationLink>
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext href="#next" />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          </CardContent>
+        </Card>
 
         <Card className="rounded-lg shadow-sm">
           <CardHeader>

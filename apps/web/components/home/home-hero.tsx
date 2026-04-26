@@ -5,7 +5,6 @@ import {
   RiCodeSSlashLine,
   RiFileCopyLine,
   RiGithubFill,
-  RiLoader4Line,
   RiTerminalBoxLine,
 } from "@remixicon/react"
 import { motion } from "framer-motion"
@@ -21,7 +20,7 @@ import {
 
 export function HomeHero() {
   const [copied, setCopied] = useState<boolean>(false)
-  const { startLoading, stopLoading } = useLoading()
+  const loading = useLoading()
 
   async function handleCopyCommand() {
     await navigator.clipboard.writeText("npm run dev:apps")
@@ -30,8 +29,8 @@ export function HomeHero() {
   }
 
   function handlePreviewLoading() {
-    startLoading("render", "Preview loading")
-    window.setTimeout(() => stopLoading("render"), 1800)
+    loading.startLoading("render", "Preview loading")
+    window.setTimeout(() => loading.stopLoading("render"), 1800)
   }
 
   return (
@@ -107,8 +106,9 @@ export function HomeHero() {
                 variant="ghost"
                 className="h-9 gap-2 rounded-xl px-4 text-xs text-muted-foreground hover:text-foreground"
                 onClick={handlePreviewLoading}
+                isLoading={loading.isLoading && loading.kind === "render"}
+                loadingText="Preview loading"
               >
-                <RiLoader4Line className="size-3.5" />
                 Preview loading
               </Button>
             </motion.div>

@@ -1,11 +1,10 @@
 "use client"
 
-import { RiLoader4Line } from "@remixicon/react"
-
 import {
   useLoading,
   type LoadingKind,
 } from "@/components/providers/loading-provider"
+import { Spinner } from "@workspace/ui/components/spinner"
 import { cn } from "@workspace/ui/lib/utils"
 
 const loadingLabels: Record<LoadingKind, string> = {
@@ -36,9 +35,9 @@ function GlobalLoadingIndicator() {
               kind === "redirect" ? "text-blue-500" : "text-primary"
             )}
           />
-          <RiLoader4Line
+          <Spinner
             className={cn(
-              "size-10 animate-spin",
+              "size-10",
               kind === "redirect" ? "text-blue-500" : "text-primary"
             )}
           />
