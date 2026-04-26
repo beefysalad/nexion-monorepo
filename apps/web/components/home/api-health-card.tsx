@@ -36,33 +36,31 @@ export function ApiHealthCard({
       : RiCheckLine
 
   return (
-    <Card className="relative overflow-hidden transition-all hover:border-primary/30">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-50" />
-      
-      <CardContent className="flex flex-col gap-8 py-8 sm:flex-row sm:items-start sm:justify-between">
+    <Card className="relative overflow-hidden rounded-lg border-border bg-card shadow-sm shadow-foreground/10 transition-colors hover:border-primary/30">
+      <CardContent className="flex flex-col gap-8 py-10 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <div className="flex size-12 items-center justify-center rounded-2xl border border-border bg-background shadow-inner">
+          <div className="flex items-center gap-5">
+            <div className="flex size-14 items-center justify-center rounded-[1.25rem] border border-border bg-background">
               <StatusIcon
-                className={isLoading ? "size-6 animate-spin text-primary" : "size-6"}
+                className={isLoading ? "size-7 animate-spin text-primary" : "size-7"}
               />
             </div>
             <div>
-              <div className="flex flex-wrap items-center gap-3">
-                <h2 className="text-xl font-bold tracking-tight">System Status</h2>
+              <div className="flex flex-wrap items-center gap-4">
+                <h2 className="text-2xl font-black tracking-tight">System Health</h2>
                 <span
-                  className={`inline-flex rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-wider ${statusClassName}`}
+                  className={`inline-flex rounded-full border px-4 py-1 text-[10px] font-black uppercase tracking-[0.1em] ${statusClassName}`}
                 >
                   {statusLabel}
                 </span>
               </div>
-              <p className="mt-1 font-mono text-xs tracking-tight text-muted-foreground/60">
+              <p className="mt-1 font-mono text-xs tracking-tight text-muted-foreground">
                 {apiUrl}/
               </p>
             </div>
           </div>
 
-          <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
+          <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
             {isLoading
               ? "Establishing connection to the NestJS backend..."
               : isError
@@ -76,9 +74,9 @@ export function ApiHealthCard({
           size="lg"
           onClick={onRefresh}
           disabled={isLoading}
-          className="h-12 rounded-xl px-6 font-bold shadow-sm transition-all hover:bg-muted active:scale-95"
+          className="h-14 rounded-2xl px-8 font-bold transition-all hover:border-primary/50 hover:bg-muted active:scale-95"
         >
-          <RiRefreshLine className={isLoading ? "size-5 animate-spin" : "size-5"} />
+          <RiRefreshLine className={isLoading ? "mr-2 size-5 animate-spin" : "mr-2 size-5"} />
           {isLoading ? "Pinging" : "Ping API"}
         </Button>
       </CardContent>

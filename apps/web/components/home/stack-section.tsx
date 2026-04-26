@@ -58,9 +58,7 @@ const stackItems = [
 
 export function StackSection() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-muted/30 px-6 py-24 sm:py-32">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px] opacity-40 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]" />
-
+    <section className="relative overflow-hidden border-b border-border bg-muted/20 px-6 py-24 sm:py-40">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -68,21 +66,23 @@ export function StackSection() {
         variants={staggerContainer}
         className="mx-auto max-w-6xl"
       >
-        <motion.div variants={fadeUp} className="mb-16 max-w-2xl space-y-4 text-center sm:text-left">
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary">
-            The Stack
+        <motion.div variants={fadeUp} className="mb-20 max-w-3xl space-y-6">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary">
+            The Tech Stack
           </p>
-          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Everything you need <br /> to build your product.
+          <h2 className="text-5xl font-black tracking-tight sm:text-6xl">
+            Everything you need <br /> 
+            <span className="text-primary">to build your product.</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            A solid selection of battle-tested tools and libraries, pre-configured for a smooth development experience.
+          <p className="text-xl text-muted-foreground leading-relaxed">
+            A solid selection of battle-tested tools and libraries, pre-configured 
+            for a smooth development experience from day one.
           </p>
         </motion.div>
 
         <motion.div
           variants={staggerContainer}
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
         >
           {stackItems.map((item) => (
             <motion.div key={item.title} variants={fadeUp}>

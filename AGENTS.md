@@ -70,6 +70,7 @@ Use npm from the repository root. Do not create nested lockfiles.
 - Move helpers, constants, and view-specific utilities into separate files when they start cluttering the main component.
 - Prefer reusable components when the same UI or behavior appears more than once.
 - Use shared `@workspace/ui` components before creating app-local UI primitives.
+- When making frontend UI changes or features, always consider both light and dark mode. Check contrast, surfaces, borders, muted text, hover states, and shadows in both themes before considering the work done.
 
 ### shadcn/ui
 

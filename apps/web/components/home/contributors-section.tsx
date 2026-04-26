@@ -36,9 +36,6 @@ import { Card, CardContent } from "@workspace/ui/components/card"
 export function ContributorsSection() {
   return (
     <section className="relative overflow-hidden bg-muted/30 px-6 py-20 sm:py-32">
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[120px]" />
-
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -71,7 +68,7 @@ export function ContributorsSection() {
         </motion.div>
 
         <motion.div variants={scaleIn}>
-          <Card className="relative p-2 shadow-2xl">
+          <Card className="relative rounded-lg p-2 shadow-sm shadow-foreground/10">
             <CardContent className="space-y-6 p-6">
               <div>
                 <p className="text-sm font-semibold text-primary">Contributors</p>
