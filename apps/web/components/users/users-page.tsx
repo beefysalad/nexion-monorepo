@@ -72,7 +72,7 @@ export function UsersPage() {
             <TableRow className="bg-muted/20 hover:bg-transparent">
               <TableHead className="w-[300px] px-6 py-4">User</TableHead>
               <TableHead>Email</TableHead>
-              <TableHead>System ID</TableHead>
+              <TableHead>Clerk ID</TableHead>
               <TableHead className="w-[80px] px-6 text-right">
                 Actions
               </TableHead>

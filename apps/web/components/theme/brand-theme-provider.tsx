@@ -56,7 +56,7 @@ const brandThemePresets: BrandThemePreset[] = [
     tokens: {
       light: {
         primary: "oklch(0.78 0.185 82)",
-        primaryForeground: "oklch(0.18 0.025 70)",
+        primaryForeground: "oklch(0.99 0 0)",
         ring: "oklch(0.62 0.11 82)",
         sidebarPrimary: "oklch(0.64 0.15 76)",
         sidebarPrimaryForeground: "oklch(0.99 0.02 95)",
@@ -284,9 +284,7 @@ const brandThemePresets: BrandThemePreset[] = [
 
 const defaultBrandTheme = brandThemePresets[0] as BrandThemePreset
 
-const BrandThemeContext = createContext<BrandThemeContextValue | null>(
-  null
-)
+const BrandThemeContext = createContext<BrandThemeContextValue | null>(null)
 
 function BrandThemeProvider({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme()
