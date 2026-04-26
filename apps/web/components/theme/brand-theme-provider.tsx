@@ -1,7 +1,14 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react"
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+} from "react"
 
 type BrandThemeId =
   | "amber"
@@ -39,6 +46,7 @@ type BrandThemeContextValue = {
 }
 
 const BRAND_THEME_STORAGE_KEY = "nexion-brand-theme"
+const BRAND_THEME_CHANGE_EVENT = "nexion-brand-theme-change"
 
 const brandThemePresets: BrandThemePreset[] = [
   {
@@ -282,8 +290,11 @@ const BrandThemeContext = createContext<BrandThemeContextValue | null>(
 
 function BrandThemeProvider({ children }: { children: React.ReactNode }) {
   const { resolvedTheme } = useTheme()
-  const [brandThemeId, setBrandThemeId] =
-    useState<BrandThemeId>(getInitialBrandThemeId)
+  const brandThemeId = useSyncExternalStore(
+    subscribeToBrandTheme,
+    getBrandThemeSnapshot,
+    getDefaultBrandThemeSnapshot
+  )
   const activeTheme =
     brandThemePresets.find((preset) => preset.id === brandThemeId) ??
     defaultBrandTheme
@@ -294,8 +305,8 @@ function BrandThemeProvider({ children }: { children: React.ReactNode }) {
   }, [activeTheme, resolvedTheme])
 
   const setBrandTheme = useCallback((themeId: BrandThemeId) => {
-    setBrandThemeId(themeId)
     window.localStorage.setItem(BRAND_THEME_STORAGE_KEY, themeId)
+    window.dispatchEvent(new Event(BRAND_THEME_CHANGE_EVENT))
   }, [])
 
   const contextValue = useMemo<BrandThemeContextValue>(
@@ -341,14 +352,24 @@ function isBrandThemeId(value: string | null): value is BrandThemeId {
   return brandThemePresets.some((preset) => preset.id === value)
 }
 
-function getInitialBrandThemeId(): BrandThemeId {
-  if (typeof window === "undefined") {
-    return defaultBrandTheme.id
-  }
+function subscribeToBrandTheme(onStoreChange: () => void) {
+  window.addEventListener(BRAND_THEME_CHANGE_EVENT, onStoreChange)
+  window.addEventListener("storage", onStoreChange)
 
+  return () => {
+    window.removeEventListener(BRAND_THEME_CHANGE_EVENT, onStoreChange)
+    window.removeEventListener("storage", onStoreChange)
+  }
+}
+
+function getBrandThemeSnapshot(): BrandThemeId {
   const storedTheme = window.localStorage.getItem(BRAND_THEME_STORAGE_KEY)
 
   return isBrandThemeId(storedTheme) ? storedTheme : defaultBrandTheme.id
+}
+
+function getDefaultBrandThemeSnapshot(): BrandThemeId {
+  return defaultBrandTheme.id
 }
 
 export { BrandThemeProvider, useBrandTheme }

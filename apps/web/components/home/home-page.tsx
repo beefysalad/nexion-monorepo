@@ -1,5 +1,6 @@
 "use client"
 
+import { AuthHeader } from "@/components/auth/auth-header"
 import { ApiHealthCard } from "@/components/home/api-health-card"
 import { ContributorsSection } from "@/components/home/contributors-section"
 import { HomeHero } from "@/components/home/home-hero"
@@ -13,25 +14,28 @@ export function HomePage() {
   const apiHealth = useApiHealth()
 
   return (
-    <main className="min-h-svh bg-background text-foreground">
-      <HomeHero />
+    <>
+      <AuthHeader />
+      <main className="min-h-svh bg-background text-foreground">
+        <HomeHero />
 
-      <section className="border-b border-border bg-background px-6 py-6">
-        <div className="mx-auto max-w-6xl">
-          <ApiHealthCard
-            apiUrl={API_BASE_URL}
-            isLoading={apiHealth.isPending}
-            isError={apiHealth.isError}
-            message={apiHealth.data?.message}
-            onRefresh={() => void apiHealth.refetch()}
-          />
-        </div>
-      </section>
+        <section className="border-b border-border bg-background px-6 py-6">
+          <div className="mx-auto max-w-6xl">
+            <ApiHealthCard
+              apiUrl={API_BASE_URL}
+              isLoading={apiHealth.isPending}
+              isError={apiHealth.isError}
+              message={apiHealth.data?.message}
+              onRefresh={() => void apiHealth.refetch()}
+            />
+          </div>
+        </section>
 
-      <StackSection />
-      <SetupSteps />
-      <WhyThisExists />
-      <ContributorsSection />
-    </main>
+        <StackSection />
+        <SetupSteps />
+        <WhyThisExists />
+        <ContributorsSection />
+      </main>
+    </>
   )
 }

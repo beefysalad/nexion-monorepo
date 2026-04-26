@@ -3,7 +3,6 @@ import { Geist_Mono, Inter, Roboto } from "next/font/google"
 import NextTopLoader from "nextjs-toploader"
 
 import "@workspace/ui/globals.css"
-import { AuthHeader } from "@/components/auth/auth-header"
 import { AppProviders } from "@/components/providers/app-providers"
 import { cn } from "@workspace/ui/lib/utils"
 
@@ -41,7 +40,6 @@ export default function RootLayout({
             shadow={false}
           />
           <AppProviders>
-            <AuthHeader />
             {children}
           </AppProviders>
         </ClerkProvider>

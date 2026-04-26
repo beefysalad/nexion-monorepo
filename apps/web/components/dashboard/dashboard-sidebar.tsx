@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { UserButton } from "@clerk/nextjs"
 import { RiFlashlightLine } from "@remixicon/react"
 
@@ -28,6 +29,8 @@ type DashboardSidebarProps = {
 }
 
 function DashboardSidebar({ user }: DashboardSidebarProps) {
+  const pathname = usePathname()
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:px-0">
@@ -67,6 +70,9 @@ function DashboardSidebar({ user }: DashboardSidebarProps) {
             <SidebarMenu className="group-data-[collapsible=icon]:items-center">
               {dashboardNavItems.map((item, index) => {
                 const Icon = item.icon
+                const isActive =
+                  pathname === item.href &&
+                  (item.href !== "/dashboard" || index === 0)
 
                 return (
                   <SidebarMenuItem
@@ -75,7 +81,7 @@ function DashboardSidebar({ user }: DashboardSidebarProps) {
                   >
                     <SidebarMenuButton
                       asChild
-                      isActive={index === 0}
+                      isActive={isActive}
                       tooltip={item.label}
                       className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0"
                     >
