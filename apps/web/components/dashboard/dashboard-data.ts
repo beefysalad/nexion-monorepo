@@ -2,6 +2,7 @@ import {
   RiDashboardLine,
   RiDatabase2Line,
   RiFlashlightLine,
+  RiLayoutGridLine,
   RiPulseLine,
   RiSettings3Line,
   RiShieldUserLine,
@@ -13,6 +14,11 @@ const dashboardNavItems = [
     href: "/dashboard",
     icon: RiDashboardLine,
     label: "Overview",
+  },
+  {
+    href: "/components",
+    icon: RiLayoutGridLine,
+    label: "Components",
   },
   {
     href: "/dashboard",

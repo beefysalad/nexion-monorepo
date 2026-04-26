@@ -15,6 +15,7 @@ import {
   dashboardActivity,
   dashboardStats,
 } from "@/components/dashboard/dashboard-data"
+import { BrandThemeSettings } from "@/components/dashboard/brand-theme-settings"
 
 type DashboardOverviewProps = {
   user: {
@@ -101,6 +102,8 @@ function DashboardOverview({ user }: DashboardOverviewProps) {
           </CardContent>
         </Card>
       </section>
+
+      <BrandThemeSettings />
     </main>
   )
 }

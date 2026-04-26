@@ -3,6 +3,8 @@
 import * as React from "react"
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 
+import { BrandThemeProvider } from "@/components/theme/brand-theme-provider"
+
 function ThemeProvider({
   children,
   ...props
@@ -16,7 +18,7 @@ function ThemeProvider({
       {...props}
     >
       <ThemeHotkey />
-      {children}
+      <BrandThemeProvider>{children}</BrandThemeProvider>
     </NextThemesProvider>
   )
 }

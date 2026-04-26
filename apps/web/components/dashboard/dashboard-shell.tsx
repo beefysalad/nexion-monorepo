@@ -10,13 +10,14 @@ import {
 import { TooltipProvider } from "@workspace/ui/components/tooltip"
 
 type DashboardShellProps = {
+  children?: React.ReactNode
   user: {
     email: string
     name: string
   }
 }
 
-function DashboardShell({ user }: DashboardShellProps) {
+function DashboardShell({ children, user }: DashboardShellProps) {
   return (
     <TooltipProvider>
       <SidebarProvider>
@@ -25,7 +26,7 @@ function DashboardShell({ user }: DashboardShellProps) {
           <header className="flex h-14 shrink-0 items-center gap-3 border-b px-4">
             <SidebarTrigger />
           </header>
-          <DashboardOverview user={user} />
+          {children ?? <DashboardOverview user={user} />}
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>
