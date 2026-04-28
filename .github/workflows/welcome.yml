@@ -1,0 +1,101 @@
+name: Welcome Contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Welcome new issues and first-time contributors
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const isIssue = !!context.payload.issue;
+            const isPR = !!context.payload.pull_request;
+
+            if (!isIssue && !isPR) return;
+
+            const author = isIssue ? context.payload.issue.user.login : context.payload.pull_request.user.login;
+            const number = isIssue ? context.payload.issue.number : context.payload.pull_request.number;
+
+            if (isIssue) {
+              const issueMessage = `Hi @${author}, thanks for opening this issue!
+
+            I appreciate you taking the time to share this. A maintainer will review it soon.
+
+            In the meantime, please make sure you've included enough context for quick help:
+            - What happened
+            - What you expected to happen
+            - Steps to reproduce, if this is a bug
+            - Any relevant screenshots, logs, or environment details
+
+            Thanks for helping improve Nexion Monorepo.`;
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: number,
+                body: issueMessage
+              });
+            }
+
+            const { data: contributions } = isIssue
+              ? await github.rest.issues.listForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  creator: author,
+                  state: 'all'
+                })
+              : await github.rest.pulls.list({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'all',
+                  creator: author
+                });
+
+            if (contributions.length === 1) {
+              const welcomeMessage = `Welcome @${author}! Thank you for opening your first pull request!
+
+            We appreciate the contribution. A maintainer will review your PR soon.
+
+            Please make sure:
+            - Your code follows the repo standards
+            - Relevant checks pass
+            - Documentation is updated if needed
+
+            Thanks for contributing.`;
+
+              if (isIssue) {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: number,
+                  labels: ['first-time-contributor']
+                });
+              } else {
+                await github.rest.pulls.createReview({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: number,
+                  body: welcomeMessage,
+                  event: 'COMMENT'
+                });
+
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: number,
+                  labels: ['first-time-contributor']
+                });
+              }
+
+              console.log(`Welcomed first-time contributor: ${author}`);
+            }
