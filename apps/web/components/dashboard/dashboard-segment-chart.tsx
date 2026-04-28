@@ -102,7 +102,7 @@ export function DashboardSegmentChart() {
           {segmentData.map((item) => (
             <div
               key={item.segment}
-              className="bg-muted/20 rounded-xl border p-3"
+              className="bg-surface-subtle rounded-xl border p-3"
             >
               <p className="text-muted-foreground text-xs">{item.segment}</p>
               <p className="mt-1 text-lg font-semibold">{item.value}%</p>

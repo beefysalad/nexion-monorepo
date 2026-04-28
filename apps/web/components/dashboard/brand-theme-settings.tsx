@@ -54,7 +54,7 @@ function BrandThemeSettings() {
           })}
         </div>
 
-        <div className="bg-muted/30 flex flex-wrap items-center gap-3 rounded-lg border p-4">
+        <div className="bg-surface-subtle flex flex-wrap items-center gap-3 rounded-lg border p-4">
           <span className="text-muted-foreground text-sm">
             Active preset: {activeTheme.label}
           </span>

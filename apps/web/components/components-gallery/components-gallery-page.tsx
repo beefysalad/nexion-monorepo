@@ -33,6 +33,7 @@ import {
 import { toast } from "sonner"
 
 import { BrandThemeSettings } from "@/components/dashboard/brand-theme-settings"
+import { NavigationMenuShowcase } from "@/components/components-gallery/navigation-menu-showcase"
 import { useLoading } from "@/components/providers/loading-provider"
 import {
   Accordion,
@@ -90,11 +91,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@workspace/ui/components/carousel"
+import { CheckboxDemo } from "@workspace/ui/components/checkbox-demo"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@workspace/ui/components/collapsible"
+import { DataTableDemo } from "@workspace/ui/components/data-table-demo"
 import {
   Dialog,
   DialogContent,
@@ -122,6 +125,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@workspace/ui/components/empty"
+import { DropdownMenuDemo } from "@workspace/ui/components/dropdown-menu-demo"
 import {
   Field,
   FieldContent,
@@ -135,6 +139,7 @@ import {
   FieldTitle,
 } from "@workspace/ui/components/field"
 import { Input } from "@workspace/ui/components/input"
+import { InputOTPDemo } from "@workspace/ui/components/input-otp-demo"
 import {
   Item,
   ItemActions,
@@ -389,7 +394,8 @@ function ComponentsGalleryPage() {
             <CardHeader>
               <CardTitle>Navigation</CardTitle>
               <CardDescription>
-                Breadcrumbs and tabs for page-level orientation.
+                Breadcrumbs, tabs, and atlas-style navigation menu patterns for
+                page-level orientation.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -434,6 +440,8 @@ function ComponentsGalleryPage() {
                   Prefer shared primitives from `packages/ui`.
                 </TabsContent>
               </Tabs>
+
+              <NavigationMenuShowcase />
             </CardContent>
           </Card>
 
@@ -944,61 +952,64 @@ function ComponentsGalleryPage() {
           </Card>
         </section>
 
-        <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+        <section className="grid gap-4 xl:grid-cols-[1.4fr_0.6fr]">
           <Card className="rounded-lg shadow-sm">
             <CardHeader>
-              <CardTitle>Table</CardTitle>
-              <CardDescription>Structured data rows.</CardDescription>
+              <CardTitle>Data Table</CardTitle>
+              <CardDescription>
+                Sortable, filterable, selectable table built with TanStack
+                Table.
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableCaption>Component inventory sample.</TableCaption>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Component</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Usage</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {[
-                    ["Button", "Ready", "High"],
-                    ["Dialog", "Ready", "Medium"],
-                    ["Table", "Ready", "Low"],
-                  ].map(([name, status, usage]) => (
-                    <TableRow key={name}>
-                      <TableCell className="font-medium">{name}</TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{status}</Badge>
-                      </TableCell>
-                      <TableCell className="text-right">{usage}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <DataTableDemo />
             </CardContent>
           </Card>
 
-          <Card className="rounded-lg shadow-sm">
-            <CardHeader>
-              <CardTitle>Scroll Area</CardTitle>
-              <CardDescription>Contained scrolling content.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ScrollArea className="h-64 rounded-lg border">
-                <div className="grid gap-3 p-4">
-                  {Array.from({ length: 12 }, (_, index) => (
-                    <div
-                      key={index}
-                      className="bg-muted/30 rounded-lg border p-3 text-sm"
-                    >
-                      Component audit item {index + 1}
-                    </div>
-                  ))}
-                </div>
-              </ScrollArea>
-            </CardContent>
-          </Card>
+          <div className="grid gap-4">
+            <Card className="rounded-lg shadow-sm">
+              <CardHeader>
+                <CardTitle>Checkbox</CardTitle>
+                <CardDescription>Compact binary selection input.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <CheckboxDemo />
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-lg shadow-sm">
+              <CardHeader>
+                <CardTitle>Dropdown Menu</CardTitle>
+                <CardDescription>
+                  Contextual action surface with compact menu items.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <DropdownMenuDemo />
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-lg shadow-sm">
+              <CardHeader>
+                <CardTitle>Scroll Area</CardTitle>
+                <CardDescription>Contained scrolling content.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-64 rounded-lg border">
+                  <div className="grid gap-3 p-4">
+                    {Array.from({ length: 12 }, (_, index) => (
+                      <div
+                        key={index}
+                        className="bg-muted/30 rounded-lg border p-3 text-sm"
+                      >
+                        Component audit item {index + 1}
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </div>
         </section>
 
         <section className="grid gap-4 xl:grid-cols-3">
@@ -1023,6 +1034,18 @@ function ComponentsGalleryPage() {
                   </SelectGroup>
                 </SelectContent>
               </Select>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-lg shadow-sm">
+            <CardHeader>
+              <CardTitle>Input OTP</CardTitle>
+              <CardDescription>
+                Segmented one-time passcode entry for verification flows.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <InputOTPDemo />
             </CardContent>
           </Card>
 
