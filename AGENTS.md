@@ -79,7 +79,9 @@ Use npm from the repository root. Do not create nested lockfiles.
 - Shared shadcn/ui components live in `packages/ui/src/components/` and are exported through `@workspace/ui`.
 - Prefer existing shadcn/ui components over native HTML controls when an equivalent exists.
 - Example: use the shared `Button` component instead of a plain `<button>` for application actions.
+- When a needed UI component does not exist locally, check the shadcn MCP registry first. Use it to search available components, inspect examples, and get the correct add command before hand-building a primitive.
 - If a needed shadcn component does not exist yet, ask the user before adding or installing it.
+- The shadcn MCP can discover components and provide add commands, but it does not install components by itself. Running the returned `shadcn add` command modifies files and may install required package dependencies, so get explicit user approval first.
 - Avoid using the Sparkles icon unless the user explicitly wants it or it is truly necessary for the design.
 
 ### Forms

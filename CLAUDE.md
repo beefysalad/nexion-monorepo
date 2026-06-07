@@ -13,7 +13,7 @@ npm-workspaces monorepo (Node 20+) driven by Turborepo:
 - `apps/web` — Next.js App Router frontend. Routes under `app/`, feature components under `components/`, TanStack Query hooks under `hooks/`, Axios wrappers under `lib/api/`, Zod schemas under `lib/validations/`. Protected routes live under `app/(protected)/**`.
 - `apps/api` — NestJS backend. Feature modules under `src/<feature>/` (e.g. `users`, `inventory`, `webhooks`). Prisma client is generated into `src/generated/`. Uses `@clerk/backend` for auth and Postgres via `@prisma/adapter-pg`.
 - `packages/shared` — shared HTTP contract types imported as `@workspace/shared` (type-only consumption preferred). Do not put runtime app code here.
-- `packages/ui` — shared shadcn/ui components imported as `@workspace/ui` (e.g. `@workspace/ui/components/button`). New shadcn components are added with `npx shadcn@latest add <name> -c apps/web`.
+- `packages/ui` — shared shadcn/ui components imported as `@workspace/ui` (e.g. `@workspace/ui/components/button`). When a needed UI component does not exist locally, check the shadcn MCP registry first to search components, inspect examples, and get the correct add command. New shadcn components are added with `npx shadcn@latest add <name> -c apps/web` only after user approval.
 - `packages/eslint-config`, `packages/typescript-config` — shared tool configs.
 
 Workspace boundaries matter: app code stays in `apps/*`; only genuinely shared UI/contracts move into `packages/*`. Never create nested lockfiles — install from the root.
@@ -65,7 +65,7 @@ Templates are committed in `.env.example`, `apps/web/.env.example`, `apps/api/.e
 - Forms: React Hook Form + Zod (`apps/web/lib/validations/`).
 - HTTP: shared Axios client at `apps/web/lib/axios.ts`; wrappers in `apps/web/lib/api/`.
 - Server state: TanStack Query hooks in `apps/web/hooks/`; components rendering query data must handle `isPending`/`isLoading` explicitly.
-- UI primitives: prefer `@workspace/ui` shadcn components over native HTML. Don't add a new shadcn component without asking.
+- UI primitives: prefer `@workspace/ui` shadcn components over native HTML. If a primitive is missing locally, check the shadcn MCP before hand-building it. The MCP can discover registry components and provide add commands, but it does not install components by itself; running `shadcn add` modifies files and may install dependencies, so don't do it without asking.
 - Always design for both light and dark mode; prefer shared theme tokens over ad hoc tinted utilities (`bg-muted/30`, `bg-green-50`, etc.).
 - Protected pages share an intro pattern: muted eyebrow, `font-heading` title with `text-3xl font-semibold tracking-normal md:text-4xl`, optional muted description.
 
