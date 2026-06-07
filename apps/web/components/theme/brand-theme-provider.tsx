@@ -1,12 +1,12 @@
 "use client"
 
-import { useTheme } from "next-themes"
 import {
   createContext,
   useCallback,
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useSyncExternalStore,
 } from "react"
 
@@ -34,6 +34,7 @@ type AppearanceOption<TValue extends string> = {
 }
 
 type AppearancePreferences = {
+  colorMode: ThemeMode
   scale: AppearanceScaleId
   radius: AppearanceRadiusId
   contentLayout: ContentLayoutId
@@ -47,6 +48,8 @@ type BrandThemeTokens = {
   sidebarPrimary: string
   sidebarPrimaryForeground: string
 }
+
+type ThemeModeTokens = Record<string, string>
 
 type BrandThemePreset = {
   id: BrandThemeId
@@ -332,6 +335,7 @@ const sidebarModeOptions: AppearanceOption<SidebarModeId>[] = [
   { value: "icon", label: "Icon" },
 ]
 const defaultAppearancePreferences: AppearancePreferences = {
+  colorMode: "light",
   scale: "none",
   radius: "md",
   contentLayout: "full",
@@ -339,10 +343,63 @@ const defaultAppearancePreferences: AppearancePreferences = {
 }
 const defaultAppearanceSnapshot = JSON.stringify(defaultAppearancePreferences)
 
+const themeModeTokens: Record<ThemeMode, ThemeModeTokens> = {
+  light: {
+    background: "oklch(0.985 0 0)",
+    foreground: "oklch(0.13 0 0)",
+    card: "oklch(1 0 0)",
+    "card-foreground": "oklch(0.13 0 0)",
+    popover: "oklch(1 0 0)",
+    "popover-foreground": "oklch(0.13 0 0)",
+    secondary: "oklch(0.95 0 0)",
+    "secondary-foreground": "oklch(0.2 0 0)",
+    muted: "oklch(0.94 0 0)",
+    "muted-foreground": "oklch(0.44 0 0)",
+    accent: "oklch(0.94 0 0)",
+    "accent-foreground": "oklch(0.2 0 0)",
+    destructive: "oklch(0.577 0.245 27.325)",
+    border: "oklch(0.88 0 0)",
+    input: "oklch(0.88 0 0)",
+    "app-canvas": "#e6e7e9",
+    "surface-subtle": "oklch(0.965 0 0)",
+    sidebar: "oklch(0.97 0 0)",
+    "sidebar-foreground": "oklch(0.13 0 0)",
+    "sidebar-accent": "oklch(0.94 0 0)",
+    "sidebar-accent-foreground": "oklch(0.2 0 0)",
+    "sidebar-border": "oklch(0.88 0 0)",
+    "sidebar-ring": "oklch(0.55 0.22 264 / 40%)",
+  },
+  dark: {
+    background: "oklch(0.145 0 0)",
+    foreground: "oklch(0.985 0 0)",
+    card: "oklch(0.185 0 0)",
+    "card-foreground": "oklch(0.985 0 0)",
+    popover: "oklch(0.185 0 0)",
+    "popover-foreground": "oklch(0.985 0 0)",
+    secondary: "oklch(0.25 0 0)",
+    "secondary-foreground": "oklch(0.985 0 0)",
+    muted: "oklch(0.22 0 0)",
+    "muted-foreground": "oklch(0.64 0 0)",
+    accent: "oklch(0.25 0 0)",
+    "accent-foreground": "oklch(0.985 0 0)",
+    destructive: "oklch(0.704 0.191 22.216)",
+    border: "oklch(1 0 0 / 8%)",
+    input: "oklch(1 0 0 / 12%)",
+    "app-canvas": "var(--background)",
+    "surface-subtle": "oklch(0.235 0 0)",
+    sidebar: "oklch(0.185 0 0)",
+    "sidebar-foreground": "oklch(0.985 0 0)",
+    "sidebar-accent": "oklch(0.25 0 0)",
+    "sidebar-accent-foreground": "oklch(0.985 0 0)",
+    "sidebar-border": "oklch(1 0 0 / 8%)",
+    "sidebar-ring": "oklch(0.556 0 0)",
+  },
+}
+
 const BrandThemeContext = createContext<BrandThemeContextValue | null>(null)
 
 function BrandThemeProvider({ children }: { children: React.ReactNode }) {
-  const { resolvedTheme, setTheme } = useTheme()
+  const scopeRef = useRef<HTMLDivElement>(null)
   const brandThemeId = useSyncExternalStore(
     subscribeToBrandTheme,
     getBrandThemeSnapshot,
@@ -362,12 +419,24 @@ function BrandThemeProvider({ children }: { children: React.ReactNode }) {
     defaultBrandTheme
 
   useEffect(() => {
-    const mode = resolvedTheme === "dark" ? "dark" : "light"
-    applyBrandTheme(activeTheme.tokens[mode])
-  }, [activeTheme, resolvedTheme])
+    const scope = scopeRef.current
+
+    if (!scope) {
+      return
+    }
+
+    applyThemeMode(scope, appearance.colorMode)
+    applyBrandTheme(scope, activeTheme.tokens[appearance.colorMode])
+  }, [activeTheme, appearance.colorMode])
 
   useEffect(() => {
-    applyAppearancePreferences(appearance)
+    const scope = scopeRef.current
+
+    if (!scope) {
+      return
+    }
+
+    applyAppearancePreferences(scope, appearance)
   }, [appearance])
 
   const setBrandTheme = useCallback((themeId: BrandThemeId) => {
@@ -399,10 +468,9 @@ function BrandThemeProvider({ children }: { children: React.ReactNode }) {
   const resetAppearance = useCallback(() => {
     window.localStorage.removeItem(BRAND_THEME_STORAGE_KEY)
     window.localStorage.removeItem(APPEARANCE_STORAGE_KEY)
-    setTheme("light")
     window.dispatchEvent(new Event(BRAND_THEME_CHANGE_EVENT))
     window.dispatchEvent(new Event(APPEARANCE_CHANGE_EVENT))
-  }, [setTheme])
+  }, [])
 
   const contextValue = useMemo<BrandThemeContextValue>(
     () => ({
@@ -428,7 +496,14 @@ function BrandThemeProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <BrandThemeContext.Provider value={contextValue}>
-      {children}
+      <div
+        ref={scopeRef}
+        data-dashboard-theme-scope
+        data-color-mode={appearance.colorMode}
+        className={appearance.colorMode === "dark" ? "dark" : undefined}
+      >
+        {children}
+      </div>
     </BrandThemeContext.Provider>
   )
 }
@@ -443,14 +518,18 @@ function useBrandTheme() {
   return context
 }
 
-function applyBrandTheme(tokens: BrandThemeTokens) {
-  const root = document.documentElement
+function applyThemeMode(target: HTMLElement, mode: ThemeMode) {
+  Object.entries(themeModeTokens[mode]).forEach(([token, value]) => {
+    target.style.setProperty(`--${token}`, value)
+  })
+}
 
-  root.style.setProperty("--primary", tokens.primary)
-  root.style.setProperty("--primary-foreground", tokens.primaryForeground)
-  root.style.setProperty("--ring", tokens.ring)
-  root.style.setProperty("--sidebar-primary", tokens.sidebarPrimary)
-  root.style.setProperty(
+function applyBrandTheme(target: HTMLElement, tokens: BrandThemeTokens) {
+  target.style.setProperty("--primary", tokens.primary)
+  target.style.setProperty("--primary-foreground", tokens.primaryForeground)
+  target.style.setProperty("--ring", tokens.ring)
+  target.style.setProperty("--sidebar-primary", tokens.sidebarPrimary)
+  target.style.setProperty(
     "--sidebar-primary-foreground",
     tokens.sidebarPrimaryForeground
   )
@@ -468,13 +547,14 @@ function getRadiusValue(radius: AppearanceRadiusId) {
   return values[radius]
 }
 
-function applyAppearancePreferences(preferences: AppearancePreferences) {
-  const root = document.documentElement
-
-  root.style.setProperty("--radius", getRadiusValue(preferences.radius))
-  root.dataset.uiScale = preferences.scale
-  root.dataset.contentLayout = preferences.contentLayout
-  root.dataset.sidebarMode = preferences.sidebarMode
+function applyAppearancePreferences(
+  target: HTMLElement,
+  preferences: AppearancePreferences
+) {
+  target.style.setProperty("--radius", getRadiusValue(preferences.radius))
+  target.dataset.uiScale = preferences.scale
+  target.dataset.contentLayout = preferences.contentLayout
+  target.dataset.sidebarMode = preferences.sidebarMode
 }
 
 function isBrandThemeId(value: string | null): value is BrandThemeId {
@@ -503,6 +583,10 @@ function isSidebarModeId(value: unknown): value is SidebarModeId {
   return value === "default" || value === "icon"
 }
 
+function isThemeMode(value: unknown): value is ThemeMode {
+  return value === "light" || value === "dark"
+}
+
 function parseAppearancePreferences(
   value: string | null
 ): AppearancePreferences {
@@ -514,6 +598,9 @@ function parseAppearancePreferences(
     const parsed = JSON.parse(value) as Partial<AppearancePreferences>
 
     return {
+      colorMode: isThemeMode(parsed.colorMode)
+        ? parsed.colorMode
+        : defaultAppearancePreferences.colorMode,
       scale: isAppearanceScaleId(parsed.scale)
         ? parsed.scale
         : defaultAppearancePreferences.scale,

@@ -3,7 +3,6 @@
 import { Fragment } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useTheme } from "next-themes"
 import { RiMoonLine, RiSunLine } from "@remixicon/react"
 
 import { getDashboardBreadcrumbSegments } from "@/components/dashboard/dashboard-breadcrumbs"
@@ -33,10 +32,9 @@ type DashboardShellProps = {
 
 function DashboardShell({ children }: DashboardShellProps) {
   const pathname = usePathname()
-  const { appearance } = useBrandTheme()
-  const { resolvedTheme, setTheme } = useTheme()
+  const { appearance, setAppearancePreference } = useBrandTheme()
   const breadcrumbSegments = getDashboardBreadcrumbSegments(pathname)
-  const isDark = resolvedTheme === "dark"
+  const isDark = appearance.colorMode === "dark"
 
   return (
     <TooltipProvider>
@@ -93,7 +91,12 @@ function DashboardShell({ children }: DashboardShellProps) {
                     isDark ? "Switch to light mode" : "Switch to dark mode"
                   }
                   className="text-muted-foreground hover:text-foreground"
-                  onClick={() => setTheme(isDark ? "light" : "dark")}
+                  onClick={() =>
+                    setAppearancePreference(
+                      "colorMode",
+                      isDark ? "light" : "dark"
+                    )
+                  }
                 >
                   {isDark ? <RiSunLine /> : <RiMoonLine />}
                 </Button>

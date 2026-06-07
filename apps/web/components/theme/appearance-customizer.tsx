@@ -1,6 +1,5 @@
 "use client"
 
-import { useTheme } from "next-themes"
 import {
   RiArrowDownSLine,
   RiCheckLine,
@@ -28,7 +27,6 @@ const modeOptions = [
 ] as const
 
 function AppearanceCustomizer() {
-  const { setTheme, theme } = useTheme()
   const {
     activeTheme,
     appearance,
@@ -137,9 +135,11 @@ function AppearanceCustomizer() {
         <CustomizerSection title="Color mode:">
           <ToggleGroup
             type="single"
-            value={theme === "dark" ? "dark" : "light"}
+            value={appearance.colorMode}
             onValueChange={(value) => {
-              if (value) setTheme(value)
+              if (value === "light" || value === "dark") {
+                setAppearancePreference("colorMode", value)
+              }
             }}
             variant="outline"
             size="sm"

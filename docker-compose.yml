@@ -27,6 +27,9 @@ services:
       PORT: ${API_INTERNAL_PORT:-3000}
       DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-nexion_monorepo}?schema=public}
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      RATE_LIMIT_TTL_MS: ${RATE_LIMIT_TTL_MS:-60000}
+      RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-100}
+      RATE_LIMIT_BLOCK_DURATION_MS: ${RATE_LIMIT_BLOCK_DURATION_MS:-60000}
       CHOKIDAR_USEPOLLING: "true"
     ports:
       - "${API_PORT:-3001}:${API_INTERNAL_PORT:-3000}"

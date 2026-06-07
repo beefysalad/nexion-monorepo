@@ -1,12 +1,29 @@
-import { Module } from "@nestjs/common"
-import { AppController } from "./app.controller"
-import { AppService } from "./app.service"
-import { UsersModule } from "./users/users.module"
-import { WebhooksModule } from "./webhooks/webhooks.module"
+import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { getRateLimitThrottlerOptions } from './config/rate-limit.config';
+import { UsersModule } from './users/users.module';
+import { WebhooksModule } from './webhooks/webhooks.module';
 
 @Module({
-  imports: [UsersModule, WebhooksModule],
+  imports: [
+    ThrottlerModule.forRootAsync({
+      useFactory: () => ({
+        throttlers: [getRateLimitThrottlerOptions()],
+      }),
+    }),
+    UsersModule,
+    WebhooksModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
