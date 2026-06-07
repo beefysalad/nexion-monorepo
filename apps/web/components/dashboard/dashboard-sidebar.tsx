@@ -21,13 +21,14 @@ import {
 
 import { dashboardNavItems } from "@/components/dashboard/dashboard-data"
 import { useDashboardUser } from "@/components/dashboard/dashboard-user-provider"
+import type { SidebarModeId } from "@/components/theme/brand-theme-provider"
 
-function DashboardSidebar() {
+function DashboardSidebar({ mode }: { mode: SidebarModeId }) {
   const pathname = usePathname()
   const user = useDashboardUser()
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" data-appearance-sidebar-mode={mode}>
       <SidebarHeader className="group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:px-0">
         <SidebarMenu className="group-data-[collapsible=icon]:items-center">
           <SidebarMenuItem className="group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">

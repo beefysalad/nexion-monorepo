@@ -23,6 +23,22 @@ type BrandThemeId =
   | "indigo"
   | "electric"
 type ThemeMode = "light" | "dark"
+type AppearanceScaleId = "none" | "xs" | "lg"
+type AppearanceRadiusId = "none" | "sm" | "md" | "lg" | "xl"
+type ContentLayoutId = "full" | "contained"
+type SidebarModeId = "default" | "icon"
+
+type AppearanceOption<TValue extends string> = {
+  value: TValue
+  label: string
+}
+
+type AppearancePreferences = {
+  scale: AppearanceScaleId
+  radius: AppearanceRadiusId
+  contentLayout: ContentLayoutId
+  sidebarMode: SidebarModeId
+}
 
 type BrandThemeTokens = {
   primary: string
@@ -43,10 +59,22 @@ type BrandThemeContextValue = {
   activeTheme: BrandThemePreset
   presets: BrandThemePreset[]
   setBrandTheme: (themeId: BrandThemeId) => void
+  appearance: AppearancePreferences
+  setAppearancePreference: <TKey extends keyof AppearancePreferences>(
+    key: TKey,
+    value: AppearancePreferences[TKey]
+  ) => void
+  resetAppearance: () => void
+  scaleOptions: AppearanceOption<AppearanceScaleId>[]
+  radiusOptions: AppearanceOption<AppearanceRadiusId>[]
+  contentLayoutOptions: AppearanceOption<ContentLayoutId>[]
+  sidebarModeOptions: AppearanceOption<SidebarModeId>[]
 }
 
 const BRAND_THEME_STORAGE_KEY = "nexion-brand-theme"
 const BRAND_THEME_CHANGE_EVENT = "nexion-brand-theme-change"
+const APPEARANCE_STORAGE_KEY = "nexion-appearance-preferences"
+const APPEARANCE_CHANGE_EVENT = "nexion-appearance-change"
 
 const brandThemePresets: BrandThemePreset[] = [
   {
@@ -283,15 +311,51 @@ const brandThemePresets: BrandThemePreset[] = [
 ]
 
 const defaultBrandTheme = brandThemePresets[0] as BrandThemePreset
+const scaleOptions: AppearanceOption<AppearanceScaleId>[] = [
+  { value: "none", label: "Off" },
+  { value: "xs", label: "XS" },
+  { value: "lg", label: "LG" },
+]
+const radiusOptions: AppearanceOption<AppearanceRadiusId>[] = [
+  { value: "none", label: "Off" },
+  { value: "sm", label: "SM" },
+  { value: "md", label: "MD" },
+  { value: "lg", label: "LG" },
+  { value: "xl", label: "XL" },
+]
+const contentLayoutOptions: AppearanceOption<ContentLayoutId>[] = [
+  { value: "full", label: "Full" },
+  { value: "contained", label: "Centered" },
+]
+const sidebarModeOptions: AppearanceOption<SidebarModeId>[] = [
+  { value: "default", label: "Default" },
+  { value: "icon", label: "Icon" },
+]
+const defaultAppearancePreferences: AppearancePreferences = {
+  scale: "none",
+  radius: "md",
+  contentLayout: "full",
+  sidebarMode: "default",
+}
+const defaultAppearanceSnapshot = JSON.stringify(defaultAppearancePreferences)
 
 const BrandThemeContext = createContext<BrandThemeContextValue | null>(null)
 
 function BrandThemeProvider({ children }: { children: React.ReactNode }) {
-  const { resolvedTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const brandThemeId = useSyncExternalStore(
     subscribeToBrandTheme,
     getBrandThemeSnapshot,
     getDefaultBrandThemeSnapshot
+  )
+  const appearanceSnapshot = useSyncExternalStore(
+    subscribeToAppearance,
+    getAppearanceSnapshot,
+    getDefaultAppearanceSnapshot
+  )
+  const appearance = useMemo(
+    () => parseAppearancePreferences(appearanceSnapshot),
+    [appearanceSnapshot]
   )
   const activeTheme =
     brandThemePresets.find((preset) => preset.id === brandThemeId) ??
@@ -302,18 +366,64 @@ function BrandThemeProvider({ children }: { children: React.ReactNode }) {
     applyBrandTheme(activeTheme.tokens[mode])
   }, [activeTheme, resolvedTheme])
 
+  useEffect(() => {
+    applyAppearancePreferences(appearance)
+  }, [appearance])
+
   const setBrandTheme = useCallback((themeId: BrandThemeId) => {
     window.localStorage.setItem(BRAND_THEME_STORAGE_KEY, themeId)
     window.dispatchEvent(new Event(BRAND_THEME_CHANGE_EVENT))
   }, [])
+
+  const setAppearancePreference = useCallback(
+    <TKey extends keyof AppearancePreferences>(
+      key: TKey,
+      value: AppearancePreferences[TKey]
+    ) => {
+      const nextPreferences = {
+        ...parseAppearancePreferences(
+          window.localStorage.getItem(APPEARANCE_STORAGE_KEY)
+        ),
+        [key]: value,
+      }
+
+      window.localStorage.setItem(
+        APPEARANCE_STORAGE_KEY,
+        JSON.stringify(nextPreferences)
+      )
+      window.dispatchEvent(new Event(APPEARANCE_CHANGE_EVENT))
+    },
+    []
+  )
+
+  const resetAppearance = useCallback(() => {
+    window.localStorage.removeItem(BRAND_THEME_STORAGE_KEY)
+    window.localStorage.removeItem(APPEARANCE_STORAGE_KEY)
+    setTheme("light")
+    window.dispatchEvent(new Event(BRAND_THEME_CHANGE_EVENT))
+    window.dispatchEvent(new Event(APPEARANCE_CHANGE_EVENT))
+  }, [setTheme])
 
   const contextValue = useMemo<BrandThemeContextValue>(
     () => ({
       activeTheme,
       presets: brandThemePresets,
       setBrandTheme,
+      appearance,
+      setAppearancePreference,
+      resetAppearance,
+      scaleOptions,
+      radiusOptions,
+      contentLayoutOptions,
+      sidebarModeOptions,
     }),
-    [activeTheme, setBrandTheme]
+    [
+      activeTheme,
+      appearance,
+      resetAppearance,
+      setAppearancePreference,
+      setBrandTheme,
+    ]
   )
 
   return (
@@ -346,8 +456,80 @@ function applyBrandTheme(tokens: BrandThemeTokens) {
   )
 }
 
+function getRadiusValue(radius: AppearanceRadiusId) {
+  const values: Record<AppearanceRadiusId, string> = {
+    none: "0rem",
+    sm: "0.3rem",
+    md: "0.5rem",
+    lg: "0.8rem",
+    xl: "1rem",
+  }
+
+  return values[radius]
+}
+
+function applyAppearancePreferences(preferences: AppearancePreferences) {
+  const root = document.documentElement
+
+  root.style.setProperty("--radius", getRadiusValue(preferences.radius))
+  root.dataset.uiScale = preferences.scale
+  root.dataset.contentLayout = preferences.contentLayout
+  root.dataset.sidebarMode = preferences.sidebarMode
+}
+
 function isBrandThemeId(value: string | null): value is BrandThemeId {
   return brandThemePresets.some((preset) => preset.id === value)
+}
+
+function isAppearanceScaleId(value: unknown): value is AppearanceScaleId {
+  return value === "none" || value === "xs" || value === "lg"
+}
+
+function isAppearanceRadiusId(value: unknown): value is AppearanceRadiusId {
+  return (
+    value === "none" ||
+    value === "sm" ||
+    value === "md" ||
+    value === "lg" ||
+    value === "xl"
+  )
+}
+
+function isContentLayoutId(value: unknown): value is ContentLayoutId {
+  return value === "full" || value === "contained"
+}
+
+function isSidebarModeId(value: unknown): value is SidebarModeId {
+  return value === "default" || value === "icon"
+}
+
+function parseAppearancePreferences(
+  value: string | null
+): AppearancePreferences {
+  if (!value) {
+    return defaultAppearancePreferences
+  }
+
+  try {
+    const parsed = JSON.parse(value) as Partial<AppearancePreferences>
+
+    return {
+      scale: isAppearanceScaleId(parsed.scale)
+        ? parsed.scale
+        : defaultAppearancePreferences.scale,
+      radius: isAppearanceRadiusId(parsed.radius)
+        ? parsed.radius
+        : defaultAppearancePreferences.radius,
+      contentLayout: isContentLayoutId(parsed.contentLayout)
+        ? parsed.contentLayout
+        : defaultAppearancePreferences.contentLayout,
+      sidebarMode: isSidebarModeId(parsed.sidebarMode)
+        ? parsed.sidebarMode
+        : defaultAppearancePreferences.sidebarMode,
+    }
+  } catch {
+    return defaultAppearancePreferences
+  }
 }
 
 function subscribeToBrandTheme(onStoreChange: () => void) {
@@ -356,6 +538,16 @@ function subscribeToBrandTheme(onStoreChange: () => void) {
 
   return () => {
     window.removeEventListener(BRAND_THEME_CHANGE_EVENT, onStoreChange)
+    window.removeEventListener("storage", onStoreChange)
+  }
+}
+
+function subscribeToAppearance(onStoreChange: () => void) {
+  window.addEventListener(APPEARANCE_CHANGE_EVENT, onStoreChange)
+  window.addEventListener("storage", onStoreChange)
+
+  return () => {
+    window.removeEventListener(APPEARANCE_CHANGE_EVENT, onStoreChange)
     window.removeEventListener("storage", onStoreChange)
   }
 }
@@ -370,4 +562,16 @@ function getDefaultBrandThemeSnapshot(): BrandThemeId {
   return defaultBrandTheme.id
 }
 
+function getAppearanceSnapshot(): string {
+  return (
+    window.localStorage.getItem(APPEARANCE_STORAGE_KEY) ??
+    defaultAppearanceSnapshot
+  )
+}
+
+function getDefaultAppearanceSnapshot(): string {
+  return defaultAppearanceSnapshot
+}
+
 export { BrandThemeProvider, useBrandTheme }
+export type { SidebarModeId }

@@ -1,13 +1,7 @@
 "use client"
 
-import { useTheme } from "next-themes"
-import {
-  RiCheckLine,
-  RiComputerLine,
-  RiMoonLine,
-  RiSunLine,
-} from "@remixicon/react"
 import { BrandThemeSettings } from "@/components/dashboard/brand-theme-settings"
+import { AppearanceCustomizer } from "@/components/theme/appearance-customizer"
 import {
   Card,
   CardContent,
@@ -15,74 +9,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card"
-import { cn } from "@workspace/ui/lib/utils"
-
-const themeOptions = [
-  {
-    icon: RiSunLine,
-    label: "Light",
-    value: "light",
-  },
-  {
-    icon: RiMoonLine,
-    label: "Dark",
-    value: "dark",
-  },
-  {
-    icon: RiComputerLine,
-    label: "System",
-    value: "system",
-  },
-]
 
 export function AppearanceSettings() {
-  const { setTheme, theme } = useTheme()
-
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="rounded-2xl shadow-sm">
         <CardHeader>
-          <CardTitle>Display theme</CardTitle>
+          <CardTitle>Appearance</CardTitle>
           <CardDescription>
-            Select how Nexion looks on your device.
+            Theme preset, scale, radius, layout, and sidebar preferences.
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-3">
-          {themeOptions.map((option) => {
-            const Icon = option.icon
-            const isActive = theme === option.value
-
-            return (
-              <button
-                key={option.value}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => setTheme(option.value)}
-                className={cn(
-                  "bg-background hover:border-primary/50 hover:bg-accent/50 relative flex flex-col items-center gap-3 rounded-xl border p-6 text-center transition-all",
-                  isActive &&
-                    "border-primary bg-primary/[0.02] ring-primary ring-1"
-                )}
-              >
-                <div
-                  className={cn(
-                    "bg-muted flex size-12 items-center justify-center rounded-full transition-colors",
-                    isActive && "bg-primary/10 text-primary"
-                  )}
-                >
-                  <Icon className="size-6" />
-                </div>
-                <div className="space-y-1">
-                  <p className="font-medium">{option.label}</p>
-                </div>
-                {isActive && (
-                  <div className="absolute top-3 right-3">
-                    <RiCheckLine className="text-primary size-5" />
-                  </div>
-                )}
-              </button>
-            )
-          })}
+        <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-1">
+            <p className="text-sm font-medium">Workspace appearance</p>
+            <p className="text-muted-foreground text-sm">
+              Open the customizer to tune the dashboard shell.
+            </p>
+          </div>
+          <AppearanceCustomizer />
         </CardContent>
       </Card>
 

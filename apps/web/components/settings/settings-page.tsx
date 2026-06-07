@@ -1,21 +1,18 @@
 "use client"
 
 import { useState } from "react"
-import { useTheme } from "next-themes"
 import {
   RiCheckLine,
-  RiComputerLine,
   RiLockPasswordLine,
   RiMailLine,
-  RiMoonLine,
   RiNotification3Line,
   RiShieldCheckLine,
   RiSunLine,
   RiUser3Line,
 } from "@remixicon/react"
 
-import { BrandThemeSettings } from "@/components/dashboard/brand-theme-settings"
 import { useDashboardUser } from "@/components/dashboard/dashboard-user-provider"
+import { AppearanceSettings } from "@/components/settings/appearance-settings"
 import {
   Avatar,
   AvatarFallback,
@@ -46,29 +43,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "@workspace/ui/components/tabs"
-import { cn } from "@workspace/ui/lib/utils"
-
-const themeOptions = [
-  {
-    icon: RiSunLine,
-    label: "Light",
-    value: "light",
-  },
-  {
-    icon: RiMoonLine,
-    label: "Dark",
-    value: "dark",
-  },
-  {
-    icon: RiComputerLine,
-    label: "System",
-    value: "system",
-  },
-]
 
 function SettingsPage() {
   const user = useDashboardUser()
-  const { setTheme, theme } = useTheme()
   const initials = getInitials(user.name, user.email)
   const [weeklyDigestEnabled, setWeeklyDigestEnabled] = useState(true)
   const [productUpdatesEnabled, setProductUpdatesEnabled] = useState(true)
@@ -200,45 +177,7 @@ function SettingsPage() {
         </TabsContent>
 
         <TabsContent value="appearance" className="grid gap-4">
-          <Card className="rounded-lg shadow-sm">
-            <CardHeader>
-              <CardTitle>Display</CardTitle>
-              <CardDescription>
-                Theme preferences for this browser.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-3 md:grid-cols-3">
-              {themeOptions.map((option) => {
-                const Icon = option.icon
-                const isActive = theme === option.value
-
-                return (
-                  <button
-                    key={option.value}
-                    type="button"
-                    aria-pressed={isActive}
-                    onClick={() => setTheme(option.value)}
-                    className={cn(
-                      "bg-background hover:border-primary flex min-h-24 items-center justify-between rounded-lg border p-4 text-left transition-colors",
-                      isActive && "border-primary ring-ring/25 ring-2"
-                    )}
-                  >
-                    <span className="flex items-center gap-3">
-                      <span className="bg-muted flex size-9 items-center justify-center rounded-lg">
-                        <Icon className="text-primary size-5" />
-                      </span>
-                      <span className="font-medium">{option.label}</span>
-                    </span>
-                    {isActive ? (
-                      <RiCheckLine className="text-primary size-5" />
-                    ) : null}
-                  </button>
-                )
-              })}
-            </CardContent>
-          </Card>
-
-          <BrandThemeSettings />
+          <AppearanceSettings />
         </TabsContent>
 
         <TabsContent value="notifications">

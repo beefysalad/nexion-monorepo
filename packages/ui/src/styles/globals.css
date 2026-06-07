@@ -80,6 +80,18 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+:root[data-ui-scale="xs"] {
+    --app-density-scale: 0.95;
+}
+
+:root[data-ui-scale="none"] {
+    --app-density-scale: 1;
+}
+
+:root[data-ui-scale="lg"] {
+    --app-density-scale: 1.05;
+}
+
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
@@ -134,5 +146,6 @@
     }
   body {
     @apply min-h-svh overflow-x-hidden bg-background text-foreground;
+    font-size: calc(1rem * var(--app-density-scale, 1));
     }
 }
