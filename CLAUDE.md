@@ -66,6 +66,7 @@ Templates are committed in `.env.example`, `apps/web/.env.example`, `apps/api/.e
 - HTTP: shared Axios client at `apps/web/lib/axios.ts`; wrappers in `apps/web/lib/api/`.
 - Server state: TanStack Query hooks in `apps/web/hooks/`; components rendering query data must handle `isPending`/`isLoading` explicitly.
 - UI primitives: prefer `@workspace/ui` shadcn components over native HTML. If a primitive is missing locally, check the shadcn MCP before hand-building it. The MCP can discover registry components and provide add commands, but it does not install components by itself; running `shadcn add` modifies files and may install dependencies, so don't do it without asking.
+- UI/UX work: use the repo-local `.codex/skills/ui-ux-pro-max` skill for layout, interaction quality, visual polish, accessibility, and production-grade execution. Start with its `--design-system` search for the product/page context, and use stack searches like `--stack nextjs`, `--stack react`, or `--stack shadcn` when useful. `AGENTS.md` remains authoritative if repo conventions conflict with the skill; keep product screens dense, clear, task-focused, and consistent with shared theme tokens.
 - Always design for both light and dark mode; prefer shared theme tokens over ad hoc tinted utilities (`bg-muted/30`, `bg-green-50`, etc.).
 - Protected pages share an intro pattern: muted eyebrow, `font-heading` title with `text-3xl font-semibold tracking-normal md:text-4xl`, optional muted description.
 
