@@ -139,6 +139,40 @@
     --color-sidebar-ring: var(--sidebar-ring);
     --font-sans: var(--font-sans);
     --font-heading: var(--font-heading);
+    --font-landing: var(--font-landing);
+    --color-lp-paper: var(--lp-paper);
+    --color-lp-ink: var(--lp-ink);
+    --color-lp-muted: var(--lp-muted);
+    --color-lp-rule: var(--lp-rule);
+    --color-lp-panel: var(--lp-panel);
+    --color-lp-accent: var(--lp-accent);
+    --color-lp-on-accent: var(--lp-on-accent);
+    --color-lp-code-bg: var(--lp-code-bg);
+    --color-lp-code-fg: var(--lp-code-fg);
+    --color-lp-code-dim: var(--lp-code-dim);
+}
+
+/* Landing page tokens. Scoped to `.landing` so the dashboard keeps its theme. */
+.landing {
+    --lp-paper: oklch(0.972 0.006 85);
+    --lp-ink: oklch(0.17 0.01 60);
+    --lp-muted: oklch(0.45 0.012 60);
+    --lp-rule: oklch(0.86 0.012 80);
+    --lp-panel: oklch(0.945 0.009 85);
+    --lp-accent: oklch(0.795 0.184 86.047);
+    --lp-on-accent: oklch(0.17 0.01 60);
+    --lp-code-bg: oklch(0.19 0.008 60);
+    --lp-code-fg: oklch(0.93 0.008 85);
+    --lp-code-dim: oklch(0.66 0.01 70);
+}
+
+.dark .landing {
+    --lp-paper: oklch(0.16 0.006 60);
+    --lp-ink: oklch(0.95 0.006 85);
+    --lp-muted: oklch(0.7 0.01 70);
+    --lp-rule: oklch(1 0 0 / 0.1);
+    --lp-panel: oklch(0.19 0.007 60);
+    --lp-code-bg: oklch(0.22 0.008 60);
 }
 
 @layer base {

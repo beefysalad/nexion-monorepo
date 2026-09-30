@@ -1,79 +1,83 @@
-"use client"
-
-import { motion } from "framer-motion"
-
 import {
-  fadeUp,
-  staggerContainer,
-  viewportOnce,
-} from "@/components/home/motion-presets"
+  LandingHeading,
+  LandingSection,
+} from "@/components/home/landing-section"
 
-const setupSteps = [
+type CodeLine = { prefix?: string; text: string }
+
+const steps: {
+  number: string
+  title: string
+  description: string
+  code: CodeLine[]
+}[] = [
   {
-    number: "01",
+    number: "1",
     title: "Configure env files",
     description:
-      "Copy the example env files, point the frontend at the API, and the API at Postgres.",
+      "Copy the examples. Point the frontend at the API, and the API at Postgres.",
+    code: [
+      { prefix: "$", text: "cp .env.example .env" },
+      { prefix: "$", text: "cp apps/web/.env.example apps/web/.env.local" },
+      { prefix: "$", text: "cp apps/api/.env.example apps/api/.env" },
+    ],
   },
   {
-    number: "02",
+    number: "2",
     title: "Start local services",
-    description:
-      "Use Docker Compose for Postgres, then npm run dev:apps from the root.",
+    description: "Postgres runs in Docker. Both apps start from the root.",
+    code: [
+      { prefix: "$", text: "docker compose up -d postgres" },
+      { prefix: "$", text: "npm run dev:apps" },
+    ],
   },
   {
-    number: "03",
+    number: "3",
     title: "Build your features",
-    description:
-      "Keep routes thin, query hooks in hooks/, API wrappers in lib/api/, schemas in validations/.",
+    description: "Keep routes thin. Everything else has a place.",
+    code: [
+      { prefix: "queries", text: "→ hooks/" },
+      { prefix: "requests", text: "→ lib/api/" },
+      { prefix: "schemas", text: "→ lib/validations/" },
+    ],
   },
 ]
 
-export function SetupSteps() {
+function SetupSteps() {
   return (
-    <section className="border-border bg-background relative overflow-hidden border-b px-6 py-24 sm:py-32">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportOnce}
-        variants={staggerContainer}
-        className="mx-auto max-w-3xl space-y-16"
-      >
-        {/* Centered heading */}
-        <motion.div variants={fadeUp} className="space-y-4 text-center">
-          <p className="text-primary text-xs font-semibold tracking-widest uppercase">
-            Getting started
-          </p>
-          <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
-            Up and running in three steps.
-          </h2>
-          <p className="text-muted-foreground mx-auto max-w-xl text-base leading-relaxed">
-            Intentionally boring. Skip the bikeshedding and get to shipping.
-          </p>
-        </motion.div>
-
-        <motion.div variants={staggerContainer} className="space-y-4">
-          {setupSteps.map((step) => (
-            <motion.article
-              key={step.number}
-              variants={fadeUp}
-              className="group border-border bg-card hover:border-primary/50 hover:bg-primary/[0.02] hover:shadow-primary/5 relative flex gap-6 rounded-xl border p-6 transition-all duration-300 hover:shadow-2xl"
-            >
-              <div className="border-border bg-background text-muted-foreground group-hover:border-primary group-hover:bg-primary/5 group-hover:text-primary flex size-12 shrink-0 items-center justify-center rounded-xl border font-mono text-lg font-black transition-all duration-300 group-hover:scale-110">
+    <LandingSection
+      id="setup"
+      label="02 — Getting started"
+      className="bg-lp-panel"
+    >
+      <LandingHeading>Three steps. Intentionally boring.</LandingHeading>
+      <ol className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-8">
+        {steps.map((step) => (
+          <li key={step.number} className="flex min-w-0 flex-col gap-3.5">
+            <div className="border-lp-ink flex items-baseline gap-3 border-b pb-3.5">
+              <span className="font-mono text-[13px] font-semibold">
                 {step.number}
-              </div>
-              <div className="space-y-1.5 pt-1 text-left">
-                <h3 className="text-foreground group-hover:text-primary text-lg font-bold tracking-tight transition-colors">
-                  {step.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
-      </motion.div>
-    </section>
+              </span>
+              <h3 className="text-lg font-semibold">{step.title}</h3>
+            </div>
+            <p className="text-lp-muted text-[15px] leading-[1.55]">
+              {step.description}
+            </p>
+            <pre className="bg-lp-code-bg text-lp-code-fg overflow-x-auto rounded-lg px-4 py-3.5 font-mono text-[12.5px] leading-[1.8]">
+              {step.code.map((line) => (
+                <div key={line.text}>
+                  {line.prefix ? (
+                    <span className="text-lp-code-dim">{line.prefix} </span>
+                  ) : null}
+                  {line.text}
+                </div>
+              ))}
+            </pre>
+          </li>
+        ))}
+      </ol>
+    </LandingSection>
   )
 }
+
+export { SetupSteps }
