@@ -2,9 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { UserButton } from "@clerk/nextjs"
 import { RiFlashlightLine } from "@remixicon/react"
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@workspace/ui/components/avatar"
 import {
   Sidebar,
   SidebarContent,
@@ -98,15 +102,14 @@ function DashboardSidebar({ mode }: { mode: SidebarModeId }) {
 
       <SidebarFooter className="shrink-0 overflow-visible group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:pt-2 group-data-[collapsible=icon]:pb-4">
         <div className="flex min-w-0 items-center gap-3 rounded-lg px-2 py-1.5 group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:overflow-visible group-data-[collapsible=icon]:p-0">
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: "size-7",
-                userButtonAvatarBox: "size-7",
-                userButtonTrigger: "size-8",
-              },
-            }}
-          />
+          <Avatar className="size-8 shrink-0">
+            {user.imageUrl ? (
+              <AvatarImage src={user.imageUrl} alt={user.name} />
+            ) : null}
+            <AvatarFallback>
+              {user.name[0]?.toUpperCase() ?? "N"}
+            </AvatarFallback>
+          </Avatar>
           <div className="min-w-0 group-data-[collapsible=icon]:hidden [[data-collapsible=icon]_&]:hidden">
             <p className="truncate text-sm font-medium">{user.name}</p>
             <p className="text-sidebar-foreground/70 truncate text-xs">

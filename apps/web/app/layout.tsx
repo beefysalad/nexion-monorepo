@@ -1,4 +1,3 @@
-import { ClerkProvider } from "@clerk/nextjs"
 import { Geist_Mono, Inter, Roboto } from "next/font/google"
 import NextTopLoader from "nextjs-toploader"
 
@@ -33,14 +32,12 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-svh overflow-x-hidden">
-        <ClerkProvider>
-          <NextTopLoader
-            color="var(--primary)"
-            showSpinner={false}
-            shadow={false}
-          />
-          <AppProviders>{children}</AppProviders>
-        </ClerkProvider>
+        <NextTopLoader
+          color="var(--primary)"
+          showSpinner={false}
+          shadow={false}
+        />
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   )

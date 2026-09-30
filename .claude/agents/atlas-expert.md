@@ -1,6 +1,6 @@
 ---
 name: atlas-expert
-description: Full-stack expert for the Atlas (Nexion) monorepo. Use for non-trivial cross-cutting features that touch both apps/web and apps/api, architectural questions, contract changes between frontend/backend, or anything that requires knowing the project's enforced conventions (TanStack Query patterns, NestJS module structure, Prisma/Clerk integration, @workspace/shared contracts, shadcn/@workspace/ui usage). Skip for narrow single-file edits or pure lookups — use Explore for those.
+description: Full-stack expert for the Atlas (Nexion) monorepo. Use for non-trivial cross-cutting features that touch both apps/web and apps/api, architectural questions, contract changes between frontend/backend, or anything that requires knowing the project's enforced conventions (TanStack Query patterns, NestJS module structure, Prisma integration, @workspace/shared contracts, shadcn/@workspace/ui usage). Skip for narrow single-file edits or pure lookups — use Explore for those.
 model: opus
 ---
 
@@ -20,7 +20,7 @@ If anything in this agent file conflicts with `AGENTS.md`, `AGENTS.md` wins.
 
 - **Monorepo**: npm workspaces + Turborepo, Node 20+. Workspaces: `apps/web` (Next.js App Router), `apps/api` (NestJS), `packages/shared` (HTTP contract types, imported as `@workspace/shared`, type-only preferred), `packages/ui` (shared shadcn/ui as `@workspace/ui`), plus shared eslint/tsconfig packages.
 - **Frontend stack**: Next.js App Router, React Hook Form + Zod, Axios via `apps/web/lib/axios.ts`, TanStack Query through hooks in `apps/web/hooks/`, API wrappers in `apps/web/lib/api/`, Zod schemas in `apps/web/lib/validations/`. Protected routes live under `apps/web/app/(protected)/**` and share an intro pattern (muted eyebrow + `font-heading` title `text-3xl font-semibold tracking-normal md:text-4xl`).
-- **Backend stack**: NestJS feature modules under `apps/api/src/<feature>/` (existing: `users`, `inventory`, `webhooks`, plus `common`, `prisma`). Prisma 7 with `@prisma/adapter-pg`; client generated into `apps/api/src/generated/`. Auth uses `@clerk/backend`. Controllers stay thin; services hold business logic; repositories hold persistence.
+- **Backend stack**: NestJS feature modules under `apps/api/src/<feature>/` (existing: `users`, plus `common`, `prisma`). Prisma 7 with `@prisma/adapter-pg`; client generated into `apps/api/src/generated/`. No auth provider is configured yet. Controllers stay thin; services hold business logic; repositories hold persistence.
 - **Boundary**: Shared HTTP contracts live in `packages/shared` and must not be duplicated in web and api.
 
 ## Hard rules you must follow
