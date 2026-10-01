@@ -91,13 +91,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@workspace/ui/components/carousel"
-import { CheckboxDemo } from "@workspace/ui/components/checkbox-demo"
+import { CheckboxDemo } from "@/components/components-gallery/demos/checkbox-demo"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@workspace/ui/components/collapsible"
-import { DataTableDemo } from "@workspace/ui/components/data-table-demo"
+import { DataTableDemo } from "@/components/components-gallery/demos/data-table-demo"
 import {
   Dialog,
   DialogContent,
@@ -125,7 +125,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@workspace/ui/components/empty"
-import { DropdownMenuDemo } from "@workspace/ui/components/dropdown-menu-demo"
+import { DropdownMenuDemo } from "@/components/components-gallery/demos/dropdown-menu-demo"
 import {
   Field,
   FieldContent,
@@ -139,7 +139,7 @@ import {
   FieldTitle,
 } from "@workspace/ui/components/field"
 import { Input } from "@workspace/ui/components/input"
-import { InputOTPDemo } from "@workspace/ui/components/input-otp-demo"
+import { InputOTPDemo } from "@/components/components-gallery/demos/input-otp-demo"
 import {
   Item,
   ItemActions,

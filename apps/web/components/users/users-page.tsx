@@ -72,7 +72,7 @@ export function UsersPage() {
             <TableRow className="bg-muted/20 hover:bg-transparent">
               <TableHead className="w-[300px] px-6 py-4">User</TableHead>
               <TableHead>Email</TableHead>
-              <TableHead>Clerk ID</TableHead>
+              <TableHead>ID</TableHead>
               <TableHead className="w-[80px] px-6 text-right">
                 Actions
               </TableHead>
@@ -141,7 +141,7 @@ export function UsersPage() {
                   </TableCell>
                   <TableCell>
                     <code className="bg-muted text-muted-foreground rounded px-1.5 py-0.5 font-mono text-[10px]">
-                      {user.clerkId.slice(-8)}
+                      {user.id.slice(-8)}
                     </code>
                   </TableCell>
                   <TableCell className="px-6 text-right">

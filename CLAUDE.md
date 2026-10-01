@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm-workspaces monorepo (Node 20+) driven by Turborepo:
 
 - `apps/web` — Next.js App Router frontend. Routes under `app/`, feature components under `components/`, TanStack Query hooks under `hooks/`, Axios wrappers under `lib/api/`, Zod schemas under `lib/validations/`. Protected routes live under `app/(protected)/**`.
-- `apps/api` — NestJS backend. Feature modules under `src/<feature>/` (e.g. `users`, `inventory`, `webhooks`). Prisma client is generated into `src/generated/`. Uses `@clerk/backend` for auth and Postgres via `@prisma/adapter-pg`.
+- `apps/api` — NestJS backend. Feature modules under `src/<feature>/` (e.g. `users`). Prisma client is generated into `src/generated/`. No auth provider is configured yet (see the TODOs in `apps/web/lib/auth/current-dashboard-user.ts` and `apps/api/src/users/users.controller.ts`). Postgres via `@prisma/adapter-pg`.
 - `packages/shared` — shared HTTP contract types imported as `@workspace/shared` (type-only consumption preferred). Do not put runtime app code here.
 - `packages/ui` — shared shadcn/ui components imported as `@workspace/ui` (e.g. `@workspace/ui/components/button`). When a needed UI component does not exist locally, check the shadcn MCP registry first to search components, inspect examples, and get the correct add command. New shadcn components are added with `npx shadcn@latest add <name> -c apps/web` only after user approval.
 - `packages/eslint-config`, `packages/typescript-config` — shared tool configs.

@@ -5,7 +5,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { getRateLimitThrottlerOptions } from './config/rate-limit.config';
 import { UsersModule } from './users/users.module';
-import { WebhooksModule } from './webhooks/webhooks.module';
 
 @Module({
   imports: [
@@ -15,7 +14,6 @@ import { WebhooksModule } from './webhooks/webhooks.module';
       }),
     }),
     UsersModule,
-    WebhooksModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,33 +1,15 @@
-import { Controller, Get, Post, UseGuards } from "@nestjs/common"
-import type {
-  CurrentUserResponse,
-  GetAllUsersResponse,
-} from "@workspace/shared"
-import { ClerkUserId } from "../common/decorators/clerk-user-id.decorator"
-import { ClerkAuthGuard } from "../common/guards/clerk-auth.guard"
+import { Controller, Get } from "@nestjs/common"
+import type { GetAllUsersResponse } from "@workspace/shared"
 import { UsersService } from "./users.service"
 
+// TODO: no authentication is configured. Protect this controller with an auth
+// guard once an auth provider is added, since it exposes user emails.
 @Controller("users")
-@UseGuards(ClerkAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post("me/sync")
-  syncCurrentUser(
-    @ClerkUserId() clerkUserId: string
-  ): Promise<CurrentUserResponse> {
-    return this.usersService.syncCurrentUser(clerkUserId)
-  }
-
-  @Get("me")
-  getCurrentUser(
-    @ClerkUserId() clerkUserId: string
-  ): Promise<CurrentUserResponse> {
-    return this.usersService.syncCurrentUser(clerkUserId)
-  }
-
   @Get("all")
-  async getAllUsers(): Promise<GetAllUsersResponse> {
-    return await this.usersService.getAllUsers()
+  getAllUsers(): Promise<GetAllUsersResponse> {
+    return this.usersService.getAllUsers()
   }
 }

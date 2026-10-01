@@ -157,7 +157,7 @@ export function DataPage() {
                     <TableHead className="px-6 py-4">Name</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead>Avatar</TableHead>
-                    <TableHead className="px-6 text-right">Clerk ID</TableHead>
+                    <TableHead className="px-6 text-right">ID</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -214,7 +214,7 @@ export function DataPage() {
                         </TableCell>
                         <TableCell className="px-6 text-right">
                           <code className="bg-muted text-muted-foreground rounded px-1.5 py-0.5 text-[10px]">
-                            {user.clerkId.slice(-8)}
+                            {user.id.slice(-8)}
                           </code>
                         </TableCell>
                       </TableRow>
