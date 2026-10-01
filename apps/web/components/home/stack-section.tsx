@@ -1,98 +1,80 @@
-"use client"
-
 import {
-  RiDatabase2Line,
-  RiNextjsLine,
-  RiNodejsLine,
-  RiRefreshLine,
-  RiShieldCheckLine,
-  RiTerminalBoxLine,
-} from "@remixicon/react"
-import { motion } from "framer-motion"
+  LandingHeading,
+  LandingSection,
+} from "@/components/home/landing-section"
 
-import { fadeUp, viewportOnce } from "@/components/home/motion-presets"
-import { StackCard } from "@/components/home/stack-card"
-
-const stackItems = [
+const stackRows = [
   {
-    icon: <RiNextjsLine className="size-5" />,
-    title: "Next.js 15 App Router",
+    layer: "Frontend",
+    tool: "Next.js 16 App Router",
     description:
-      "Frontend wired with shadcn/ui through the shared workspace UI package. RSC-ready.",
+      "shadcn/ui through the shared workspace UI package. RSC-ready.",
+    path: "apps/web",
   },
   {
-    icon: <RiNodejsLine className="size-5" />,
-    title: "NestJS REST API",
-    description:
-      "Backend lives under apps/api with thin controllers, services, and Prisma repositories.",
+    layer: "API",
+    tool: "NestJS REST",
+    description: "Thin controllers, injectable services, Prisma repositories.",
+    path: "apps/api",
   },
   {
-    icon: <RiDatabase2Line className="size-5" />,
-    title: "Postgres + Prisma",
+    layer: "Database",
+    tool: "Postgres + Prisma",
     description:
-      "Dockerized Postgres on port 5433. Prisma ORM configured and ready for migrations.",
+      "Dockerized Postgres, Prisma configured and ready for migrations.",
+    path: ":5433",
   },
   {
-    icon: <RiRefreshLine className="size-5" />,
-    title: "TanStack Query",
-    description:
-      "All server state goes through dedicated hooks with explicit loading and error states.",
+    layer: "Server state",
+    tool: "TanStack Query",
+    description: "Dedicated hooks with explicit loading and error states.",
+    path: "web/hooks",
   },
   {
-    icon: <RiShieldCheckLine className="size-5" />,
-    title: "Forms + Validation",
-    description:
-      "React Hook Form and Zod pre-installed for typed, schema-driven form validation.",
+    layer: "Forms",
+    tool: "React Hook Form + Zod",
+    description: "Typed, schema-driven validation, pre-installed.",
+    path: "lib/validations",
   },
   {
-    icon: <RiTerminalBoxLine className="size-5" />,
-    title: "One-command dev",
+    layer: "Auth",
+    tool: "Bring your own",
     description:
-      "Start both apps from the root with npm run dev:apps. No context switching.",
+      "Provider-agnostic. Auth seams are marked with TODOs in the web app and the API.",
+    path: "web/lib/auth",
   },
 ]
 
-export function StackSection() {
+function StackSection() {
   return (
-    <section className="border-border bg-muted/30 relative border-b px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportOnce}
-          variants={fadeUp}
-          className="mb-16 max-w-2xl space-y-3"
-        >
-          <p className="text-primary text-xs font-semibold tracking-widest uppercase">
-            The Stack
-          </p>
-          <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
-            Everything wired.{" "}
-            <span className="text-muted-foreground font-normal">
-              Nothing left to configure.
-            </span>
-          </h2>
-          <p className="text-muted-foreground text-base leading-relaxed">
-            Battle-tested tools, pre-configured so you can skip straight to
-            building your actual product.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {stackItems.map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, ease: "easeOut", delay: i * 0.06 }}
-              className="h-full"
-            >
-              <StackCard {...item} />
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <LandingSection id="stack" label="01 — The stack">
+      <LandingHeading>
+        Everything is wired.{" "}
+        <span className="text-lp-muted">Nothing is left to configure.</span>
+      </LandingHeading>
+      <dl className="border-lp-ink border-t">
+        {stackRows.map((row) => (
+          <div
+            key={row.layer}
+            className="border-lp-rule flex flex-wrap items-baseline gap-x-8 gap-y-1.5 border-b py-[22px]"
+          >
+            <dt className="text-lp-muted w-[140px] flex-none font-mono text-[13px] font-medium">
+              {row.layer}
+            </dt>
+            <dd className="min-w-[200px] flex-[1_1_200px] text-lg font-semibold tracking-[-0.015em]">
+              {row.tool}
+            </dd>
+            <dd className="text-lp-muted min-w-[300px] flex-[2_1_300px] text-[15px] leading-[1.55]">
+              {row.description}
+            </dd>
+            <dd className="w-[150px] flex-none font-mono text-[13px]">
+              {row.path}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </LandingSection>
   )
 }
+
+export { StackSection }

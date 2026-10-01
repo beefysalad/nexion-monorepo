@@ -1,4 +1,4 @@
-import { Geist_Mono, Inter, Roboto } from "next/font/google"
+import { Geist, Geist_Mono, Inter, Roboto } from "next/font/google"
 import NextTopLoader from "nextjs-toploader"
 
 import "@workspace/ui/globals.css"
@@ -8,6 +8,11 @@ import { cn } from "@workspace/ui/lib/utils"
 const robotoHeading = Roboto({ subsets: ["latin"], variable: "--font-heading" })
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
+
+const geistLanding = Geist({
+  subsets: ["latin"],
+  variable: "--font-landing",
+})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -26,6 +31,7 @@ export default function RootLayout({
       className={cn(
         "overflow-x-hidden antialiased",
         fontMono.variable,
+        geistLanding.variable,
         "font-sans",
         inter.variable,
         robotoHeading.variable
