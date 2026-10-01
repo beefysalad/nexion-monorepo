@@ -1,16 +1,25 @@
+import { redirect } from "next/navigation"
+
+import { getServerSession } from "@/lib/auth/session"
+
 type DashboardUser = {
   email: string
   imageUrl?: string
   name: string
 }
 
-// TODO: no auth provider is configured. This is the single seam for the
-// signed-in user: resolve the real session here and redirect unauthenticated
-// visitors (also wire this into `app/(protected)/layout.tsx`).
+// Resolves the signed-in user for protected routes, or redirects to sign in.
 async function getCurrentDashboardUser(): Promise<DashboardUser> {
+  const session = await getServerSession()
+
+  if (!session) {
+    redirect("/sign-in")
+  }
+
   return {
-    name: "Nexion user",
-    email: "user@example.com",
+    name: session.user.name,
+    email: session.user.email,
+    imageUrl: session.user.image ?? undefined,
   }
 }
 

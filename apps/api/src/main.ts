@@ -8,12 +8,16 @@ async function bootstrap() {
     process.loadEnvFile(".env")
   }
 
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule, {
+    // Required by Better Auth, which parses auth request bodies itself.
+    bodyParser: false,
+  })
   const corsOrigin = process.env.CORS_ORIGIN
 
   if (corsOrigin) {
     app.enableCors({
       origin: corsOrigin.split(",").map((origin) => origin.trim()),
+      credentials: true,
     })
   }
 
