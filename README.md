@@ -184,7 +184,7 @@ Shared UI components live in `packages/ui` and are imported through `@workspace/
 Example:
 
 ```tsx
-import { Button } from "@workspace/ui/components/button"
+import { Button } from "@workspace/ui/components/button";
 ```
 
 Add shadcn components from the repository root using the configured workspace paths.
