@@ -1,83 +1,67 @@
-"use client"
+import Image from "next/image"
 
-import { RiGithubFill } from "@remixicon/react"
-import { motion } from "framer-motion"
-
-import { Button } from "@workspace/ui/components/button"
 import {
-  fadeUp,
-  staggerContainer,
-  viewportOnce,
-} from "@/components/home/motion-presets"
+  LandingHeading,
+  LandingSection,
+} from "@/components/home/landing-section"
 
-export function WhyThisExists() {
+const chores = [
+  "Install Next.js",
+  "Scaffold NestJS",
+  "Wire the API",
+  "Set up Postgres",
+  "Add form validation",
+  "Configure dark mode",
+  "Fight Docker",
+]
+
+function WhyThisExists() {
   return (
-    <section className="border-border bg-muted/30 relative overflow-hidden border-b px-6 py-24 sm:py-32">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportOnce}
-        variants={staggerContainer}
-        className="mx-auto max-w-3xl space-y-12 text-center"
-      >
-        <motion.div variants={fadeUp} className="space-y-6">
-          <p className="text-primary text-xs font-semibold tracking-widest uppercase">
-            The backstory
+    <LandingSection label="03 — Why this exists">
+      <div className="flex flex-wrap gap-x-16 gap-y-12">
+        <div className="flex min-w-0 flex-[1_1_380px] flex-col gap-6">
+          <LandingHeading>
+            Every project starts with the same chores.
+          </LandingHeading>
+          <p className="text-[19px] leading-[1.55]">
+            After doing them four times, I templatized it. Clone, swap the
+            database URL, start building. No more boilerplate fatigue.
           </p>
-          <h2 className="mx-auto max-w-2xl text-4xl leading-[0.95] font-black tracking-tight sm:text-5xl">
-            Every project starts with the same
-            <span className="text-primary block"> setup chores.</span>
-          </h2>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed sm:text-xl">
-            Install Next.js. Scaffold NestJS. Wire the API. Set up Postgres. Add
-            form validation. Configure dark mode. Fight Docker. Repeat.
-          </p>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-base leading-relaxed">
-            After doing this four times, I templatized it. Clone, swap the DB
-            URL, start building.{" "}
-            <span className="text-foreground font-semibold">
-              No more boilerplate fatigue.
-            </span>
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 pt-2">
-            <Button size="default" className="gap-2 rounded-xl" asChild>
+          <div className="flex items-center gap-3 text-sm">
+            <Image
+              src="/patrick.jpeg"
+              alt=""
+              width={32}
+              height={32}
+              className="size-8 rounded-full object-cover"
+            />
+            <span>
               <a
-                href="https://github.com/beefysalad/nexion-monorepo"
+                href="https://github.com/beefysalad"
                 target="_blank"
                 rel="noreferrer"
+                className="decoration-lp-rule hover:decoration-lp-ink font-semibold underline underline-offset-4"
               >
-                <RiGithubFill className="size-4" />
-                View on GitHub
+                beefysalad
               </a>
-            </Button>
+              , author
+            </span>
           </div>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          variants={fadeUp}
-          className="grid grid-cols-2 gap-6 md:grid-cols-4"
-        >
-          {[
-            { value: "1", label: "command to start everything" },
-            { value: "0", label: "boilerplate decisions left" },
-            { value: "5+", label: "tools pre-wired together" },
-            { value: "∞", label: "features left for you to build" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="group border-border bg-card hover:border-primary/50 hover:bg-primary/[0.02] relative flex flex-col items-center justify-center rounded-2xl border p-6 transition-all duration-300"
+        </div>
+        <ul className="border-lp-ink min-w-0 flex-[1_1_260px] self-start border-t">
+          {chores.map((chore) => (
+            <li
+              key={chore}
+              className="border-lp-rule flex items-baseline justify-between gap-4 border-b py-3 text-base"
             >
-              <p className="text-primary text-4xl font-black transition-transform duration-300 group-hover:scale-110">
-                {stat.value}
-              </p>
-              <p className="text-muted-foreground mt-2 text-[10px] leading-tight font-bold tracking-widest uppercase">
-                {stat.label}
-              </p>
-            </div>
+              <s className="text-lp-muted">{chore}</s>
+              <span className="font-mono text-xs">done</span>
+            </li>
           ))}
-        </motion.div>
-      </motion.div>
-    </section>
+        </ul>
+      </div>
+    </LandingSection>
   )
 }
+
+export { WhyThisExists }
