@@ -20,7 +20,7 @@ If anything in this agent file conflicts with `AGENTS.md`, `AGENTS.md` wins.
 
 - **Monorepo**: npm workspaces + Turborepo, Node 20+. Workspaces: `apps/web` (Next.js App Router), `apps/api` (NestJS), `packages/shared` (HTTP contract types, imported as `@workspace/shared`, type-only preferred), `packages/ui` (shared shadcn/ui as `@workspace/ui`), plus shared eslint/tsconfig packages.
 - **Frontend stack**: Next.js App Router, React Hook Form + Zod, Axios via `apps/web/lib/axios.ts`, TanStack Query through hooks in `apps/web/hooks/`, API wrappers in `apps/web/lib/api/`, Zod schemas in `apps/web/lib/validations/`. Protected routes live under `apps/web/app/(protected)/**` and share an intro pattern (muted eyebrow + `font-heading` title `text-3xl font-semibold tracking-normal md:text-4xl`).
-- **Backend stack**: NestJS feature modules under `apps/api/src/<feature>/` (existing: `users`, plus `common`, `prisma`). Prisma 7 with `@prisma/adapter-pg`; client generated into `apps/api/src/generated/`. No auth provider is configured yet. Controllers stay thin; services hold business logic; repositories hold persistence.
+- **Backend stack**: NestJS feature modules under `apps/api/src/<feature>/` (existing: `users`, plus `common`, `prisma`). Prisma 7 with `@prisma/adapter-pg`; client generated into `apps/api/src/generated/`. Auth is Better Auth hosted in the API (`src/auth/`) with a global guard; the web app reads sessions from the API. Controllers stay thin; services hold business logic; repositories hold persistence.
 - **Boundary**: Shared HTTP contracts live in `packages/shared` and must not be duplicated in web and api.
 
 ## Hard rules you must follow

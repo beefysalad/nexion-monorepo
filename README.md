@@ -18,7 +18,8 @@ packages/
 
 - Monorepo: npm workspaces + Turborepo
 - Frontend: Next.js, React, Tailwind CSS, shadcn/ui
-- Backend: NestJS
+- Backend: NestJS, Prisma, Postgres
+- Auth: Better Auth (email + password), hosted in the API
 - Shared UI: `@workspace/ui`
 - Package manager: npm
 - Runtime: Node.js 20+
@@ -74,8 +75,53 @@ Important variables:
 - `NEXT_PUBLIC_API_URL`: browser-facing API URL used by the frontend.
 - `PORT`: internal port used by the NestJS API.
 - `DATABASE_URL`: Prisma database connection string.
-- `CORS_ORIGIN`: comma-separated browser origins allowed by the API.
+- `BETTER_AUTH_SECRET`: signing secret for sessions (API). Required, at least 32 characters. Generate one with `openssl rand -base64 32`.
+- `BETTER_AUTH_URL`: public URL of the API as the browser reaches it (for example `http://localhost:3001`).
+- `CORS_ORIGIN`: comma-separated browser origins allowed by the API (also Better Auth's trusted origins).
 - `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_PORT`: Docker Postgres settings.
+
+## Authentication
+
+Auth is [Better Auth](https://www.better-auth.com) with email and password. It runs inside the NestJS API (via `@thallesp/nestjs-better-auth` and the Prisma adapter), so the database and auth logic stay in one place. The web app talks to it through the Better Auth client.
+
+### Setup
+
+1. Add the auth variables to `apps/api/.env` (see `apps/api/.env.example`):
+
+   ```bash
+   BETTER_AUTH_SECRET=<output of: openssl rand -base64 32>
+   BETTER_AUTH_URL=http://localhost:3001
+   ```
+
+   The API refuses to start without a secret of at least 32 characters.
+
+2. Apply the migrations, which create the `User`, `Session`, `Account` and `Verification` tables:
+
+   ```bash
+   npm run db:migrate:deploy
+   ```
+
+3. Run the apps and open http://localhost:3000. Use **Sign up** to create an account.
+
+### How it works
+
+- **API is protected by default.** A global guard requires a session on every route. Mark public routes with `@AllowAnonymous()` (the health route `GET /` is one). Read the session in a controller with `@Session()`. Config lives in `apps/api/src/auth/auth.config.ts`, and the module is registered in `apps/api/src/app.module.ts`.
+- **Auth endpoints** are served by the API under `/api/auth/*` (sign-up, sign-in, sign-out, get-session).
+- **Rate limiting** is on in every environment, with a stricter limit on sign-in and sign-up (5 per minute). It uses in-memory storage, so use a shared store if you run multiple API instances.
+- **Web client:** `apps/web/lib/auth-client.ts` is the browser client, and `apps/web/lib/auth/session.ts` (`getServerSession`) reads the session on the server.
+- **Web route protection** has two layers:
+  - `apps/web/proxy.ts` is a fast, optimistic check for a session cookie on the protected paths listed in its `matcher`.
+  - `apps/web/app/(protected)/layout.tsx` validates the session against the API and redirects to `/sign-in` when it is missing.
+- **Adding a protected page:** put it under `apps/web/app/(protected)/` and add its path to the `matcher` in `apps/web/proxy.ts`.
+- **Forms** (`/sign-in`, `/sign-up`) use React Hook Form with the schemas in `apps/web/lib/validations/auth.ts`.
+
+### Things to know
+
+- **Same-site deployment.** The session cookie is set by the API. Locally this works across ports (`localhost:3000` and `localhost:3001`). In production, put web and API on the same site (for example `app.example.com` and `api.example.com` with cross-subdomain cookies configured in Better Auth), or proxy the API through the web origin. Separate registrable domains will not share the cookie.
+- **`CORS_ORIGIN`** is also Better Auth's list of trusted origins. Set it to your web origin(s) in every environment.
+- **Starter defaults to review per project:** sign-up is open, there is no email verification or password reset, and `GET /users/all` returns every user to any signed-in user. Tighten these (for example with `disableSignUp`, a role check, or email verification) before shipping.
+- **Not included:** social providers, email verification, password reset, and roles. Better Auth supports all of these as plugins or options.
+- **Tests:** unit tests stub the ESM-only auth packages (`apps/api/test/mocks`), so they do not exercise real auth behavior.
 
 ## Common Commands
 
