@@ -1,3 +1,4 @@
+import { cache } from "react"
 import { cookies } from "next/headers"
 
 import { API_BASE_URL } from "@/lib/axios"
@@ -14,7 +15,8 @@ type AuthSession = {
 }
 
 // Reads the session from the API using the browser's cookies. Server-only.
-async function getServerSession(): Promise<AuthSession | null> {
+// Memoized per request so the layout, pages and header share one API call.
+const getServerSession = cache(async (): Promise<AuthSession | null> => {
   const cookieHeader = (await cookies()).toString()
 
   if (!cookieHeader) {
@@ -37,7 +39,7 @@ async function getServerSession(): Promise<AuthSession | null> {
   } catch {
     return null
   }
-}
+})
 
 export { getServerSession }
 export type { AuthSession, AuthSessionUser }

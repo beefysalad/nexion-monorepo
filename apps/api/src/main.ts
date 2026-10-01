@@ -2,6 +2,7 @@ import { existsSync } from "node:fs"
 
 import { NestFactory } from "@nestjs/core"
 import { AppModule } from "./app.module"
+import { getTrustedOrigins } from "./auth/auth.config"
 
 async function bootstrap() {
   if (existsSync(".env")) {
@@ -12,14 +13,12 @@ async function bootstrap() {
     // Required by Better Auth, which parses auth request bodies itself.
     bodyParser: false,
   })
-  const corsOrigin = process.env.CORS_ORIGIN
 
-  if (corsOrigin) {
-    app.enableCors({
-      origin: corsOrigin.split(",").map((origin) => origin.trim()),
-      credentials: true,
-    })
-  }
+  // Same origin list Better Auth trusts, so CORS and auth never disagree.
+  app.enableCors({
+    origin: getTrustedOrigins(),
+    credentials: true,
+  })
 
   await app.listen(Number(process.env.PORT ?? 3000))
 }
