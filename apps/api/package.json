@@ -34,7 +34,9 @@
     "@nestjs/throttler": "^6.5.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "@thallesp/nestjs-better-auth": "^2.4.0",
     "@workspace/shared": "*",
+    "better-auth": "^1.7.7",
     "dotenv": "^16.0.3",
     "pg": "^8.20.0",
     "prisma": "^7.8.0",
@@ -83,6 +85,11 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@thallesp/nestjs-better-auth$": "<rootDir>/../test/mocks/nestjs-better-auth.ts",
+      "^better-auth$": "<rootDir>/../test/mocks/better-auth.ts",
+      "^better-auth/adapters/prisma$": "<rootDir>/../test/mocks/better-auth-prisma-adapter.ts"
+    }
   }
 }

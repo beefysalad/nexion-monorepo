@@ -39,5 +39,8 @@
   ],
   "dependencies": {
     "@tanstack/react-table": "^8.21.3"
+  },
+  "overrides": {
+    "zod": "^4.6.5"
   }
 }

@@ -23,6 +23,7 @@ import {
   SidebarRail,
 } from "@workspace/ui/components/sidebar"
 
+import { SignOutButton } from "@/components/auth/sign-out-button"
 import { dashboardNavItems } from "@/components/dashboard/dashboard-data"
 import { useDashboardUser } from "@/components/dashboard/dashboard-user-provider"
 import type { SidebarModeId } from "@/components/theme/brand-theme-provider"
@@ -116,6 +117,7 @@ function DashboardSidebar({ mode }: { mode: SidebarModeId }) {
               {user.email}
             </p>
           </div>
+          <SignOutButton className="ml-auto group-data-[collapsible=icon]:hidden" />
         </div>
       </SidebarFooter>
       <SidebarRail />

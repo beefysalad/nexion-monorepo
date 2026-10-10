@@ -38,10 +38,10 @@ const stackRows = [
   },
   {
     layer: "Auth",
-    tool: "Bring your own",
+    tool: "Better Auth",
     description:
-      "Provider-agnostic. Auth seams are marked with TODOs in the web app and the API.",
-    path: "web/lib/auth",
+      "Email and password sessions hosted by the API. Routes guarded on both ends.",
+    path: "api/src/auth",
   },
 ]
 

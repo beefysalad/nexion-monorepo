@@ -27,6 +27,9 @@ services:
       PORT: ${API_INTERNAL_PORT:-3000}
       DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-nexion_monorepo}?schema=public}
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      # Dev-only default secret for local Docker. Set your own in the root .env.
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-docker-dev-only-secret-change-me-0123456789}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:${API_PORT:-3001}}
       RATE_LIMIT_TTL_MS: ${RATE_LIMIT_TTL_MS:-60000}
       RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-100}
       RATE_LIMIT_BLOCK_DURATION_MS: ${RATE_LIMIT_BLOCK_DURATION_MS:-60000}
